@@ -12,8 +12,8 @@ export default function Navbar() {
                 <div className="prodrop">
                     <p className="p2">Products<IoIosArrowDown/></p>
                     <div className="prolst">
-                        <a href="">Product</a>
-                        <a href="">Categories</a>
+                        <a href="#product">Product</a>
+                        <a href="#categories">Categories</a>
                     </div>
                 </div>
                 <p>Help</p>
