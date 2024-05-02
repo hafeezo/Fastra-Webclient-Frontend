@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 import Reghed from './Reghed'
+import RegForm from './RegForm'
 
 export default function MainReg() {
   return (
     <Regcont>
       <Reghed/>
+      <RegForm/>
     </Regcont>
   )
 }

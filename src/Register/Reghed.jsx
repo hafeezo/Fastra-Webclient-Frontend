@@ -26,7 +26,7 @@ export default function Reghed() {
 
 const Rh = styled.div`
 width: 100%;
-height: 13%;
+height: 10%;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -96,5 +96,3 @@ font-family: Circular Std Book;
     border-radius: 5px;
 }
 `
-
-// https://github.com/hafeezo/Fastra-Webclient
