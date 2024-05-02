@@ -12,7 +12,7 @@ export default function RegForm() {
 
 const Rf = styled.div`
 width: 100%;
-height: 60%;
+height: 70%;
 display: flex;
 align-items: center;
 justify-content: center;

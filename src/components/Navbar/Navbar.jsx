@@ -1,11 +1,11 @@
 import styled from "styled-components"
-import Logo from '../image/logo.svg'
+import Logo from '../../image/logo.svg'
 import { IoIosArrowDown } from "react-icons/io"
 
-export default function Reghed() {
+export default function Navbar() {
   return (
-    <Rh>
-        <Rhwrap>
+    <Nb>
+        <Nbwrap>
             <img src={Logo} alt="Fastra Suite" className="log"/>
             <div className="lst">
                 <p>Home</p>
@@ -19,21 +19,21 @@ export default function Reghed() {
                 <p>Help</p>
             </div>
             <p className="but">Contact Us</p>
-        </Rhwrap>
-    </Rh>
+        </Nbwrap>
+    </Nb>
   )
 }
 
-const Rh = styled.div`
+const Nb = styled.div`
 width: 100%;
-height: 10%;
+height: 10vh;
 display: flex;
 align-items: center;
 justify-content: center;
 // position: fixed;
 // z-index: 1;
 `
-const Rhwrap = styled.div`
+const Nbwrap = styled.div`
 width: 85%;
 height: 90%;
 display: flex;

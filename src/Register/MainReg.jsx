@@ -1,17 +1,17 @@
 import styled from 'styled-components'
-import Reghed from './Reghed'
 import RegForm from './RegForm'
+import RegFoot from './RegFoot'
 
 export default function MainReg() {
   return (
     <Regcont>
-      <Reghed/>
       <RegForm/>
+      <RegFoot/>
     </Regcont>
   )
 }
 
 const Regcont = styled.div`
 width: 100%;
-height: 100vh;
+height: 90vh;
 `
