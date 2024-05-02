@@ -26,7 +26,5 @@ padding: 40px 0px 0px 0px;
 gap: 40px;
 border-radius: 16px 0px 0px 0px;
 opacity: 0px;
-// box-shadow: 16px 16px 64px 0px #1A1A1A29;
-box-shadow: 16px 16px 40px 0px #1A1A1A29;
-
+box-shadow: 16px 16px 64px 0px #1A1A1A29;
 `
