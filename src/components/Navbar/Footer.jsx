@@ -15,7 +15,7 @@ export default function Footer() {
 
 const Ft = styled.div`
 width: 100%;
-height: 40vh;
+height: 35vh;
 display: flex;
 align-items: center;
 justify-content: center;
