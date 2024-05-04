@@ -27,7 +27,7 @@ height: 95%;
 
 .d21{
     width: 100%;
-    border: 1px solid #3B7CED
+    border: 1px solid #3B7CED;
 }
 .cd2{
     width: 100%;

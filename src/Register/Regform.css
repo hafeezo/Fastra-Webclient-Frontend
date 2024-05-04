@@ -1,0 +1,55 @@
+.fomain{
+width: 25%;
+height: 85%;
+position: relative;
+border-radius: 0.5rem;
+box-shadow: 16px 16px 64px 0px #1A1A1A29;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #fff;
+}
+.fowrap{
+width: 90%;
+height: 95%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+margin-left: 2rem;
+}
+.reg{
+font-size: 18px;
+font-weight: 500;
+}
+.reg2{
+font-size: 14px;
+margin-top: -1rem;
+}
+.lbl{
+font-size: 14px;
+}
+.inpt{
+width: 80%;
+padding: 8px;
+border-radius: 0.5rem;
+border: 1px solid #aaaaaa;
+margin-top: -3rem;
+}
+.cd{
+opacity: 60%;
+margin-top: -0.1rem;
+font-size: 12px;
+}
+.goin{
+font-size: 14px;
+color: #3b7ced;
+}
+.butn{
+margin-top: 1.7rem;
+background: #3b7ced;
+color: #fff;
+padding: 12px;
+width: 87%;
+border: none;
+border-radius: 0.5rem;
+}

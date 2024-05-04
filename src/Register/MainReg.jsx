@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import RegForm from './RegForm'
+import Regform from './Regform'
 
 export default function MainReg() {
   return (
     <Regcont>
-      <RegForm/>
+      <Regform/>
     </Regcont>
   )
 }
@@ -12,4 +12,7 @@ export default function MainReg() {
 const Regcont = styled.div`
 width: 100%;
 height: 60vh;
+display: flex;
+align-items: center;
+justify-content: center;
 `
