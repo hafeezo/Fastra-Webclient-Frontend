@@ -43,13 +43,17 @@ font-size: 12px;
 .goin{
 font-size: 14px;
 color: #3b7ced;
+/* margin-top: -0.05rem; */
 }
 .butn{
-margin-top: 1.7rem;
+margin-top: 1.5rem;
 background: #3b7ced;
 color: #fff;
 padding: 12px;
 width: 87%;
 border: none;
 border-radius: 0.5rem;
+}
+.cfm{
+    font-size: 14px;
 }

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import './Regform.css'
 import { Formik, Form, Field } from "formik"
+import { FaEye } from "react-icons/fa"
 export default function Regform() {
 
   const [data, setData] = useState({
@@ -16,14 +17,15 @@ export default function Regform() {
     setData(prev => ({...prev, ...newData}))
     setCurrentStep(prev => prev + 1)
   }
-  const handlePrevStep = (newData) => {
-    setData(prev => ({...prev, ...newData}))
-    setCurrentStep(prev => prev - 1)
-  }
+  // const handlePrevStep = (newData) => {
+  //   setData(prev => ({...prev, ...newData}))
+  //   setCurrentStep(prev => prev - 1)
+  // }
 
   const steps = [
     <StepOne next={handleNextStep} data={data}/>, 
-    <StepTwo next={handleNextStep} prev={handlePrevStep} data={data}/>
+    <StepTwo next={handleNextStep} data={data}/>,
+    <StepThree next={handleNextStep} data={data}/>
   ]
 
   return (
@@ -69,15 +71,33 @@ export default function Regform() {
     onSubmit={handleSubmit}>{() => (
       <Form className="form">
         <p>Password</p>
-        <Field className='inpt' type='password' name='password'/>
+        <Field className='inpt' type='password' name='password' placeholder='Enter password'/>
+        <span class="password-toggle-icon"><FaEye/></span>
 
         <p>Confirm password</p>
-        <Field className='inpt' type='password' name='confirmPassword'/>
+        <Field className='inpt' type='password' name='confirmPassword' placeholder='Confirm password'/>
+        <span class="password-toggle-icon"><FaEye/></span>
 
-        <button className='butn' type="button">previous</button>
         <button className='butn' type="submit">continue</button>
 
         <p className='goin'>Already have account</p>
+      </Form>
+    )}</Formik>
+  )
+}
+ const StepThree = (props) => {
+  const handleSubmit = (values) => {
+    props.next(values)
+  } 
+    return (
+    <Formik
+    initialValues={props.data}
+    onSubmit={handleSubmit}>{() => (
+      <Form className="form">
+        <p className="reg">Confirmation</p>
+        <p className="cfm">We sent a confirmation link to your email, click <br/>on that link to proceed.</p>
+
+        <button className='butn' type="submit">Continue</button>
       </Form>
     )}</Formik>
   )
