@@ -13,8 +13,17 @@ export default function Regform() {
 
   const [currentStep, setCurrentStep] = useState(0)
 
-  const handleNextStep = (newData) => {
+  const makeRequest = (formData) => {
+    console.log('Form Submitted', formData)
+  }
+
+  const handleNextStep = (newData, final = false) => {
     setData(prev => ({...prev, ...newData}))
+
+    if(final){
+      makeRequest(newData)
+      return
+    }
     setCurrentStep(prev => prev + 1)
   }
   // const handlePrevStep = (newData) => {
@@ -71,8 +80,16 @@ export default function Regform() {
     onSubmit={handleSubmit}>{() => (
       <Form className="form">
         <p>Password</p>
-        <Field className='inpt' type='password' name='password' placeholder='Enter password'/>
+        <Field className='inpt' type='password' name='password' placeholder='Enter password'pattern="(?=.*\d)(?=.*[a-z])(?=.*?[0-9])(?=.*?[~`!@#$%^&amp;*()_=+\[\]{};:&apos;.,&quot;\\|\/?&gt;&lt;-]).{4,}.{8,}" title="Must contain at least one number 
+        and one uppercase and lowercase letter, one special character and at least 8 or more characters" required/>
         <span class="password-toggle-icon"><FaEye/></span>
+        <div id="message">
+        <h6>Password must contain the following:</h6>
+        <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+        <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+        <p id="number" class="invalid">A <b>number</b></p>
+        <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+        </div>
 
         <p>Confirm password</p>
         <Field className='inpt' type='password' name='confirmPassword' placeholder='Confirm password'/>
@@ -87,7 +104,7 @@ export default function Regform() {
 }
  const StepThree = (props) => {
   const handleSubmit = (values) => {
-    props.next(values)
+    props.next(values, true)
   } 
     return (
     <Formik
@@ -97,7 +114,7 @@ export default function Regform() {
         <p className="reg">Confirmation</p>
         <p className="cfm">We sent a confirmation link to your email, click <br/>on that link to proceed.</p>
 
-        <button className='butn' type="submit">Continue</button>
+        <button className='butn' type="submit"><a href="#login">Continue</a></button>
       </Form>
     )}</Formik>
   )
