@@ -1,13 +1,23 @@
+import React,{useState} from 'react'
 import styled from "styled-components"
 import Logo from '../../image/logo.svg'
 import { IoIosArrowDown } from "react-icons/io"
+import { FaBars, FaTimes } from "react-icons/fa"
 
 export default function Navbar() {
+    const [click, setClick] = useState(true);
+
+	const handClick = () => {
+		setClick(!click)
+	}
   return (
     <Nb>
         <Nbwrap>
             <img src={Logo} alt="Fastra Suite" className="log"/>
-            <div className="lst">
+
+            <MobileIcon onClick={handClick}>{click? <FaBars/> : <FaTimes/>}</MobileIcon >
+
+            <div className="lst" onClick={handClick} click={click}>
                 <p>Home</p>
                 <div className="prodrop">
                     <p className="p2">Products<IoIosArrowDown/></p>
@@ -18,7 +28,7 @@ export default function Navbar() {
                 </div>
                 <p>Help</p>
             </div>
-            <p className="but">Contact Us</p>
+            <a href="#contact" className="but">Contact Us</a>
         </Nbwrap>
     </Nb>
   )
@@ -32,6 +42,10 @@ align-items: center;
 justify-content: center;
 // position: fixed;
 // z-index: 1;
+@media screen and (max-width: 450px){
+    width: 100%;
+    height: 10vh;
+}
 `
 const Nbwrap = styled.div`
 width: 85%;
@@ -40,7 +54,12 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 font-family: Circular Std Book;
-
+@media screen and (max-width: 450px){
+    width: 85%;
+    height: 90%;
+    margin-top: 10px;
+    width: 20%;
+}
 
 .log{
     width: 121.83px;
@@ -52,6 +71,18 @@ font-family: Circular Std Book;
     display: flex;
     align-items: center;
     justify-content: space-around;
+@media screen and (max-width: 450px){
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    background: linear-gradient(180deg, #09285D 0%, #020A17 100%);
+    height: 70vh;
+    width: 150px;
+    left: ${({click}) => (click ?  '-100%' : 0)};
+    transition: all 2s ease;
+    z-index: 1;
+  }
 }
 .prodrop{
     gap: 5px;
@@ -94,5 +125,18 @@ font-family: Circular Std Book;
     color: #3b7ced;
     border: 2px solid #3b7ced;
     border-radius: 5px;
+    text-decoration: none;
+}
+
+`
+const MobileIcon = styled.div`
+display: none;
+@media screen and (max-width: 450px){
+    background: #3b7ced;
+    display: block;
+    position: absolute;
+    right: 30px;
+    color: #fff;
+    top: 1rem;
 }
 `
