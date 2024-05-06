@@ -1,11 +1,13 @@
-import MainReg from './Register/MainReg'
+import Navbar from "./components/Navbar/Navbar";
+import Login from "../src/components/Login"
 
 function App() {
   return (
     <>
-      <MainReg/>
+      <Navbar />;
+      <Login />
     </>
-  )
+  );
 }
 
 export default App
