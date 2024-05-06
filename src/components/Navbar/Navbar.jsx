@@ -3,27 +3,28 @@ import Logo from '../../image/logo.svg'
 import { IoIosArrowDown } from "react-icons/io"
 
 export default function Navbar() {
-  return (
-    <Nb>
-        <Nbwrap>
-            <img src={Logo} alt="Fastra Suite" className="log"/>
+    return (
+        <Nb>
+            <Nbwrap>
+                <img src={Logo} alt="Fastra Suite" className="log"/>
 
-            <div className="lst">
-                <div className="lst2">
-                <a href="#home" className="mdnav">Home</a>
-                <div className="prodrop">
-                    <p className="p2">Products<IoIosArrowDown/></p>
-                    <div className="prolst">
-                        <a href="#product">Product</a>
-                        <a href="#categories">Categories</a>
+                <div className="lst">
+                    <div className="lst2">
+                        <a href="#home" className="mdnav">Home</a>
+                        <div className="prodrop">
+                            <p className="p2">Products<IoIosArrowDown/></p>
+                            <div className="prolst">
+                                <a href="#product">Product</a>
+                                <a href="#categories">Categories</a>
+                            </div>
+                        </div>
+                        <a href="#help" className="mdnav">Help</a>
                     </div>
+                    <a href="#contact" className="but">Contact Us</a>
                 </div>
-                <a href="#help" className="mdnav">Help</a>
-            </div>
-            <a href="#contact" className="but">Contact Us</a></div>
-        </Nbwrap>
-    </Nb>
-  )
+            </Nbwrap>
+        </Nb>
+    )
 }
 
 const Nb = styled.div`
