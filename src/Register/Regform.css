@@ -1,6 +1,6 @@
 .fomain{
 width: 25%;
-height: 85%;
+height: 95%;
 position: relative;
 border-radius: 0.5rem;
 box-shadow: 16px 16px 64px 0px #1A1A1A29;
@@ -8,6 +8,10 @@ display: flex;
 justify-content: center;
 align-items: center;
 background-color: #fff;
+@media screen and (max-width: 950px) and (min-width: 300px){
+  width: 65%;
+  height: 90%;
+}
 }
 .fowrap{
 width: 90%;
@@ -19,14 +23,17 @@ margin-left: 2rem;
 }
 .reg{
 font-size: 18px;
-font-weight: 500;
+font-weight: 700;
 }
-.reg2{
+.reg1{
 font-size: 14px;
 margin-top: -1rem;
+opacity: 60%;
 }
 .lbl{
 font-size: 14px;
+font-weight: 600;
+margin-top: 1.5rem;
 }
 .inpt{
 width: 80%;
@@ -35,16 +42,65 @@ border-radius: 0.5rem;
 border: 1px solid #aaaaaa;
 margin-top: -3rem;
 }
+.is-invalid { 
+  border-color: red !important;
+}
+.error { 
+  color: red !important;
+  font-size: 10px;
+  /* margin-top: -0.5rem; */
+  margin-bottom: -1rem;
+}
 .cd{
 opacity: 60%;
 margin-top: -0.1rem;
+margin-bottom: -0.05rem;
 font-size: 12px;
 }
+.fom2{
+  margin-top: -6rem;
+  width: 100%;
+  height: 85%;
+  /* background-color: red; */
+}
+.reg2{
+  font-size: 18px;
+  font-weight: 700;
+}
+.reg3{
+  font-size: 14px;
+  margin-top: -1rem;
+  opacity: 60%;
+}
+.lbl2{
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: -0.3rem;
+}  
+.lbl3{
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 2.5rem;
+}  
 .goin{
 font-size: 14px;
 color: #3b7ced;
-/* margin-top: -0.05rem; */
+text-decoration: none;
+/* margin-top: -0.5px; */
 }
+.goin a:link{
+  color: #3b7ced;
+  text-decoration: none;
+}
+.goin a:visited{
+  color: #3b7ced;
+  text-decoration: none;
+}
+.goin a:hover{
+  color: #3b7ced;
+  text-decoration: none;
+}
+
 .butn{
 margin-top: 1.5rem;
 background: #3b7ced;
@@ -53,7 +109,83 @@ padding: 12px;
 width: 87%;
 border: none;
 border-radius: 0.5rem;
+text-decoration: none;
+}
+.butn a:link{
+  color: #fff;
+  text-decoration: none;
+}
+.butn a:visited{
+  color: #fff;
+  text-decoration: none;
+}
+.butn a:hover{
+  color: #fff;
+  text-decoration: none;
+}
+.butn2{
+margin-top: 1.5rem;
+background: #3b7ced;
+color: #fff;
+padding: 12px;
+width: 87%;
+border: none;
+border-radius: 0.5rem;
+text-decoration: none;
+}
+.butn2 a:link{
+  color: #fff;
+  text-decoration: none;
+}
+.butn2 a:visited{
+  color: #fff;
+  text-decoration: none;
+}
+.butn2 a:hover{
+  color: #fff;
+  text-decoration: none;
 }
 .cfm{
     font-size: 14px;
 }
+.togbutn {
+  position: absolute;
+  top: 6.5rem;
+  right: 60px;
+  transform: translateY(-50%);
+  border: none;
+  background-color: white;
+}
+
+/* The message box is shown when the user clicks on the password field */
+.message {
+    /* display:none; */
+    position: relative;
+    opacity: 60%;
+    font-size: 12px;
+    margin-top: -5px;
+    margin-bottom: -30px;
+    line-height: 5px;
+}
+  
+  /* Add a green text color and a checkmark when the requirements are right */
+  .valid {
+    color: green;
+  }
+  
+  .valid:before {
+    position: relative;
+    left: -35px;
+    content: "&#10004;";
+  }
+
+  /* Add a red text color and an "x" icon when the requirements are wrong */
+  /* .invalid {
+    color: red;
+  } */
+  
+  /* .invalid:before {
+    position: relative;
+    left: -35px;
+    content: "&#10006;";
+  } */

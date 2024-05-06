@@ -1,37 +1,30 @@
-import React,{useState} from 'react'
 import styled from "styled-components"
 import Logo from '../../image/logo.svg'
 import { IoIosArrowDown } from "react-icons/io"
-import { FaBars, FaTimes } from "react-icons/fa"
 
 export default function Navbar() {
-    const [click, setClick] = useState(true);
+    return (
+        <Nb>
+            <Nbwrap>
+                <img src={Logo} alt="Fastra Suite" className="log"/>
 
-	const handClick = () => {
-		setClick(!click)
-	}
-  return (
-    <Nb>
-        <Nbwrap>
-            <img src={Logo} alt="Fastra Suite" className="log"/>
-
-            <MobileIcon onClick={handClick}>{click? <FaBars/> : <FaTimes/>}</MobileIcon >
-
-            <div className="lst" onClick={handClick} click={click}>
-                <p>Home</p>
-                <div className="prodrop">
-                    <p className="p2">Products<IoIosArrowDown/></p>
-                    <div className="prolst">
-                        <a href="#product">Product</a>
-                        <a href="#categories">Categories</a>
+                <div className="lst">
+                    <div className="lst2">
+                        <a href="#home" className="mdnav">Home</a>
+                        <div className="prodrop">
+                            <p className="p2">Products<IoIosArrowDown/></p>
+                            <div className="prolst">
+                                <a href="#product">Product</a>
+                                <a href="#categories">Categories</a>
+                            </div>
+                        </div>
+                        <a href="#help" className="mdnav">Help</a>
                     </div>
+                    <a href="#contact" className="but">Contact Us</a>
                 </div>
-                <p>Help</p>
-            </div>
-            <a href="#contact" className="but">Contact Us</a>
-        </Nbwrap>
-    </Nb>
-  )
+            </Nbwrap>
+        </Nb>
+    )
 }
 
 const Nb = styled.div`
@@ -42,9 +35,7 @@ align-items: center;
 justify-content: center;
 // position: fixed;
 // z-index: 1;
-@media screen and (max-width: 450px){
-    width: 100%;
-    height: 10vh;
+@media screen and (max-width: 540px){
 }
 `
 const Nbwrap = styled.div`
@@ -54,11 +45,8 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 font-family: Circular Std Book;
-@media screen and (max-width: 450px){
-    width: 85%;
-    height: 90%;
-    margin-top: 10px;
-    width: 20%;
+@media screen and (max-width: 540px){
+    
 }
 
 .log{
@@ -67,29 +55,39 @@ font-family: Circular Std Book;
 
 }
 .lst{
-    width: 25%;
+    width: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.lst2{
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: space-around;
-@media screen and (max-width: 450px){
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    background: linear-gradient(180deg, #09285D 0%, #020A17 100%);
-    height: 70vh;
-    width: 150px;
-    left: ${({click}) => (click ?  '-100%' : 0)};
-    transition: all 2s ease;
-    z-index: 1;
-  }
+    margin-left: -1rem;
+}
+.mdnav{
+    color: #000000;
+    text-decoration: none;
+}
+.mdnav:link{
+    color: #000000;
+    text-decoration: none;
+}
+.mdnav:visited{
+    color: #000000;
+    text-decoration: none;
+}
+.mdnav:hover{
+    color: #3b7ced;
+    text-decoration: none;
 }
 .prodrop{
     gap: 5px;
     padding: 0;
     position: relative;
     display: inline-block;
-    margin-right: 3rem;
 }
 .p2{
     display: flex;
@@ -126,17 +124,5 @@ font-family: Circular Std Book;
     border: 2px solid #3b7ced;
     border-radius: 5px;
     text-decoration: none;
-}
-
-`
-const MobileIcon = styled.div`
-display: none;
-@media screen and (max-width: 450px){
-    background: #3b7ced;
-    display: block;
-    position: absolute;
-    right: 30px;
-    color: #fff;
-    top: 1rem;
 }
 `
