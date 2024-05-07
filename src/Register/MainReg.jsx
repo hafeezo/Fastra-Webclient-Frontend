@@ -11,7 +11,7 @@ export default function MainReg() {
 
 const Regcont = styled.div`
 width: 100%;
-height: 60vh;
+height: 65vh;
 display: flex;
 align-items: center;
 justify-content: center;
