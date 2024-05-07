@@ -1,4 +1,4 @@
-import React,{ useState } from "react"
+import React,{ useState, useEffect } from "react"
 import './Regform.css'
 import {  useFormik, Formik, Form, Field } from "formik"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
@@ -55,7 +55,6 @@ export default function Regform() {
     if (!values.companyEmail) {
       errors.companyEmail = 'Company Email is Required';
     } else if (
-      // Regex for email validation
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.companyEmail)
     ) {
       errors.companyEmail = 'Invalid email address';
@@ -100,6 +99,30 @@ export default function Regform() {
     setShowPassword(!showPassword);
   }
 
+  const [passwordCriteria, setPasswordCriteria] = useState({
+    length: false,
+    number: false,
+    specialCharacter: false,
+    lowercase: false,
+    uppercase: false,
+  });
+
+  const validatePassword = (password) => {
+    setPasswordCriteria({
+      length: password.length >= 8,
+      number: /\d/.test(password),
+      specialCharacter: /[!@#$%^&*]/.test(password),
+      lowercase: /[a-z]/.test(password),
+      uppercase: /[A-Z]/.test(password),
+    });
+  };
+
+  useEffect(() => {
+  if (props.data && props.data.password) {
+    validatePassword(props.data.password);
+  }
+}, [props.data]);
+
   const validateForm = (values) => {
     const errors = {};
 
@@ -133,18 +156,26 @@ export default function Regform() {
       onSubmit={handleSubmit}
       validate={validateForm}
     >
-      {({ errors, touched }) => (
+      {({ errors, touched, values }) => (
         <Form className="fom2">
           <p className='reg2'>Password</p>
           <p className='reg3'>Create password for your account</p>
           <p className="lbl2">Password</p>
           
-          <Field className={touched.password && errors.password ? 'inpt is-invalid' : 'inpt'} type={showPassword ? 'text' : 'password'} name='password' placeholder='Enter password' required/>
+          <Field className={touched.password && errors.password ? 'inpt is-invalid' : 'inpt'} type={showPassword ? 'text' : 'password'} name='password' placeholder='Enter password'/>
           <button className='togbutn' type="button" onClick={togglePasswordVisibility}> {showPassword ? <FaEyeSlash /> : <FaEye />}</button>
           {touched.password && errors.password ? (<div className="error">{errors.password}</div>) : null}
 
+          <ul className="password-criteria">
+            <li className={passwordCriteria.length ? 'fulfilled' : ''}>At least 8 characters</li>
+            <li className={passwordCriteria.number ? 'fulfilled' : ''}>At least one number</li>
+            <li className={passwordCriteria.specialCharacter ? 'fulfilled' : ''}>At least one special character</li>
+            <li className={passwordCriteria.lowercase ? 'fulfilled' : ''}>At least one lowercase letter</li>
+            <li className={passwordCriteria.uppercase ? 'fulfilled' : ''}>At least one uppercase letter</li>
+          </ul>
+
           <p className="lbl3">Confirm password</p>
-          <Field className={touched.confirmPassword && errors.confirmPassword ? 'inpt is-invalid' : 'inpt'} type={showPassword ? 'text' : 'password'} name='confirmPassword' placeholder='Confirm password' required/>
+          <Field className={touched.confirmPassword && errors.confirmPassword ? 'inpt is-invalid' : 'inpt'} type={showPassword ? 'text' : 'password'} name='confirmPassword' placeholder='Confirm password'/>
           {touched.confirmPassword && errors.confirmPassword ? (<div className="error">{errors.confirmPassword}</div>) : null}
 
         <button className='butn2' type="submit">continue</button>

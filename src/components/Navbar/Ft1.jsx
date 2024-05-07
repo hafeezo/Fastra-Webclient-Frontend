@@ -15,12 +15,12 @@ export default function Ft1() {
             <p className="qk">Quick Links</p>
             <div className="d12a">
                 <div className="d12b">
-                    <p>Product</p>
-                    <p>Company</p>
+                    <a href='#product'>Product</a>
+                    <a href='#company'>Company</a>
                 </div>
                     <div className="d12b">
-                    <p>Information</p>
-                    <p>FastraSuite</p>
+                    <a href='#info'>Information</a>
+                    <a href='#fastrasuites'>FastraSuite</a>
                 </div>
             </div>
         </div>
@@ -37,94 +37,129 @@ export default function Ft1() {
 
 const T1 = styled.div`
 width: 100%;
-height: 60%;
+height: 80%;
 display: flex;
 align-items: center;
 justify-content: center;
-font-family: Product Sans;
-@media screen and (max-width: 890px){
-    width: 100%;
-    height: 55%; 
-}`
+`
 const T1wrap = styled.div`
 width: 98%;
-height: 95%;
+height: 90%;
 display: flex;
-align-items: flex-start;
+align-items: center;
 justify-content: space-between;
-background: purple;
-
+.d11{
+    width: 30%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: -0.5rem;
+    line-height: 5px;
 .log{
+    margin-bottom: 1px;
     width: 121.83px;
     height: 40px;
 }
-.d11{
-    font-family: Product Sans Medium;
-    font-weight: 500;
-    line-height: 15px;
-    text-align: left;
-    width: 30%;
-    height: 100%;
-    background: green;
+p{
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 2px;
 }
-.qk{
-    font-weight: 700;
-    line-height: 15px;
 }
 .d12{
     width: 30%;
-    height: 100%;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    background: red;
-}
-.d12a{
-    width: 35%;
     height: 95%;
     display: flex;
-    justify-content: space-around;
-    font-weight: 400;
-    line-height: 15px;
-    text-align: left;
-    opacity: 65%;
-    gap: 3rem;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1rem;
+    margin-left: -5rem;
+    margin-top: -1.3rem;
+.qk{
+    font-size: 1rem;
+    font-weight: 500;
+}
+.d12a{
+    width: 65%;
+    height: 70%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    line-height: 1.5rem;
+.d12b{
+    display: flex;
+    flex-direction: column;
+a{
+    font-size: 0.8rem;
+    opacity: 60%;
+    text-decoration: none;
+    color: #fff;
+:link{
+    text-decoration: none;
+    opacity: 60%;
+    color: #fff;
+.mdnav:visited{
+    text-decoration: none;
+    opacity: 60%;
+    color: #fff;
+:hover{
+    text-decoration: none;
+    opacity: 60%;
+    color: #fff;
+}
+}
+}
+}
+}
+}
 }
 .d13{
     width: 30%;
     height: 95%;
     display: flex;
-    align-items: center;
     flex-direction: column;
-    background: gold;
-
-// @media screen and (max-width: 890px){
-//     width: 10%;
-//     // height: 95%;
-// }
+    justify-content: center;
+    line-height: 5px;
+    margin-top: -3rem;
+    margin-right: -7.5rem;
+@media (min-width: 541px) and (max-width: 1350px) {
+    margin-right: -3rem;
+    text-align: left;
+}
+.qk{
+    font-size: 1rem;
+    font-weight: 500;
+@media (min-width: 541px) and (max-width: 1350px) {
+    margin-left: -3rem;
+}
 }
 form{
-    height: 30%;
-    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    // margin-left: 9.8rem;
+@media (min-width: 541px) and (max-width: 1350px) {
+    margin-left: -3rem;
 }
 .in{
-    height: 90%;
+    height: 34px;
     border: none;
-    color: red;
+    border-radius: 5px;
+    padding-left: 1rem;
+    font-size: 0.8rem;
+    font-weight: 400;
+    border-radius: 8px 0px 0px 8px;
 }
 .btn{
-    background: #3B7CED;
+    width: 56px;
+    height: 36px;
+    background: #3b7ced;
     border: none;
-    width: 10%;
-    height: 96.6%;
+    border-radius: 0px 8px 8px 0px;
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0px;
-    color: #fff;
+    color: white;
+}
+}
 }
 `

@@ -16,7 +16,7 @@ export default function Ft2() {
 
 const T2 = styled.div`
 width: 100%;
-height: 50%;
+height: 20%;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -35,6 +35,8 @@ height: 95%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 0.8rem;
+    margin-top: 0.8rem;
 }
 .d22{
     width: 13%;
