@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import "./RegForm.css";
 import { Formik, Form, Field } from "formik";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
+import {FaEye, FaEyeSlash} from "react-icons/fa";
 
 export default function RegForm() {
   const [data, setData] = useState({
@@ -13,11 +13,6 @@ export default function RegForm() {
   });
 
   const [currentStep, setCurrentStep] = useState(0);
-
-  // const makeRequest = (formData) => {
-  //   console.log('Form Submitted', formData)
-  // }
-
   const history = useHistory();
 
   const makeRequest = async (formData) => {
@@ -25,7 +20,7 @@ export default function RegForm() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer ${process.env.REACT_APP_API_KEY}",
+        Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
       },
       body: JSON.stringify(formData),
     });
@@ -81,6 +76,7 @@ const StepOne = (props) => {
     }
     return errors;
   };
+
   return (
     <Formik
       initialValues={props.data}
@@ -133,7 +129,8 @@ const StepOne = (props) => {
       )}
     </Formik>
   );
-};
+}
+
 const StepTwo = (props) => {
   const handleSubmit = (values) => {
     props.next(values);

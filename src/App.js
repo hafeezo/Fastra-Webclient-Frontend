@@ -10,9 +10,10 @@ function App() {
     <Router>
       <Navbar/>
       <Switch>
-        <Route path="/" component={RegForm} />
-        <Route path="/login" component={Login} />
-      </Switch>
+  <Route exact path="/" component={RegForm} />
+  <Route path="/login" component={Login} />
+</Switch>
+
       <Footer/>
     </Router>
     </>
