@@ -1,29 +1,36 @@
 import styled from "styled-components";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from 'react-router-dom'
+import React,{ useState } from "react"
 
 export default function LoginForm() {
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  }
+  
   return (
-    <Lf>
+    <Lf id='#login'>
       <Lfwrap>
         <Title>Login</Title>
         <Paragraph>Enter your log in details below</Paragraph>
-
         <Cont>
           <Inputcont>
-            <StyledLabel htmlFor="name">Email</StyledLabel>
-            <Input placeholder="Enter your email here" />
+            <StyledLabel htmlFor="email">Email</StyledLabel>
+            <Input  placeholder="Enter your email here" />
           </Inputcont>
           <Inputcont>
             <StyledLabel htmlFor="password">Password</StyledLabel>
-            <PasswordContainer>
               <PasswordInput placeholder="Enter your password here" />
-              <EyeIcon />
-            </PasswordContainer>
+              {/* id="password" type={!showPassword ? "text" : "password"}  */}
+              <button className='togbut' type="button" onClick={togglePasswordVisibility}> {showPassword ? <FaEyeSlash /> : <FaEye />}</button>
           </Inputcont>
           <Button>Login</Button>
           <Loglink>
-            <p>Don't have an account</p>
-            <p>Forget password</p>
+            <p><Link to="/home">Don't have an account</Link></p>
+            <p><Link to="/login">Forget password</Link></p>
           </Loglink>
         </Cont>
       </Lfwrap>
@@ -32,100 +39,115 @@ export default function LoginForm() {
 }
 
 const Lf = styled.div`
-  width: 100%;
-  height: 95vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
+width: 100%;
+height: 65vh;
+display: flex;
+align-items: center;
+justify-content: center;
+`
 const Lfwrap = styled.div`
-  width: 25%;
-  border: 16px solid transparent;
-  position: relative;
-  padding: 30px;
-  gap: 40px;
-  box-shadow: 16px 16px 64px 0px #1a1a1a29;
-`;
-
+width: 25%;
+height: 95%;
+position: relative;
+border-radius: 0.5rem;
+box-shadow: 16px 16px 64px 0px #1A1A1A29;
+display: flex;
+justify-content: center;
+flex-direction: column;
+`
 const Title = styled.h2`
-  font-size: 24px;
-  font-weight: bold;
-  text-align: left;
-`;
-
+font-size: 18px;
+font-weight: 700;
+text-align: left;
+margin-left: 1.3rem;
+`
 const Paragraph = styled.p`
-  margin-bottom: 35px;
-  font-size: 12px;
-  color: #7a8a98;
-`;
-
+font-size: 14px;
+margin-left: 1.3rem;
+margin-top: -1rem;
+opacity: 60%;
+`
 const Cont = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 25px;
-  margin-top: 20px;
-`;
-
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+gap: 25px;
+`
 const Inputcont = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-right: auto;
-`;
+width: 100%;
+display: flex;
+flex-direction: column;
+margin-left: 2.5rem;
 
-const Input = styled.input`
-  padding: 15px;
-  color: #7a8a98;
-  margin-top: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-`;
-
-const PasswordContainer = styled.div`
-  position: relative;
-  width: 100%;
-`;
-
-const PasswordInput = styled(Input)`
-  width: calc(100% - 30px);
-`;
-
-const EyeIcon = styled(FaEye)`
+.togbut{
   position: absolute;
-  right: 5px;
-  top: 65%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 1.5rem;
-  font-weight: lighter;
-  color: #7a8a98;
-`;
-
+top: 13.6rem;
+right: 50px;
+transform: translateY(-50%);
+border: none;
+background-color: transparent;
+:focus {
+  outline: none;
+}
+`
+const Input = styled.input`
+width: 80%;
+padding: 8px;
+border-radius: 0.5rem;
+border: 1px solid #aaaaaa;
+`
+const PasswordInput = styled(Input)`
+width: 80%;
+padding: 8px;
+border-radius: 0.5rem;
+border: 1px solid #aaaaaa;
+`
+// const EyeIcon = styled(FaEye)`
+// position: absolute;
+// top: 13.6rem;
+// right: 50px;
+// transform: translateY(-50%);
+// border: none;
+// background-color: transparent;
+// :focus {
+//   outline: none;
+// }
+// `
 const Button = styled.button`
-  width: 100%;
-  padding: 15px;
-  background-color: #3b7ced;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-`;
-
+background: #3b7ced;
+color: #fff;
+padding: 12px;
+width: 87%;
+border: none;
+border-radius: 0.5rem;
+text-decoration: none;
+cursor: pointer;
+margin-left: -0.5rem;
+margin-top: 1rem;
+`
 const Loglink = styled.div`
-  display: flex;
-  gap: 45px;
+display: flex;
+gap: 45px;
+font-size: 14px;
+color: #3b7ced;
+text-decoration: none;
+margin-top: -0.7rem;
+:link{
   color: #3b7ced;
-  font-weight: semi-bold;
-  margin-top: 20px;
-`;
-
+  text-decoration: none;
+}
+:visited{
+  color: #3b7ced;
+  text-decoration: none;
+}
+:hover{
+  color: #3b7ced;
+  text-decoration: none;
+}
+`
 const StyledLabel = styled.label`
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 5px;
-`;
+font-size: 14px;
+font-weight: 600;
+margin-bottom: 0.5rem;
+`

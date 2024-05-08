@@ -1,17 +1,22 @@
-import MainReg from './Register/MainReg'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import RegForm from './components/RegForm'
+import Login from './components/Login'
 import Footer from './components/Navbar/Footer'
 import Navbar from "./components/Navbar/Navbar"
-import Login from "../src/components/Login"
 
 function App() {
   return (
     <>
+    <Router>
       <Navbar/>
-      <MainReg/>
+      <Switch>
+        <Route path="/" component={RegForm} />
+        <Route path="/login" component={Login} />
+      </Switch>
       <Footer/>
-      <Login />
+    </Router>
     </>
-  );
+  )
 }
 
-export default App
+export default App;

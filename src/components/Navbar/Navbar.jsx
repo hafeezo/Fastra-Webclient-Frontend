@@ -148,11 +148,12 @@ font-family: Circular Std Book;
 }
 .prolst a{
     color: grey;
-    padding: 8px 14px;
+    padding: 5px 14px;
     text-decoration: none;
     display: block;
     text-align: left;
     z-index: 999;
+    margin-top: -0.5rem;
 }
 .prolst a:hover {
     color: #3b7ced;

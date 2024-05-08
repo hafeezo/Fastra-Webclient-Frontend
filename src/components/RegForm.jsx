@@ -1,8 +1,10 @@
-import React,{ useState, useEffect } from "react"
-import './Regform.css'
-import {  useFormik, Formik, Form, Field } from "formik"
+import React,{ useState, useEffect, } from "react"
+import './RegForm.css'
+import {  Formik, Form, Field } from "formik"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
-export default function Regform() {
+import { Link, useHistory } from 'react-router-dom'
+
+export default function RegForm() {
 
   const [data, setData] = useState({
     companyName: '',
@@ -13,8 +15,29 @@ export default function Regform() {
 
   const [currentStep, setCurrentStep] = useState(0)
 
-  const makeRequest = (formData) => {
-    console.log('Form Submitted', formData)
+  // const makeRequest = (formData) => {
+  //   console.log('Form Submitted', formData)
+  // }
+
+  const history = useHistory()
+
+  const makeRequest = async (formData) => {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${process.env.REACT_APP_API_KEY}',
+      },
+      body: JSON.stringify(formData),
+    })
+  
+    if (!response.ok) {
+      throw new Error('Registration failed');
+    }
+  
+    history.push('/login')
+  
+    return response.json()
   }
 
   const handleNextStep = (newData, final = false) => {
@@ -34,7 +57,7 @@ export default function Regform() {
   ]
 
   return (
-    <div className="fomain">
+    <div className="fomain" id="home">
       <div className='fowrap'>
         {steps[currentStep]}
       </div></div>
@@ -68,7 +91,7 @@ export default function Regform() {
       validate={validateForm}
     >
       {({ errors, touched }) => (
-        <Form className="fom">
+        <Form className="fom" onSubmit={handleSubmit}>
           <p className='reg'>Register</p>
           <p className='reg1'>Enter your details to register</p>
           <p className="lbl">Company name</p>
@@ -82,7 +105,7 @@ export default function Regform() {
 
           <button className='butn' type="submit">Continue</button>
 
-          <p className='goin'><a href="#login">Already have account</a></p>
+          <p className='goin'><Link to="/login">Already have account</Link></p>
         </Form>
       )}
     </Formik>
@@ -162,7 +185,7 @@ export default function Regform() {
           <p className='reg3'>Create password for your account</p>
           <p className="lbl2">Password</p>
           
-          <Field className={touched.password && errors.password ? 'inpt is-invalid' : 'inpt'} type={showPassword ? 'text' : 'password'} name='password' placeholder='Enter password'/>
+          <Field className={touched.password && errors.password ? 'inpt1 is-invalid' : 'inpt1'} type={showPassword ? 'text' : 'password'} name='password' placeholder='Enter password'/>
           <button className='togbutn' type="button" onClick={togglePasswordVisibility}> {showPassword ? <FaEyeSlash /> : <FaEye />}</button>
           {touched.password && errors.password ? (<div className="error">{errors.password}</div>) : null}
 
@@ -175,12 +198,12 @@ export default function Regform() {
           </ul>
 
           <p className="lbl3">Confirm password</p>
-          <Field className={touched.confirmPassword && errors.confirmPassword ? 'inpt is-invalid' : 'inpt'} type={showPassword ? 'text' : 'password'} name='confirmPassword' placeholder='Confirm password'/>
+          <Field className={touched.confirmPassword && errors.confirmPassword ? 'inpt1 is-invalid' : 'inpt1'} type={showPassword ? 'text' : 'password'} name='confirmPassword' placeholder='Confirm password'/>
           {touched.confirmPassword && errors.confirmPassword ? (<div className="error">{errors.confirmPassword}</div>) : null}
 
         <button className='butn2' type="submit">continue</button>
 
-        <p className='goin'><a href="#login">Already have account</a></p>
+        <p className='goin'><Link to="/login">Already have account</Link></p>
       </Form>
     )}</Formik>
   )
@@ -195,9 +218,9 @@ export default function Regform() {
     onSubmit={handleSubmit}>{() => (
       <Form className="form">
         <p className="reg">Confirmation</p>
-        <p className="cfm">We sent a confirmation link to your email, click <br/>on that link to proceed.</p>
+        <p className="cfm">We sent a confirmation link to your email, <br/>click on that link to proceed.</p>
 
-        <button className='butn' type="submit"><a href="#login">Continue</a></button>
+        <button className='butn' type="submit"><Link to="/login">Continue</Link></button>
       </Form>
     )}</Formik>
   )
