@@ -109,7 +109,7 @@ const PasswordInput = styled.input`
 const Togbut = styled.button`
   position: absolute;
   top: 50%;
-  right: 10px; /* Adjust as needed */
+  right: 0px;
   transform: translateY(-50%);
   border: none;
   background-color: transparent;
