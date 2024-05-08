@@ -19,11 +19,11 @@ export default function LoginForm() {
         <Cont>
           <Inputcont>
             <StyledLabel htmlFor="email">Email</StyledLabel>
-            <Input  placeholder="Enter your email here" />
+            <Input id="email" placeholder="Enter your email here"/>
           </Inputcont>
           <Inputcont>
             <StyledLabel htmlFor="password">Password</StyledLabel>
-              <PasswordInput placeholder="Enter your password here" />
+              <PasswordInput placeholder="Enter your password here"/>
               {/* id="password" type={!showPassword ? "text" : "password"}  */}
               <button className='togbut' type="button" onClick={togglePasswordVisibility}> {showPassword ? <FaEyeSlash /> : <FaEye />}</button>
           </Inputcont>

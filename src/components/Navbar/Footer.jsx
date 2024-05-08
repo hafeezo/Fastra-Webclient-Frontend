@@ -20,7 +20,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 background: linear-gradient(180deg, #09285D 0%, #020A17 100%);
-position: fixed;
+// position: fixed;
 color: #fff;
 `
 const Ftwrap = styled.div`
