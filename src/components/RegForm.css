@@ -36,7 +36,7 @@ font-weight: 600;
 margin-top: 1.5rem;
 }
 .inpt{
-width: 90%;
+width: 100%;
 padding: 8px;
 border-radius: 0.5rem;
 border: 1px solid #aaaaaa;
@@ -86,7 +86,7 @@ margin-top: -0.3rem;
 .lbl3{
 font-size: 14px;
 font-weight: 600;
-margin-top: -1rem;
+margin-top: 1.2rem;
 }  
 .goin{
 font-size: 14px;
@@ -115,6 +115,7 @@ width: 98%;
 border: none;
 border-radius: 0.5rem;
 text-decoration: none;
+margin-left: 0.5rem;
 }
 .butn a:link{
 color: #fff;
@@ -155,8 +156,8 @@ font-size: 14px;
 }
 .togbutn {
 position: absolute;
-top: 7.4rem;
-right: 50px;
+top: 7.6rem;
+right: 60px;
 transform: translateY(-50%);
 border: none;
 background-color: transparent;
@@ -166,9 +167,10 @@ outline: none;
 }
 .password-criteria li {
 color: grey;
-font-size: 10px;
+font-size: 14px;
 line-height: 15px;
 margin-left: -1.5rem;
+margin-top: 0.5rem;
 }
 
 .password-criteria li.fulfilled {
