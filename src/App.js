@@ -1,17 +1,10 @@
-import { BrowserRouter as Router, Route, Switch, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import RegForm from './components/RegForm'
 import Login from './components/Login'
 import Footer from './components/Navbar/Footer'
 import Navbar from "./components/Navbar/Navbar"
 import Dashboard from './Dashboard'
-
-function App() {
-  return (
-    <Router>
-      <AppContent />
-    </Router>
-  );
-}
+import Dashhead from './components/Navbar/Dashhead'
 
 function AppContent() {
   const location = useLocation();
@@ -19,9 +12,13 @@ function AppContent() {
   // Determine whether to render header and footer based on the current route
   const shouldRenderHeaderAndFooter = location.pathname !== "/dashboard";
 
+  // Determine whether to render dashboard-specific header
+  const shouldRenderDashboardHeader = location.pathname === "/dashboard";
+
   return (
     <>
-      {shouldRenderHeaderAndFooter && <Navbar/>}
+      {shouldRenderHeaderAndFooter && !shouldRenderDashboardHeader && <Navbar/>}
+      {shouldRenderDashboardHeader && <Dashhead />}
       <Switch>
         <Route exact path="/" component={RegForm}/>
         <Route path="/login" component={Login}/>
@@ -32,4 +29,4 @@ function AppContent() {
   );
 }
 
-export default App;
+export default AppContent;
