@@ -32,7 +32,7 @@ export default function LoginForm() {
               </Togbut>
             </PasswordContainer>
           </Inputcont>
-          <Button>Login</Button>
+          <Button><Link to="/dashboard">Login</Link></Button>
           <Loglink>
             <p>
               <Link to="/">Don't have an account</Link>
@@ -126,6 +126,18 @@ const Button = styled.button`
   cursor: pointer;
   margin-left: -0.5rem;
   margin-top: 1rem;
+:link{
+    color: #fff;
+    text-decoration: none;
+}
+:visited{
+    color: #fff;
+    text-decoration: none;
+}
+:hover{
+    color: #fff;
+    text-decoration: none;
+}
 `;
 const Loglink = styled.div`
   display: flex;
