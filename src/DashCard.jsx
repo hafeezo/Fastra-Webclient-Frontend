@@ -1,18 +1,19 @@
-import account from "./image/account.svg"
-import purchase from "./image/purchase.svg"
-import sales from "./image/sales.svg"
-import inventory from "./image/inventory.svg"
-import hr from "./image/hr.svg"
-import costing from "./image/costing.svg"
-import crm from "./image/crm.svg"
-import contact from "./image/contact.svg"
-import plan from "./image/plan.svg"
-import manufacture from "./image/manufacture.svg"
-import logistics from "./image/logistics.svg"
-import report from "./image/report.svg"
-import settings from "./image/settings.svg"
-import app from "./image/app.svg"
-import dots from "./image/dots.svg"
+import "./DashCard.css";
+import account from "./image/account.svg";
+import purchase from "./image/purchase.svg";
+import sales from "./image/sales.svg";
+import inventory from "./image/inventory.svg";
+import hr from "./image/hr.svg";
+import costing from "./image/costing.svg";
+import crm from "./image/crm.svg";
+import contact from "./image/contact.svg";
+import plan from "./image/plan.svg";
+import manufacture from "./image/manufacture.svg";
+import logistics from "./image/logistics.svg";
+import report from "./image/report.svg";
+import settings from "./image/settings.svg";
+import app from "./image/app.svg";
+import dots from "./image/dots.svg";
 
 // Card component to display item information
 const Card = ({ name, description }) => {
@@ -47,7 +48,7 @@ const Card = ({ name, description }) => {
       icon = plan;
       break;
     case "Manufacturing":
-      icon = manufacture
+      icon = manufacture;
       break;
     case "Logistics":
       icon = logistics;
@@ -95,7 +96,7 @@ const Card = ({ name, description }) => {
       icon2 = dots;
       break;
     case "Manufacturing":
-      icon2 = dots
+      icon2 = dots;
       break;
     case "Logistics":
       icon2 = dots;
@@ -117,9 +118,10 @@ const Card = ({ name, description }) => {
   return (
     <div className="card">
       {icon && <img src={icon} alt={name} />}
-      <div>
-      <h3>{name}</h3>
-      <p>{description}</p></div>
+      <div className="cardtext">
+        <h3>{name}</h3>
+        <p>{description}</p>
+      </div>
       {icon2 && <img src={icon2} alt={name} />}
     </div>
   );
@@ -198,9 +200,9 @@ const fastra = [
   },
 ];
 
-const CardList = () => {
+const DashCard = () => {
   return (
-    <div className="card-list">
+    <div className="cardlist">
       {fastra.map((fastra, index) => (
         <Card key={index} name={fastra.name} description={fastra.description} />
       ))}
@@ -208,4 +210,4 @@ const CardList = () => {
   );
 };
 
-export default CardList;
+export default DashCard;

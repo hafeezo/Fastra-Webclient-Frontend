@@ -1,0 +1,20 @@
+.card {
+    margin: 1rem 1rem 1rem 0;
+    padding: 1.5rem;
+    width: 400px;
+    height: 143px;
+    box-shadow: 1px 1px 1px #FFFAFA;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    border: 1.2px solid #E2E6E9;
+    /* background-color: purple; */
+}
+
+.cardlist {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12.5px;
+
+}
