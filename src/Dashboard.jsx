@@ -9,8 +9,7 @@ export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [notifications, setNotifications] = useState(0);
 
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
+  const handleSearch = () => {
     // You can perform search operations here based on the search query
     // For example, you can filter a list of items based on the search query
   };
@@ -25,14 +24,17 @@ export default function Dashboard() {
           </li>
           <li className="sash">
             <div className="sashtag">
-              <img src={SearchIcon} alt="Search" className="sashnav" />
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={handleSearch}
-                className="sashput"
-              />
+              <label htmlFor="searchInput" className="sarch" onClick={handleSearch}>
+                <img src={SearchIcon} alt="Search" className="sashnav" />
+                <input
+                  id="searchInput"
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="sashput"
+                />
+              </label>
             </div>
           </li>
           <li className="alert">
