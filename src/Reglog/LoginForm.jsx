@@ -87,26 +87,6 @@ display: flex;
 align-items: center;
 justify-content: center;
 background-color: #fff;
-@media screen and (max-width: 1300px) and (min-width: 1050px){
-  width: 120%;
-  height: 100%;
-  margin-left: -6.5rem;
-}
-@media screen and (max-width: 1049px) and (min-width: 800px){
-  width: 140%;
-  height: 100%;
-  margin-left: -6.5rem;
-}
-@media screen and (max-width: 799px) and (min-width: 710px){
-  width: 160%;
-  height: 100%;
-  margin-left: -13rem;
-}
-@media screen and (max-width: 709px) and (min-width: 640px){
-  width: 180%;
-  height: 100%;
-  margin-left: -16rem;
-}
 }
 `
 const Lfwrap = styled.div`
@@ -119,6 +99,20 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+@media screen and (max-width: 1300px) and (min-width: 1050px){
+  width: 35%;
+}
+@media screen and (max-width: 1049px) and (min-width: 800px){
+  width: 40%;
+}
+@media screen and (max-width: 799px) and (min-width: 710px){
+  width: 50%;
+
+}
+@media screen and (max-width: 709px) and (min-width: 640px){
+  width: 50%;
+
+}
 @media screen and (max-width: 639px) and (min-width: 580px){
   width: 50%;
 }

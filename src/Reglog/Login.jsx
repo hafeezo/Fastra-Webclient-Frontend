@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Navbar from "../components/Navbar/Navbar"
+import Navbar from "../components/nav/Navbar"
 import LoginForm from "./LoginForm"
 
 export default function Login() {
