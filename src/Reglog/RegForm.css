@@ -1,25 +1,58 @@
 .fomain{
 width: 100%;
-height: 90vh;
+height: 100%;
 display: flex;
 align-items: center;
 justify-content: center;
 background-color: #fff;
-@media screen and (max-width: 950px) and (min-width: 300px){
-  width: 65%;
-  height: 90%;
+@media screen and (max-width: 1300px) and (min-width: 1050px){
+  width: 120%;
+  height: 100%;
+  margin-left: -6.5rem;
+}
+@media screen and (max-width: 1049px) and (min-width: 800px){
+  width: 140%;
+  height: 100%;
+  margin-left: -6.5rem;
+}
+@media screen and (max-width: 799px) and (min-width: 710px){
+  width: 160%;
+  height: 100%;
+  margin-left: -13rem;
+}
+@media screen and (max-width: 709px) and (min-width: 640px){
+  width: 180%;
+  height: 100%;
+  margin-left: -16rem;
 }
 }
 .fowrap{
 width: 25%;
-height: 65vh;
+height: 75%;
 position: relative;
 border-radius: 0.5rem;
 box-shadow: 16px 16px 64px 0px #1A1A1A29;
 display: flex;
 align-items: center;
 justify-content: center;
-
+@media screen and (max-width: 639px) and (min-width: 580px){
+  width: 50%;
+}
+@media screen and (max-width: 579px) and (min-width: 481px){
+  width: 60%;
+}
+@media screen and (max-width: 480px) and (min-width: 415px){
+  width: 70%;
+}
+@media screen and (max-width: 414px) and (min-width: 360px){
+  width: 80%;
+}
+@media screen and (max-width: 359px) and (min-width: 340px){
+  width: 90%;
+}
+@media screen and (max-width: 339px) and (min-width: 250px){
+  width: 95%;
+}
 }
 .reg{
 font-size: 18px;
@@ -27,7 +60,6 @@ font-weight: 700;
 }
 .reg1{
 font-size: 14px;
-margin-top: -1rem;
 opacity: 60%;
 }
 .lbl{
@@ -39,15 +71,14 @@ margin-top: 1.5rem;
 width: 100%;
 padding: 8px;
 border-radius: 0.5rem;
+margin-top: 0.3rem;
 border: 1px solid #aaaaaa;
-margin-top: -3rem;
 }
 .inpt1{
 width: 80%;
 padding: 8px;
 border-radius: 0.5rem;
 border: 1px solid #aaaaaa;
-margin-top: -3rem;
 }
 .is-invalid { 
 border-color: red !important;
@@ -59,12 +90,14 @@ margin-bottom: -1rem;
 }
 .cd{
 opacity: 60%;
-margin-top: -0.1rem;
 margin-bottom: -0.05rem;
 font-size: 12px;
 }
+.fom{
+  margin-left: -1rem;
+  width: 85%;
+}
 .fom2{
-margin-top: -3.3rem;
 margin-left: 2rem;
 width: 100%;
 height: 85%;
@@ -72,21 +105,26 @@ height: 85%;
 .reg2{
 font-size: 18px;
 font-weight: 700;
+margin-top: -0.5rem;
 }
 .reg3{
 font-size: 14px;
-margin-top: -1rem;
 opacity: 60%;
 }
+.reg4{
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  }
 .lbl2{
 font-size: 14px;
 font-weight: 600;
-margin-top: -0.3rem;
+margin-top: 1rem;
 }  
 .lbl3{
 font-size: 14px;
 font-weight: 600;
-margin-top: -1rem;
+margin-top: 1rem;
 }  
 .goin{
 font-size: 14px;
@@ -111,11 +149,10 @@ margin-top: 1.5rem;
 background: #3b7ced;
 color: #fff;
 padding: 12px;
-width: 98%;
+width: 108%;
 border: none;
 border-radius: 0.5rem;
 text-decoration: none;
-margin-left: 0.5rem;
 }
 .butn a:link{
 color: #fff;
@@ -152,12 +189,17 @@ color: #fff;
 text-decoration: none;
 }
 .cfm{
-font-size: 14px;
+font-size: 13.5px;
 }
 .togbutn {
+width: 10%;
+height: 5%;
+display: flex;
+align-items: center;
+justify-content: center;
 position: absolute;
-top: 7.4rem;
-right: 60px;
+top: 7.2rem;
+right: 45px;
 transform: translateY(-50%);
 border: none;
 background-color: transparent;
@@ -168,9 +210,9 @@ outline: none;
 .password-criteria li {
 color: grey;
 font-size: 10px;
-line-height: 15px;
-margin-left: -1.5rem;
-margin-top: 0.5rem;
+line-height: 2px;
+margin-left: 1rem;
+margin-top: 1.2rem;
 }
 
 .password-criteria li.fulfilled {

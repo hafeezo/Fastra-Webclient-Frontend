@@ -4,21 +4,46 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
 export default function LoginForm() {
+const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [passwordTouched, setPasswordTouched] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    console.log("Email:", e.target.value);
+  };
+  
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    console.log("Password:", e.target.value);
+  };
+
+  const isEmailValid = email.trim() !== ""; // Check if email is valid
+  const isPasswordValid = password.trim() !== ""; // Check if password is valid
+  const isFormValid = isEmailValid && isPasswordValid; // Check if the entire form is valid
+
   return (
-    <Lf id="#login">
+    <Lf>
       <Lfwrap>
         <Title>Login</Title>
         <Paragraph>Enter your log in details below</Paragraph>
         <Cont>
           <Inputcont>
             <StyledLabel htmlFor="email">Email</StyledLabel>
-            <Input id="email" placeholder="Enter your email here" />
+            <Input
+              id="email"
+              placeholder="Enter your email here"
+              value={email}
+              onChange={handleEmailChange}
+              onBlur={() => setEmailTouched(true)} /* Mark field as touched when blurred */
+            />
+            {emailTouched && !isEmailValid && <ErrorText>Email is required</ErrorText>} {/* Show error message if email is touched and not valid */}
           </Inputcont>
           <Inputcont>
             <StyledLabel htmlFor="password">Password</StyledLabel>
@@ -26,13 +51,17 @@ export default function LoginForm() {
               <PasswordInput
                 placeholder="Enter your password here"
                 type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={handlePasswordChange}
+                onBlur={() => setPasswordTouched(true)}
               />
               <Togbut onClick={togglePasswordVisibility}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </Togbut>
             </PasswordContainer>
+            {passwordTouched && !isPasswordValid && <ErrorText>Password is required</ErrorText>} {/* Show error message if password is not provided */}
           </Inputcont>
-          <Button><Link to="/dashboard">Login</Link></Button>
+          <Button disabled={!isFormValid}><Link to="/dashboard">Login</Link></Button>
           <Loglink>
             <p>
               <Link to="/">Don't have an account</Link>
@@ -48,58 +77,99 @@ export default function LoginForm() {
 }
 
 const Lf = styled.div`
-  width: 100%;
-  height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: #fff;
+@media screen and (max-width: 1300px) and (min-width: 1050px){
+  width: 120%;
+  height: 100%;
+  margin-left: -6.5rem;
+}
+@media screen and (max-width: 1049px) and (min-width: 800px){
+  width: 140%;
+  height: 100%;
+  margin-left: -6.5rem;
+}
+@media screen and (max-width: 799px) and (min-width: 710px){
+  width: 160%;
+  height: 100%;
+  margin-left: -13rem;
+}
+@media screen and (max-width: 709px) and (min-width: 640px){
+  width: 180%;
+  height: 100%;
+  margin-left: -16rem;
+}
+}
+`
 const Lfwrap = styled.div`
-  width: 25%;
-  height: 65vh;
-  position: relative;
-  border-radius: 0.5rem;
-  box-shadow: 16px 16px 64px 0px #1a1a1a29;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-`;
+width: 25%;
+height: 75%;
+position: relative;
+border-radius: 0.5rem;
+box-shadow: 16px 16px 64px 0px #1A1A1A29;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+@media screen and (max-width: 639px) and (min-width: 580px){
+  width: 50%;
+}
+@media screen and (max-width: 579px) and (min-width: 481px){
+  width: 60%;
+}
+@media screen and (max-width: 480px) and (min-width: 415px){
+  width: 70%;
+}
+@media screen and (max-width: 414px) and (min-width: 360px){
+  width: 80%;
+}
+@media screen and (max-width: 359px) and (min-width: 340px){
+  width: 90%;
+}
+@media screen and (max-width: 339px) and (min-width: 250px){
+  width: 95%;
+}
+`
 const Title = styled.h2`
   font-size: 18px;
   font-weight: 700;
   text-align: left;
-  margin-left: 1.3rem;
-`;
+  margin-left: -14rem;
+`
 const Paragraph = styled.p`
   font-size: 14px;
-  margin-left: 1.3rem;
-  margin-top: -1rem;
+  margin-left: -4.3rem;
+  margin-bottom: 2rem;
   opacity: 60%;
-`;
+`
 const Cont = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 25px;
-`;
+`
 const Inputcont = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   margin-left: 2.5rem;
   position: relative;
-`;
+`
 const Input = styled.input`
   width: 80%;
   padding: 8px;
   border-radius: 0.5rem;
   border: 1px solid #aaaaaa;
-`;
+`
 const PasswordContainer = styled.div`
   position: relative;
   width: 80%;
-`;
+`
 const PasswordInput = styled.input`
   width: 100%;
   padding: 8px;
@@ -114,7 +184,8 @@ const Togbut = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
-`;
+  outline: none;
+`
 const Button = styled.button`
   background: #3b7ced;
   color: #fff;
@@ -138,7 +209,7 @@ const Button = styled.button`
     color: #fff;
     text-decoration: none;
 }
-`;
+`
 const Loglink = styled.div`
   display: flex;
   gap: 45px;
@@ -146,6 +217,9 @@ const Loglink = styled.div`
   color: #3b7ced;
   text-decoration: none;
   margin-top: -0.7rem;
+  @media screen and (max-width: 913px){
+    margin-left: 2rem;
+  }
   :link {
     color: #3b7ced;
     text-decoration: none;
@@ -158,9 +232,14 @@ const Loglink = styled.div`
     color: #3b7ced;
     text-decoration: none;
   }
-`;
+`
 const StyledLabel = styled.label`
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 0.5rem;
-`;
+`
+const ErrorText = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+`

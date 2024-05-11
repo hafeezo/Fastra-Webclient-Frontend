@@ -51,15 +51,20 @@ export default function RegForm() {
   ];
 
   return (
-    <div className="fomain" id="home">
+    <div className="fomain">
       <div className="fowrap">{steps[currentStep]}</div>
     </div>
   );
 }
 
 const StepOne = (props) => {
-  const handleSubmit = (values) => {
-    props.next(values);
+  const handleSubmit = async (values) => {
+    try {
+      await props.next(values);
+    } catch (error) {
+      console.error("Registration failed:", error);
+      // Handle error appropriately, e.g., show an error message to the user
+    }
   };
 
   const validateForm = (values) => {
@@ -80,11 +85,11 @@ const StepOne = (props) => {
   return (
     <Formik
       initialValues={props.data}
-      onSubmit={(values) => props.next(values)}
+      onSubmit={handleSubmit}
       validate={validateForm}
     >
       {({ errors, touched }) => (
-        <Form className="fom" onSubmit={handleSubmit}>
+        <Form className="fom">
           <p className="reg">Register</p>
           <p className="reg1">Enter your details to register</p>
           <p className="lbl">Company name</p>
@@ -99,24 +104,24 @@ const StepOne = (props) => {
             placeholder="Enter your company name"
           />
           <p className="cd">companyname.fastrasuites.com</p>
-          {touched.companyName && errors.companyName ? (
+          {touched.companyName && errors.companyName && (
             <div className="error">{errors.companyName}</div>
-          ) : null}
+          )}
 
           <p className="lbl">Company email</p>
           <Field
             className={
-              touched.companyName && errors.companyName
-                ? "inpt is-invalid"
-                : "inpt"
+              touched.companyEmail && errors.companyEmail
+              ? "inpt is-invalid"
+              : "inpt"
             }
             name="companyEmail"
             type="email"
             placeholder="Enter your company email here"
           />
-          {touched.companyEmail && errors.companyEmail ? (
+          {touched.companyEmail && errors.companyEmail && (
             <div className="error">{errors.companyEmail}</div>
-          ) : null}
+          )}
 
           <button className="butn" type="submit">
             Continue
@@ -129,7 +134,9 @@ const StepOne = (props) => {
       )}
     </Formik>
   );
-}
+};
+
+
 
 const StepTwo = (props) => {
   const handleSubmit = (values) => {
@@ -215,8 +222,7 @@ const StepTwo = (props) => {
           <button
             className="togbutn"
             type="button"
-            onClick={togglePasswordVisibility}
-          >
+            onClick={togglePasswordVisibility}>
             {" "}
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
@@ -277,8 +283,8 @@ const StepThree = (props) => {
   return (
     <Formik initialValues={props.data} onSubmit={handleSubmit}>
       {() => (
-        <Form className="form">
-          <p className="reg">Confirmation</p>
+        <Form className="fom">
+          <p className="reg4">Confirmation</p>
           <p className="cfm">
             We sent a confirmation link to your email, <br />
             click on that link to proceed.

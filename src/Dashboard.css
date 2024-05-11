@@ -44,6 +44,7 @@
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1.5rem;
     border-right: 1px solid rgba(0, 0, 0, 0.2);
     font-size: 24px;
@@ -53,14 +54,11 @@
 @media screen and (max-width: 539px)  and (min-width: 300px){
     width: 22%;
     gap: 1.2rem;
-    margin-left: -2rem;
     font-size: 16px;
 }
 @media screen and (max-width: 799px) and (min-width: 540px){
     width: 25%;
     gap: 0.5rem;
-    margin-left: -1.5rem;
-
 }
 }
 
@@ -108,9 +106,6 @@
 
     :focus {
         outline: none;
-    }
-    @media screen and (max-width: 420px)  and (min-width: 300px){
-        /* display: none; */
     }
 }
 .sarch{
@@ -189,15 +184,14 @@
 @media screen and (max-width: 664px) and (min-width: 540px){
     width: 30%;
     gap: 0.5rem;
-    margin-left: 1.5rem;
+    margin-left: 1rem;
 }
 @media screen and (max-width: 539px)  and (min-width: 421px){
-    width: 50%;
+    width: 40%;
     gap: 0.5rem;
-    margin-left: -0.3rem;
 }
 @media screen and (max-width: 420px)  and (min-width: 300px){
-    margin-left: 4rem;
+    margin-left: 2.5rem;
     width: 25%;
     gap: 0.3rem;
 }
@@ -232,7 +226,6 @@
     font-weight: 400;
     line-height: 12.13px;
     text-align: left;
-    margin-top: -1rem;
     @media screen and (max-width: 420px)  and (min-width: 300px){
     font-size: 9px;
     }
