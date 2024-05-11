@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { FaBars, FaBell } from "react-icons/fa";
-import { useLocation } from 'react-router-dom'; // Import useLocation hook
 import SearchIcon from "./image/search.svg";
 import "./Dashboard.css";
 import admin from "./image/admin.svg";
 import DashCard from "./DashCard";
 
 export default function Dashboard() {
-  const location = useLocation(); // Use useLocation hook to get current location
   const [searchQuery, setSearchQuery] = useState("");
   const [notifications, setNotifications] = useState(0);
 
@@ -16,12 +14,8 @@ export default function Dashboard() {
     // For example, you can filter a list of items based on the search query
   };
 
-  // Check if the current location is "/dashboard"
-  const shouldRenderHeader = location.pathname === "/dashboard";
-
   return (
     <div id="dashboard" className="dash">
-      {shouldRenderHeader && ( // Render header only if current location is "/dashboard"
         <div className="dashhead">
           <ul className="headwrap">
             <li className="hom">
@@ -60,7 +54,6 @@ export default function Dashboard() {
             </li>
           </ul>
         </div>
-      )}
 
       <div className="dashbody">
         <div className="bocard">

@@ -61,7 +61,11 @@ const [email, setEmail] = useState("");
             </PasswordContainer>
             {passwordTouched && !isPasswordValid && <ErrorText>Password is required</ErrorText>} {/* Show error message if password is not provided */}
           </Inputcont>
-          <Button disabled={!isFormValid}><Link to="/dashboard">Login</Link></Button>
+          {isFormValid ? (
+          <Button><Link to="/dashboard">Login</Link></Button>
+        ) : (
+          <Button disabled>Login</Button>
+        )}
           <Loglink>
             <p>
               <Link to="/">Don't have an account</Link>
