@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { FaBars, FaBell } from "react-icons/fa";
-import SearchIcon from "./image/search.svg";
+import SearchIcon from "../image/search.svg";
 import "./Dashboard.css";
-import admin from "./image/admin.svg";
+import admin from "../image/admin.svg";
 import DashCard from "./DashCard";
 
-export default function Contact() {
+export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [notifications, setNotifications] = useState(0);
 
@@ -61,7 +61,7 @@ export default function Contact() {
 
       <div className="dashbody">
         <div className="bocard">
-          <ConCard />
+          <DashCard />
         </div>
       </div>
     </div>

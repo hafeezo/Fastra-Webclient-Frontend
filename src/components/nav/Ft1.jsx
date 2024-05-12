@@ -59,7 +59,7 @@ const T1wrap = styled.div`
   height: 90%;
   display: flex;
   align-items: center;
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 690px) {
     display: flex;
     width: 98%;
     height: 100%;
@@ -74,7 +74,7 @@ const Dgen = styled.div`
   width: 65%;
   height: 95%;
   display: flex;
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 690px) {
     display: flex;
     width: 100%;
     height: 60%;
@@ -87,7 +87,6 @@ const D11 = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  line-height: 5px;
   .log {
     width: 121.83px;
     height: 40px;
@@ -100,8 +99,12 @@ const D11 = styled.div`
     font-weight: 400;
     line-height: 2rem;
     list-style: none;
+    margin-bottom: 2rem;
     @media screen and (max-width: 316px) {
       font-size: 0.6rem;
+    }
+    @media screen and (max-width: 690px) {
+      margin-bottom: 0;
     }
   }
 `;
@@ -117,7 +120,7 @@ const D12 = styled.div`
     font-size: 1rem;
     font-weight: 500;
   }
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 690px) {
     line-height: 3rem;
   }
   @media screen and (max-width: 430px) {
@@ -134,7 +137,7 @@ const D12a = styled.div`
   justify-content: space-between;
   gap: 4rem;
   line-height: 3rem;
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 690px) {
     gap: 2rem;
     line-height: 2rem;
   }
@@ -180,7 +183,7 @@ const D13 = styled.div`
     display: flex;
     flex-direction: column;
     line-height: 5rem;
-    @media screen and (max-width: 640px){
+    @media screen and (max-width: 690px){
         display: flex;
         width: 100%;
         height: 40%;
@@ -198,7 +201,7 @@ form{
     justify-content: center;
     height: 25%;
     width: 100%;
-    @media screen and (max-width: 640px){
+    @media screen and (max-width: 690px){
         width: 60%;
         height: 60%;
     }

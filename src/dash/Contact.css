@@ -1,7 +1,7 @@
 .dash {
     height: 100vh;
     width: 100%;
-    background-image: url("./image/bg.svg");
+    background-image: url("../image/bg.svg");
     background-size: contain;
     margin: 0;
     padding: 0;
