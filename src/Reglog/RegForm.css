@@ -142,20 +142,15 @@
   font-size: 14px;
   color: #3b7ced;
   text-decoration: none;
-  margin-top: 1.5rem;
-  :link {
-    color: #3b7ced;
-    text-decoration: none;
-  }
-  :visited {
-    color: #3b7ced;
-    text-decoration: none;
-  }
-  :hover {
-    color: #3b7ced;
-    text-decoration: none;
-  }
 }
+  .goin:link,
+  .goin:visited,
+  .goin:hover,
+  .goin:focus {
+    font-size: 14px;
+    color: #3b7ced;
+    text-decoration: none;
+  }
 .butn {
   margin-top: 1.5rem;
   background: #3b7ced;
@@ -165,6 +160,7 @@
   border: none;
   border-radius: 0.5rem;
   text-decoration: none;
+  margin-bottom: 1rem;
 }
 .butn a:link {
   color: #fff;

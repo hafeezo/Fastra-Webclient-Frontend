@@ -127,9 +127,9 @@ const StepOne = (props) => {
             Continue
           </button>
 
-          <p className="goin">
-            <Link to="/login">Already have account</Link>
-          </p>
+    
+            <Link to="/login" className="goin">Already have account</Link>
+    
         </Form>
       )}
     </Formik>
@@ -294,9 +294,8 @@ const StepTwo = (props) => {
             continue
           </button>
 
-          <p className="goin">
-            <Link to="/login">Already have account</Link>
-          </p>
+            <Link to="/login" className="goin">Already have account</Link>
+          
         </Form>
       )}
     </Formik>
