@@ -15,9 +15,7 @@ import settings from "./image/settings.svg";
 import app from "./image/app.svg";
 import dots from "./image/dots.svg";
 
-// Card component to display item information
 const Card = ({ name, description }) => {
-  // Determine the appropriate icon based on the item name
   let icon;
   switch (name) {
     case "Account":

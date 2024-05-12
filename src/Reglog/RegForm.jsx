@@ -1,8 +1,8 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./RegForm.css";
 import { Formik, Form, Field } from "formik";
 import { Link, useHistory } from "react-router-dom";
-import {FaEye, FaEyeSlash} from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function RegForm() {
   const [data, setData] = useState({
@@ -112,8 +112,8 @@ const StepOne = (props) => {
           <Field
             className={
               touched.companyEmail && errors.companyEmail
-              ? "inpt is-invalid"
-              : "inpt"
+                ? "inpt is-invalid"
+                : "inpt"
             }
             name="companyEmail"
             type="email"
@@ -135,8 +135,6 @@ const StepOne = (props) => {
     </Formik>
   );
 };
-
-
 
 const StepTwo = (props) => {
   const handleSubmit = (values) => {
@@ -222,7 +220,8 @@ const StepTwo = (props) => {
           <button
             className="togbutn"
             type="button"
-            onClick={togglePasswordVisibility}>
+            onClick={togglePasswordVisibility}
+          >
             {" "}
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
@@ -230,24 +229,51 @@ const StepTwo = (props) => {
             <div className="error">{errors.password}</div>
           ) : null}
 
-<ul className="password-criteria">
-  <li className={values.password && values.password.length >= 8 ? "fulfilled" : ""}>
-    At least 8 characters
-  </li>
-  <li className={values.password && /\d/.test(values.password) ? "fulfilled" : ""}>
-    At least one number
-  </li>
-  <li className={values.password && /[!@#$%^&*]/.test(values.password) ? "fulfilled" : ""}>
-    At least one special character
-  </li>
-  <li className={values.password && /[a-z]/.test(values.password) ? "fulfilled" : ""}>
-    At least one lowercase letter
-  </li>
-  <li className={values.password && /[A-Z]/.test(values.password) ? "fulfilled" : ""}>
-    At least one uppercase letter
-  </li>
-</ul>
-
+          <ul className="password-criteria">
+            <li
+              className={
+                values.password && values.password.length >= 8
+                  ? "fulfilled"
+                  : ""
+              }
+            >
+              At least 8 characters
+            </li>
+            <li
+              className={
+                values.password && /\d/.test(values.password) ? "fulfilled" : ""
+              }
+            >
+              At least one number
+            </li>
+            <li
+              className={
+                values.password && /[!@#$%^&*]/.test(values.password)
+                  ? "fulfilled"
+                  : ""
+              }
+            >
+              At least one special character
+            </li>
+            <li
+              className={
+                values.password && /[a-z]/.test(values.password)
+                  ? "fulfilled"
+                  : ""
+              }
+            >
+              At least one lowercase letter
+            </li>
+            <li
+              className={
+                values.password && /[A-Z]/.test(values.password)
+                  ? "fulfilled"
+                  : ""
+              }
+            >
+              At least one uppercase letter
+            </li>
+          </ul>
 
           <p className="lbl3">Confirm password</p>
           <Field

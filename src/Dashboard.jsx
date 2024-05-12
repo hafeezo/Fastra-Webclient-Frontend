@@ -16,44 +16,48 @@ export default function Dashboard() {
 
   return (
     <div id="dashboard" className="dash">
-        <div className="dashhead">
-          <ul className="headwrap">
-            <li className="hom">
-              <FaBars className="dashnav" />
-              <p>Home</p>
-            </li>
-            <li className="sash">
-              <div className="sashtag">
-                <label htmlFor="searchInput" className="sarch" onClick={handleSearch}>
-                  <img src={SearchIcon} alt="Search" className="sashnav" />
-                  <input
-                    id="searchInput"
-                    type="text"
-                    placeholder="Search..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="sashput"
-                  />
-                </label>
-              </div>
-            </li>
-            <li className="alert">
-              <div className="bell-icon-container">
-                <FaBell className="bell-icon" />
-                {notifications > 0 && (
-                  <span className="notification-count">{notifications}</span>
-                )}
-              </div>
-            </li>
-            <li className="admin">
-              <img src={admin} alt="admin" className="adminimg" />
-              <div className="adminname">
-                <p className="ad1">Administrator</p>
-                <p className="ad2">info@companyname.com</p>
-              </div>
-            </li>
-          </ul>
-        </div>
+      <div className="dashhead">
+        <ul className="headwrap">
+          <li className="hom">
+            <FaBars className="dashnav" />
+            <p>Home</p>
+          </li>
+          <li className="sash">
+            <div className="sashtag">
+              <label
+                htmlFor="searchInput"
+                className="sarch"
+                onClick={handleSearch}
+              >
+                <img src={SearchIcon} alt="Search" className="sashnav" />
+                <input
+                  id="searchInput"
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="sashput"
+                />
+              </label>
+            </div>
+          </li>
+          <li className="alert">
+            <div className="bell-icon-container">
+              <FaBell className="bell-icon" />
+              {notifications > 0 && (
+                <span className="notification-count">{notifications}</span>
+              )}
+            </div>
+          </li>
+          <li className="admin">
+            <img src={admin} alt="admin" className="adminimg" />
+            <div className="adminname">
+              <p className="ad1">Administrator</p>
+              <p className="ad2">info@companyname.com</p>
+            </div>
+          </li>
+        </ul>
+      </div>
 
       <div className="dashbody">
         <div className="bocard">
