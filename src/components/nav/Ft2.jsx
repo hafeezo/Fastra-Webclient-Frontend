@@ -37,6 +37,12 @@ height: 95%;
     justify-content: space-between;
     font-size: 0.8rem;
     margin-top: 0.8rem;
+@media screen and (max-width: 429px) and (min-width: 322px){
+    font-size: 0.6rem;
+}
+@media screen and (max-width: 321px) and (min-width: 280px){
+    font-size: 0.5rem;
+}
 }
 .d22{
     width: 13%;

@@ -1,100 +1,159 @@
-import styled from "styled-components"
-import Logo from '../../image/logo2.svg'
+import styled from "styled-components";
+import Logo from "../../image/logo2.svg";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 export default function Ft1() {
   return (
     <T1>
-        <T1wrap>
-        <div className="d11">
-            <img src={Logo} alt="Fastra Suite" className="log"/>
-            <p>+234 801 234 5679</p>
-            <p>info@fasrasuite.com</p>
-        </div>
-        <div className="d12">
+      <T1wrap>
+        <Dgen>
+          <D11>
+            <img src={Logo} alt="Fastra Suite" className="log" />
+            <ul>
+              <li>+234 801 234 5679</li>
+              <li>info@fasrasuite.com</li>
+            </ul>
+          </D11>
+          <D12>
             <p className="qk">Quick Links</p>
-            <div className="d12a">
-                <div className="d12b">
-                    <a href='#product'>Product</a>
-                    <a href='#company'>Company</a>
-                </div>
-                    <div className="d12b">
-                    <a href='#info'>Information</a>
-                    <a href='#fastrasuites'>FastraSuite</a>
-                </div>
-            </div>
-        </div>
-        <div className="d13">
-            <p className="qk">Subscribe</p>
-            <form action="#">
-            <input className="in" type="text" placeholder="Get product update" name="EmailAddress"/>
-            <button className="btn"><FaArrowRightLong/></button>
-            </form>
-            </div></T1wrap>
+            <D12a>
+              <D12b>
+                <a href="#product">Product</a>
+                <a href="#company">Company</a>
+              </D12b>
+              <D12b>
+                <a href="#info">Information</a>
+                <a href="#fastrasuites">FastraSuite</a>
+              </D12b>
+            </D12a>
+          </D12>
+        </Dgen>
+        <D13>
+          <p className="sub">Subscribe</p>
+          <form action="#">
+            <input
+              className="in"
+              type="text"
+              placeholder="Get product update"
+              name="EmailAddress"
+            />
+            <button className="btn">
+              <FaArrowRightLong />
+            </button>
+          </form>
+        </D13>
+      </T1wrap>
     </T1>
-  )
+  );
 }
 
 const T1 = styled.div`
-width: 100%;
-height: 80%;
-display: flex;
-align-items: center;
-justify-content: center;
-`
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 const T1wrap = styled.div`
-width: 98%;
-height: 90%;
-display: flex;
-align-items: center;
-justify-content: space-between;
-.d11{
-    width: 30%;
-    height: 95%;
+  width: 98%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: 640px) {
     display: flex;
+    width: 98%;
+    height: 100%;
+    align-items: center;
     flex-direction: column;
-    justify-content: space-around;
-    margin-top: -0.5rem;
-    line-height: 5px;
-.log{
-    margin-bottom: 1px;
+    @media screen and (max-width: 400px){
+        width: 100%;
+        height: 100%;
+    }
+`;
+const Dgen = styled.div`
+  width: 65%;
+  height: 95%;
+  display: flex;
+  @media screen and (max-width: 640px) {
+    display: flex;
+    width: 100%;
+    height: 60%;
+    align-items: center;
+  }
+`;
+const D11 = styled.div`
+  width: 45%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  line-height: 5px;
+  .log {
     width: 121.83px;
     height: 40px;
-}
-p{
+    @media screen and (max-width: 700px) {
+      width: 70%;
+    }
+  }
+  ul {
     font-size: 0.8rem;
     font-weight: 400;
-    line-height: 2px;
-}
-}
-.d12{
-    width: 30%;
-    height: 95%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 1rem;
-    margin-left: -5rem;
-    margin-top: -1.3rem;
-.qk{
+    line-height: 2rem;
+    list-style: none;
+    @media screen and (max-width: 316px) {
+      font-size: 0.6rem;
+    }
+  }
+`;
+const D12 = styled.div`
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 4rem;
+  .qk {
     font-size: 1rem;
     font-weight: 500;
-}
-.d12a{
-    width: 65%;
-    height: 70%;
+  }
+  @media screen and (max-width: 640px) {
+    line-height: 3rem;
+  }
+  @media screen and (max-width: 430px) {
+    line-height: 2rem;
     display: flex;
-    justify-content: space-between;
-    gap: 1.5rem;
-    line-height: 1.5rem;
-.d12b{
+    align-items: end;
+    text-align: right;
+  }
+`;
+const D12a = styled.div`
+  width: 65%;
+  height: 70%;
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+  line-height: 3rem;
+  @media screen and (max-width: 640px) {
+    gap: 2rem;
+    line-height: 2rem;
+  }
+  @media screen and (max-width: 430px) {
     display: flex;
     flex-direction: column;
+    gap: 0;
+  }
+`;
+const D12b = styled.div`
+    display: flex;
+    flex-direction: column;
+    
 a{
     font-size: 0.8rem;
     opacity: 60%;
     text-decoration: none;
     color: #fff;
+    
 :link{
     text-decoration: none;
     opacity: 60%;
@@ -108,50 +167,57 @@ a{
     opacity: 60%;
     color: #fff;
 }
+
 }
 }
 }
 }
 }
-}
-.d13{
-    width: 30%;
+`;
+const D13 = styled.div`
+ width: 35%;
     height: 95%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    line-height: 5px;
-    margin-top: -3rem;
-    margin-right: -7.5rem;
-@media (min-width: 541px) and (max-width: 1350px) {
-    margin-right: -3rem;
-    text-align: left;
-}
-.qk{
+    line-height: 5rem;
+    @media screen and (max-width: 640px){
+        display: flex;
+        width: 100%;
+        height: 40%;
+        align-items: start;
+        justify-content: start;
+        line-height: 2rem;
+        }
+.sub{
     font-size: 1rem;
     font-weight: 500;
-@media (min-width: 541px) and (max-width: 1350px) {
-    margin-left: -3rem;
-}
 }
 form{
     display: flex;
     align-items: center;
-@media (min-width: 541px) and (max-width: 1350px) {
-    margin-left: -3rem;
-}
+    justify-content: center;
+    height: 25%;
+    width: 100%;
+    @media screen and (max-width: 640px){
+        width: 60%;
+        height: 60%;
+    }
 .in{
-    height: 34px;
+    height: 95%;
+    width: 80%;
     border: none;
     border-radius: 5px;
     padding-left: 1rem;
     font-size: 0.8rem;
     font-weight: 400;
     border-radius: 8px 0px 0px 8px;
+    @media screen and (max-width: 338px){
+    font-size: 0.6rem;
+    }
 }
 .btn{
-    width: 56px;
-    height: 36px;
+    width: 20%;
+    height: 95%;
     background: #3b7ced;
     border: none;
     border-radius: 0px 8px 8px 0px;
@@ -159,7 +225,12 @@ form{
     align-items: center;
     justify-content: center;
     color: white;
+    font-size: 0.8rem;
+    @media screen and (max-width: 338px){
+        font-size: 0.7rem;
+    width: 25%;
+        }
 }
 }
 }
-`
+`;
