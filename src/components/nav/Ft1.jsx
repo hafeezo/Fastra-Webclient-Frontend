@@ -11,7 +11,7 @@ export default function Ft1() {
             <img src={Logo} alt="Fastra Suite" className="log" />
             <ul>
               <li>+234 801 234 5679</li>
-              <li>info@fasrasuite.com</li>
+              <li>info@fastrasuite.com</li>
             </ul>
           </D11>
           <D12>
