@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Register from "./Reglog/Register";
 import Login from "./Reglog/Login";
-import Dashboard from "./Dashboard";
+import Dashboard from "./dash/Dashboard";
 import GlobalStyle from "./GlobalStyle";
 
 function App() {

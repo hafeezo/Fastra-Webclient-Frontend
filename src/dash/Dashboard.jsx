@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FaBars, FaBell } from "react-icons/fa";
-import SearchIcon from "./image/search.svg";
+import SearchIcon from "../image/search.svg";
 import "./Dashboard.css";
-import admin from "./image/admin.svg";
+import admin from "../image/admin.svg";
 import DashCard from "./DashCard";
 
 export default function Dashboard() {
