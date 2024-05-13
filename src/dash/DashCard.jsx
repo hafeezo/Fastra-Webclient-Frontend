@@ -54,11 +54,11 @@ const Card = ({ name, description }) => {
     case "Reports":
       icon = report;
       break;
-    case "Settings":
-      icon = settings;
-      break;
     case "App":
       icon = app;
+      break;
+    case "Settings":
+      icon = settings;
       break;
     default:
       icon = null;
@@ -102,10 +102,10 @@ const Card = ({ name, description }) => {
     case "Reports":
       icon2 = dots;
       break;
-    case "Settings":
+    case "App":
       icon2 = dots;
       break;
-    case "App":
+    case "Settings":
       icon2 = dots;
       break;
     default:
@@ -117,8 +117,8 @@ const Card = ({ name, description }) => {
     <div className="card">
       {icon && <img src={icon} alt={name} />}
       <div className="cardtext">
-        <h3>{name}</h3>
-        <p>{description}</p>
+        <h3 className="cardhed">{name}</h3>
+        <p className="cardesc">{description}</p>
       </div>
       {icon2 && <img src={icon2} alt={name} />}
     </div>
@@ -187,14 +187,14 @@ const fastra = [
       "Generate customizable reports, analyze key performance metrics, and gain actionable insights to support data-driven decision-making and business optimization.",
   },
   {
-    name: "Settings",
-    description:
-      "Configure system preferences, manage user permissions, and customize application settings to align with organizational requirements and user preferences.",
-  },
-  {
     name: "App",
     description:
       "Explore additional applications and integrations to extend the functionality of the Fastra suite and address specific business needs and requirements.",
+  },
+  {
+    name: "Settings",
+    description:
+      "Configure system preferences, manage user permissions, and customize application settings to align with organizational requirements and user preferences.",
   },
 ];
 

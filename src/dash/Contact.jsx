@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaBars, FaBell } from "react-icons/fa";
+import { FaBars, FaTimes, FaBell } from "react-icons/fa";
 import SearchIcon from "../image/search.svg";
 import "./Contact.css";
 import admin from "../image/admin.svg";
@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 export default function Contact() {
   const [searchQuery, setSearchQuery] = useState("");
   const [notifications, setNotifications] = useState(0);
+  const [showMenu, setShowMenu] = useState(false);
+
 
   const handleSearch = () => {
     // You can perform search operations here based on the search query
@@ -89,6 +91,7 @@ export default function Contact() {
         </Link>
       </div>
       <div className="conbody">
+        <div className="conbod"></div>
         <div className="concard">
           <ConCard />
         </div>

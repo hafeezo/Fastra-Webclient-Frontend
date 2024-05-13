@@ -45,7 +45,7 @@ export default function Navbar() {
               Help
             </a>
           </div>
-          <a href="#contact" className="but" onClick={handleLinkClick}>
+          <a href="#reach" className="but" onClick={handleLinkClick}>
             Contact Us
           </a>
         </div>
