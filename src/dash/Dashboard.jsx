@@ -1,25 +1,35 @@
 import React, { useState } from "react";
-import { FaBars, FaBell } from "react-icons/fa";
+import { FaBars, FaTimes, FaBell } from "react-icons/fa";
 import SearchIcon from "../image/search.svg";
 import "./Dashboard.css";
 import admin from "../image/admin.svg";
 import DashCard from "./DashCard";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [notifications, setNotifications] = useState(0);
+  const [showMenu, setShowMenu] = useState(false);
 
   const handleSearch = () => {
     // You can perform search operations here based on the search query
     // For example, you can filter a list of items based on the search query
   };
 
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
   return (
     <div id="dashboard" className="dash">
       <div className="dashhead">
         <ul className="headwrap">
-          <li className="hom">
-            <FaBars className="dashnav" />
+          <li className="hom" onClick={toggleMenu}>
+            {showMenu ? (
+              <FaTimes className="dashnav" />
+            ) : (
+              <FaBars className="dashnav" />
+            )}
             <p>Home</p>
           </li>
           <li className="sash">
@@ -57,6 +67,30 @@ export default function Dashboard() {
             </div>
           </li>
         </ul>
+      </div>
+
+      <div className={`navli ${showMenu ? "active" : ""}`}>
+        <Link
+          to="/dashboard"
+          className="navig"
+          onClick={() => setShowMenu(false)}
+        >
+          Home
+        </Link>
+        <Link
+          to="/contact"
+          className="navig"
+          onClick={() => setShowMenu(false)}
+        >
+          Contact
+        </Link>
+        <Link
+          to="/settings"
+          className="navig"
+          onClick={() => setShowMenu(false)}
+        >
+          Setting
+        </Link>
       </div>
 
       <div className="dashbody">

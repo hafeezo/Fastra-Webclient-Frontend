@@ -18,12 +18,12 @@ export default function Ft1() {
             <p className="qk">Quick Links</p>
             <D12a>
               <D12b>
-                <a href="#product">Product</a>
-                <a href="#company">Company</a>
+                <a  className='fn' href="#product">Product</a>
+                <a  className='fn' href="#company">Company</a>
               </D12b>
               <D12b>
-                <a href="#info">Information</a>
-                <a href="#fastrasuites">FastraSuite</a>
+                <a  className='fn' href="#info">Information</a>
+                <a  className='fn' href="#fastrasuites">FastraSuite</a>
               </D12b>
             </D12a>
           </D12>
@@ -151,7 +151,7 @@ const D12b = styled.div`
     display: flex;
     flex-direction: column;
     
-a{
+.fn{
     font-size: 0.8rem;
     opacity: 60%;
     text-decoration: none;
@@ -161,7 +161,7 @@ a{
     text-decoration: none;
     opacity: 60%;
     color: #fff;
-.mdnav:visited{
+:visited{
     text-decoration: none;
     opacity: 60%;
     color: #fff;
@@ -170,7 +170,6 @@ a{
     opacity: 60%;
     color: #fff;
 }
-
 }
 }
 }

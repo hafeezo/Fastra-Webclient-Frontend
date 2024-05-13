@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { FaBars, FaBell } from "react-icons/fa";
 import SearchIcon from "../image/search.svg";
-import "./Dashboard.css";
+import "./Contact.css";
 import admin from "../image/admin.svg";
-import DashCard from "./DashCard";
+import ConCard from "./ConCard";
+import { Link } from "react-router-dom";
 
-export default function Dashboard() {
+export default function Contact() {
   const [searchQuery, setSearchQuery] = useState("");
   const [notifications, setNotifications] = useState(0);
 
@@ -13,55 +14,83 @@ export default function Dashboard() {
     // You can perform search operations here based on the search query
     // For example, you can filter a list of items based on the search query
   };
-
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
   return (
-    <div id="dashboard" className="dash">
-      <div className="dashhead">
-        <ul className="headwrap">
-          <li className="hom">
-            <FaBars className="dashnav" />
-            <p>Home</p>
+    <div id="contact" className="con">
+      <div className="conhead">
+        <ul className="conwrap">
+          <li className="conhom" onClick={toggleMenu}>
+            {showMenu ? (
+              <FaTimes className="conav" />
+            ) : (
+              <FaBars className="conav" />
+            )}
+            <p>Contact</p>
           </li>
-          <li className="sash">
-            <div className="sashtag">
+          <li className="consash">
+            <div className="consashtag">
               <label
                 htmlFor="searchInput"
-                className="sarch"
+                className="consarch"
                 onClick={handleSearch}
               >
-                <img src={SearchIcon} alt="Search" className="sashnav" />
+                <img src={SearchIcon} alt="Search" className="consashnav" />
                 <input
                   id="searchInput"
                   type="text"
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="sashput"
+                  className="consashput"
                 />
               </label>
             </div>
           </li>
-          <li className="alert">
-            <div className="bell-icon-container">
-              <FaBell className="bell-icon" />
+          <li className="conlert">
+            <div className="conbell-icon-container">
+              <FaBell className="conbell-icon" />
               {notifications > 0 && (
-                <span className="notification-count">{notifications}</span>
+                <span className="conotification-count">{notifications}</span>
               )}
             </div>
           </li>
-          <li className="admin">
-            <img src={admin} alt="admin" className="adminimg" />
-            <div className="adminname">
-              <p className="ad1">Administrator</p>
-              <p className="ad2">info@companyname.com</p>
+          <li className="condmin">
+            <img src={admin} alt="admin" className="condminimg" />
+            <div className="codminname">
+              <p className="cond1">Administrator</p>
+              <p className="cond2">info@companyname.com</p>
             </div>
           </li>
         </ul>
       </div>
-
-      <div className="dashbody">
-        <div className="bocard">
-          <DashCard />
+      <div className={`navli ${showMenu ? "active" : ""}`}>
+        <Link
+          to="/dashboard"
+          className="navig"
+          onClick={() => setShowMenu(false)}
+        >
+          Home
+        </Link>
+        <Link
+          to="/contact"
+          className="navig"
+          onClick={() => setShowMenu(false)}
+        >
+          Contact
+        </Link>
+        <Link
+          to="/settings"
+          className="navig"
+          onClick={() => setShowMenu(false)}
+        >
+          Setting
+        </Link>
+      </div>
+      <div className="conbody">
+        <div className="concard">
+          <ConCard />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-.dash {
+.con {
     height: 100vh;
     width: 100%;
     background-image: url("../image/bg.svg");
@@ -8,7 +8,7 @@
     font-family: Product Sans;
   }
   
-  .dashhead {
+  .conhead {
     width: 100%;
     height: 10%;
     display: flex;
@@ -20,7 +20,7 @@
     }
   }
   
-  .headwrap {
+  .conwrap {
     width: 100%;
     height: 95%;
     display: flex;
@@ -38,7 +38,7 @@
     }
   }
   
-  .hom {
+  .conhom {
     width: 15%;
     height: 100%;
     display: flex;
@@ -60,15 +60,52 @@
       gap: 0.5rem;
     }
   }
-  
-  .dashnav {
+  .navli {
+    position: absolute;
+    top: 4.5rem;
+    left: -100%;
+    height: 4%;
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: left 1.5s ease-in-out;
+    @media screen and (max-width: 830px) and (min-width: 500px){
+      width: 40%;
+    }
+    @media screen and (max-width: 499px) and (min-width: 300px){
+      width: 60%;
+    }
+}
+.navli.active {
+  left: 1.7rem;
+}
+.navig{
+  font-size: 1rem;
+  text-decoration: none;
+  color: #3b7ced;
+
+  :link{
+    text-decoration: none;
+    color: #3b7ced;
+:visited{
+    text-decoration: none;
+    color: #3b7ced;
+:hover{
+    text-decoration: none;
+    color: #3b7ced;
+}
+} 
+}
+}
+  .conav {
     color: #3b7ced;
     @media screen and (max-width: 539px) and (min-width: 300px) {
       margin-right: -1rem;
     }
   }
   
-  .sash {
+  .consash {
     width: 60%;
     height: 100%;
     display: flex;
@@ -93,11 +130,11 @@
     }
   }
   
-  .sashtag {
+  .consashtag {
     width: 90%;
   }
   
-  .sashput {
+  .consashput {
     width: 100%;
     height: 100%;
     outline: none;
@@ -107,7 +144,7 @@
       outline: none;
     }
   }
-  .sarch {
+  .consarch {
     display: flex;
     width: 100%;
     height: 100%;
@@ -123,7 +160,7 @@
       margin-left: 0.3rem;
     }
   }
-  .sashnav {
+  .cosashnav {
     width: 22px;
     height: 22px;
     color: #3b7ced;
@@ -133,7 +170,7 @@
     }
   }
   
-  .alert {
+  .conlert {
     width: 5%;
     height: 100%;
     border-right: 1px solid rgba(0, 0, 0, 0.2);
@@ -145,11 +182,11 @@
     }
   }
   
-  .bell-icon-container {
+  .conbell-icon-container {
     position: relative;
   }
   
-  .notification-count {
+  .conotification-count {
     position: absolute;
     top: -8px;
     right: -8px;
@@ -160,7 +197,7 @@
     font-size: 10px;
   }
   
-  .admin {
+  .condmin {
     width: 20%;
     height: 100%;
     display: flex;
@@ -196,10 +233,10 @@
     }
   }
   
-  .adminname {
+  .condminname {
     margin-top: -0.6rem;
   }
-  .adminimg {
+  .condminimg {
     width: 40px;
     height: 40px;
     @media screen and (max-width: 419px) and (min-width: 300px) {
@@ -208,7 +245,7 @@
       margin-left: -1rem;
     }
   }
-  .ad1 {
+  .cond1 {
     font-family: Product Sans Medium;
     font-size: 20px;
     font-weight: 500;
@@ -219,7 +256,7 @@
       font-size: 16px;
     }
   }
-  .ad2 {
+  .cond2 {
     font-size: 10px;
     font-weight: 400;
     line-height: 12.13px;
@@ -229,7 +266,7 @@
     }
   }
   
-  .dashbody {
+  .conbody {
     width: 100%;
     height: 90%;
     display: flex;
@@ -237,7 +274,7 @@
     justify-content: center;
   }
   
-  .bocard {
+  .concard {
     width: 95%;
     height: 100%;
   }
