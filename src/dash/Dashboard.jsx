@@ -78,6 +78,13 @@ export default function Dashboard() {
           Home
         </Link>
         <Link
+          to="/purchase"
+          className="navig"
+          onClick={() => setShowMenu(false)}
+        >
+          Purchase
+        </Link>
+        <Link
           to="/contact"
           className="navig"
           onClick={() => setShowMenu(false)}

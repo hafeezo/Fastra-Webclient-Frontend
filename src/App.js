@@ -5,6 +5,7 @@ import Dashboard from "./dash/Dashboard";
 import GlobalStyle from "./GlobalStyle";
 import Contact from "./dash/Contact";
 import Settings from "./dash/Settings";
+import Purchase from "./dash/Purchase";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route exact path="/" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/purchase" component={Purchase} />
           <Route path="/contact" component={Contact} />
           <Route path="/settings" component={Settings} />
         </Switch>

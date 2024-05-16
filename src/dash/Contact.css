@@ -70,6 +70,7 @@
     justify-content: space-around;
     align-items: center;
     transition: left 1.5s ease-in-out;
+    gap: 1rem;
     @media screen and (max-width: 830px) and (min-width: 500px){
       width: 40%;
     }
