@@ -3,6 +3,7 @@ import "./Purchreq.css";
 import SearchIcon from "../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
+import Listview from "./Listview";
 
 export default function Purchreq() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,6 +20,8 @@ export default function Purchreq() {
   const items = [
     {
       id: "PR00001",
+      product: "Laptop Keyboard & Mouse",
+      qty: "4",
       amount: "2,600,000",
       name: "Firstname Lastname",
       role: "Sales",
@@ -26,6 +29,8 @@ export default function Purchreq() {
     },
     {
       id: "PR00002",
+      product: "Laptop",
+      qty: "4",
       amount: "2,400,000",
       name: "Firstname Lastname",
       role: "Sales",
@@ -33,6 +38,8 @@ export default function Purchreq() {
     },
     {
       id: "PR00003",
+      product: "Keyboard & Mouse",
+      qty: "4",
       amount: "200,000",
       name: "Firstname Lastname",
       role: "Sales",
@@ -40,6 +47,8 @@ export default function Purchreq() {
     },
     {
       id: "PR00004",
+      product: "Laptop",
+      qty: "4",
       amount: "2,400,000",
       name: "Firstname Lastname",
       role: "Sales",
@@ -47,6 +56,8 @@ export default function Purchreq() {
     },
     {
       id: "PR00005",
+      product: "Laptop",
+      qty: "4",
       amount: "2,400,000",
       name: "Firstname Lastname",
       role: "Sales",
@@ -54,6 +65,8 @@ export default function Purchreq() {
     },
     {
       id: "PR00006",
+      product: "Laptop",
+      qty: "4",
       amount: "2,400,000",
       name: "Firstname Lastname",
       role: "Sales",
@@ -207,19 +220,35 @@ export default function Purchreq() {
               ))}
             </div>
           ) : (
-            <div className="prq-list">
-              {items.map((item) => (
-                <div className="prq4lv" key={item.id}>
-                  <p className="cardid">{item.id}</p>
-                  <p className="cardnum">{item.amount}</p>
-                  <p className="refname">{item.name}</p>
-                  <p className="sales">{item.role}</p>
-                  <p className="status">
-                    <strong style={{ fontSize: "20px" }}>&#x2022;</strong>{" "}
-                    {item.status}
-                  </p>
+            <div className="prq4lv">
+              <Listview/>
+              {/* {items.map((item) => (
+                <div className="lvlist" >
+                  <table>
+                    <tr>
+                      <th>Request ID</th>
+                      <th>Product Name</th>
+                      <th>Qty</th>
+                      <th>Amount</th>
+                      <th>Requester</th>
+                      <th>Department</th>
+                      <th>Status</th>
+                    </tr>
+                    <tr key={item.id}>
+                    <td className="cardid">{item.id}</td>
+                    <td className="pronam">{item.product}</td>
+                    <td className="quant">{item.qty}</td>
+                    <td className="cardnum">{item.amount}</td>
+                    <td className="refname">{item.name}</td>
+                    <td className="sales">{item.role}</td>
+                    <td className="status">
+                      <strong style={{ fontSize: "20px" }}>&#x2022;</strong>{" "}
+                      {item.status}
+                    </td>
+                    </tr>
+                  </table>
                 </div>
-              ))}
+              ))} */}
             </div>
           )}
         </div>
