@@ -12,7 +12,7 @@ export default function PRQ() {
 }
 
 const Purcont = styled.div`
-  height: 100vh;
+  height: 120vh;
   width: 100%;
   background-image: url(${Bg});
   background-size: contain;
