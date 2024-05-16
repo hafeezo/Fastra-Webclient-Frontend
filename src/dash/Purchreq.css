@@ -144,10 +144,10 @@
   background-color: white;
   border-radius: 4px;
 }
-.lr{
-    width: 80%;
-    height: 80%;
-    color: gray;
+.lr {
+  width: 80%;
+  height: 80%;
+  color: gray;
 }
 .p3bview {
   border: 1.2px solid #e2e6e9;
@@ -158,8 +158,13 @@
   background-color: white;
   border-radius: 4px;
 }
-.grid{
-    width: 50%;
-    height: 50%;
-    color: #3b7ced;
+.grid {
+  width: 50%;
+  height: 50%;
+  color: #3b7ced;
+}
+.stroke {
+  width: 2%;
+  height: 100%;
+  border-left: 1px solid #e2e6e9;
 }
