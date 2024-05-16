@@ -10,7 +10,56 @@ export default function Purchreq() {
   const [approvedCount, setApprovedCount] = useState(12); // Change the final value here
   const [pendingCount, setPendingCount] = useState(12);
   const [rejectedCount, setRejectedCount] = useState(12);
+  const [viewMode, setViewMode] = useState("grid");
 
+  const toggleViewMode = (mode) => {
+    setViewMode(mode);
+  };
+
+  const items = [
+    {
+      id: "PR00001",
+      amount: "2,600,000",
+      name: "Firstname Lastname",
+      role: "Sales",
+      status: "Approved",
+    },
+    {
+      id: "PR00002",
+      amount: "2,400,000",
+      name: "Firstname Lastname",
+      role: "Sales",
+      status: "Pending",
+    },
+    {
+      id: "PR00003",
+      amount: "200,000",
+      name: "Firstname Lastname",
+      role: "Sales",
+      status: "Rejected",
+    },
+    {
+      id: "PR00004",
+      amount: "2,400,000",
+      name: "Firstname Lastname",
+      role: "Sales",
+      status: "Approved",
+    },
+    {
+      id: "PR00005",
+      amount: "2,400,000",
+      name: "Firstname Lastname",
+      role: "Sales",
+      status: "Rejected",
+    },
+    {
+      id: "PR00006",
+      amount: "2,400,000",
+      name: "Firstname Lastname",
+      role: "Sales",
+      status: "Rejected",
+    },
+  ];
   const incrementCounts = () => {
     const increment = 1;
     const interval = 100; // Interval in milliseconds
@@ -130,56 +179,49 @@ export default function Purchreq() {
                 <FaCaretRight className="lr" />
               </div>
               <div className="p3bview">
-                <IoGrid className="grid" />
+                <IoGrid
+                  className={`grid ${viewMode === "grid" ? "active" : ""}`}
+                  onClick={() => toggleViewMode("grid")}
+                />
                 <div className="stroke"></div>
-                <FaBars className="grid" />
+                <FaBars
+                  className={`grid ${viewMode === "list" ? "active" : ""}`}
+                  onClick={() => toggleViewMode("list")}
+                />
               </div>
             </div>
           </div>
-          <div className="prq4">
-            <div className="prqcard">
-              <p className="cardid">PR00001</p>
-              <p className="cardnum">2,600,000</p>
-              <p className="refname">Firstname Lastname</p>
-              <p className="sales">Sales</p>
-              <p className="status">Approved</p>
+          {viewMode === "grid" ? (
+            <div className="prq4">
+              {items.map((item) => (
+                <div className="prq4gv" key={item.id}>
+                  <p className="cardid">{item.id}</p>
+                  <p className="cardnum">{item.amount}</p>
+                  <p className="refname">{item.name}</p>
+                  <p className="sales">{item.role}</p>
+                  <p className="status">
+                    <strong style={{ fontSize: "20px" }}>&#x2022;</strong>{" "}
+                    {item.status}
+                  </p>
+                </div>
+              ))}
             </div>
-            <div className="prqcard">
-              <p className="cardid">PR00002</p>
-              <p className="cardnum">2,400,000</p>
-              <p className="refname">Firstname Lastname</p>
-              <p className="sales">Sales</p>
-              <p className="status">Pending</p>
+          ) : (
+            <div className="prq-list">
+              {items.map((item) => (
+                <div className="prq4lv" key={item.id}>
+                  <p className="cardid">{item.id}</p>
+                  <p className="cardnum">{item.amount}</p>
+                  <p className="refname">{item.name}</p>
+                  <p className="sales">{item.role}</p>
+                  <p className="status">
+                    <strong style={{ fontSize: "20px" }}>&#x2022;</strong>{" "}
+                    {item.status}
+                  </p>
+                </div>
+              ))}
             </div>
-            <div className="prqcard">
-              <p className="cardid">PR00003</p>
-              <p className="cardnum">200,000</p>
-              <p className="refname">Firstname Lastname</p>
-              <p className="sales">Sales</p>
-              <p className="status">Rejected</p>
-            </div>
-            <div className="prqcard">
-              <p className="cardid">PR00004</p>
-              <p className="cardnum">2,400,000</p>
-              <p className="refname">Firstname Lastname</p>
-              <p className="sales">Sales</p>
-              <p className="status">Approved</p>
-            </div>
-            <div className="prqcard">
-              <p className="cardid">PR00005</p>
-              <p className="cardnum">2,400,000</p>
-              <p className="refname">Firstname Lastname</p>
-              <p className="sales">Sales</p>
-              <p className="status">Draft</p>
-            </div>
-            <div className="prqcard">
-              <p className="cardid">PR00006</p>
-              <p className="cardnum">2,400,000</p>
-              <p className="refname">Firstname Lastname</p>
-              <p className="sales">Sales</p>
-              <p className="status">rejected</p>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

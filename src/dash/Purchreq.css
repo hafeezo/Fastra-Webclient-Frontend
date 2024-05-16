@@ -74,7 +74,7 @@
   display: flex;
   align-items: center;
   gap: 30rem;
-  margin-top: 1.5rem;
+  margin-top: 2.5rem;
 }
 .p3a {
   display: flex;
@@ -176,14 +176,15 @@
   align-items: flex-start;
   gap: 2.8rem;
 }
-.prqcard {
+.prq4gv {
   width: 17%;
-  height: 50%;
+  height: 60%;
   background-color: white;
   border: 1px solid #e2e6e9;
   border-radius: 4px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   flex-direction: column;
+  gap: 0.4rem;
 }
