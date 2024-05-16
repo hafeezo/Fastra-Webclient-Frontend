@@ -136,6 +136,50 @@ export default function Purchreq() {
               </div>
             </div>
           </div>
+          <div className="prq4">
+            <div className="prqcard">
+              <p className="cardid">PR00001</p>
+              <p className="cardnum">2,600,000</p>
+              <p className="refname">Firstname Lastname</p>
+              <p className="sales">Sales</p>
+              <p className="status">Approved</p>
+            </div>
+            <div className="prqcard">
+              <p className="cardid">PR00002</p>
+              <p className="cardnum">2,400,000</p>
+              <p className="refname">Firstname Lastname</p>
+              <p className="sales">Sales</p>
+              <p className="status">Pending</p>
+            </div>
+            <div className="prqcard">
+              <p className="cardid">PR00003</p>
+              <p className="cardnum">200,000</p>
+              <p className="refname">Firstname Lastname</p>
+              <p className="sales">Sales</p>
+              <p className="status">Rejected</p>
+            </div>
+            <div className="prqcard">
+              <p className="cardid">PR00004</p>
+              <p className="cardnum">2,400,000</p>
+              <p className="refname">Firstname Lastname</p>
+              <p className="sales">Sales</p>
+              <p className="status">Approved</p>
+            </div>
+            <div className="prqcard">
+              <p className="cardid">PR00005</p>
+              <p className="cardnum">2,400,000</p>
+              <p className="refname">Firstname Lastname</p>
+              <p className="sales">Sales</p>
+              <p className="status">Draft</p>
+            </div>
+            <div className="prqcard">
+              <p className="cardid">PR00006</p>
+              <p className="cardnum">2,400,000</p>
+              <p className="refname">Firstname Lastname</p>
+              <p className="sales">Sales</p>
+              <p className="status">rejected</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
