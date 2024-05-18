@@ -7,6 +7,7 @@ import { IoGrid } from "react-icons/io5";
 import Listview from "../Listview";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import IconButton from "@mui/material/IconButton";
+import Npr from "./R-form";
 
 export default function Purchreq() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,6 +17,7 @@ export default function Purchreq() {
   const [rejectedCount, setRejectedCount] = useState(12);
   const [viewMode, setViewMode] = useState("grid");
   const [filteredItems, setFilteredItems] = useState([]);
+  const [isFormVisible, setIsFormVisible] = useState(false); // State to track form visibility
 
   const toggleViewMode = (mode) => {
     setViewMode(mode);
@@ -70,13 +72,13 @@ export default function Purchreq() {
   const getStatusColor = (status) => {
     switch (status) {
       case "vendor selected":
-        return "#2ba24c";
+        return "#2ba24c"; // Green color
       case "Awaiting vendor selection":
-        return "#f0b501";
+        return "#f0b501"; // Yellow color
       case "Cancelled":
-        return "#e43e2b";
+        return "#e43e2b"; // Red color
       default:
-        return "#7a8a98";
+        return "#7a8a98"; // Default color for other statuses
     }
   };
 
@@ -150,6 +152,20 @@ export default function Purchreq() {
     }
   };
 
+  const handleNewRfq = () => {
+    setIsFormVisible(true); // Show the form
+  };
+
+  const handleFormSubmit = (formData) => {
+    // Here you can handle the form data (e.g., send it to an API)
+    console.log("Form data submitted:", formData);
+    setIsFormVisible(false); // Hide the form and show the cards view
+  };
+
+  const handleFormClose = () => {
+    setIsFormVisible(false); // Close the form without submitting
+  };
+
   return (
     <div className="prq">
       <Header />
@@ -178,7 +194,9 @@ export default function Purchreq() {
           </div>
           <div className="prq3">
             <div className="p3a">
-              <p className="Rfqbtn">New RFQ</p>
+              <button className="Rfqbtn" onClick={handleNewRfq}>
+                New RFQ
+              </button>
               <div className="prqsash">
                 <label
                   htmlFor="searchInput"
@@ -197,7 +215,10 @@ export default function Purchreq() {
                 </label>
               </div>
             </div>
-            <div className="p3b">
+            <div
+              className="p3b
+"
+            >
               <p className="p3bpage">1-2 of 2</p>
               <div className="p3bnav">
                 <FaCaretLeft className="lr" />
@@ -217,7 +238,9 @@ export default function Purchreq() {
               </div>
             </div>
           </div>
-          {viewMode === "grid" ? (
+          {isFormVisible ? (
+            <Npr onClose={handleFormClose} onSubmit={handleFormSubmit} />
+          ) : viewMode === "grid" ? (
             <div className="prq4">
               {filteredItems.map((item) => (
                 <div className="prq4gv" key={item.id}>
@@ -240,28 +263,20 @@ export default function Purchreq() {
                       item.vendorName
                     )}
                   </p>
-                  <p className="date">{item.date}</p>
+                  <p className="carddate">{item.date}</p>
                   <p
                     className="status"
-                    style={{ color: getStatusColor(item.status) }}
+                    style={{
+                      color: getStatusColor(item.status), // Changed to set text color only
+                    }}
                   >
-                    <strong
-                      style={{
-                        fontSize: "20px",
-                        color: getStatusColor(item.status),
-                      }}
-                    >
-                      &#x2022;
-                    </strong>{" "}
                     {item.status}
                   </p>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="prq4lv">
-              <Listview items={filteredItems} />
-            </div>
+            <Listview items={filteredItems} />
           )}
         </div>
       </div>

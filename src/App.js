@@ -1,3 +1,4 @@
+// src/App.js
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Register from "./Reglog/Register";
 import Login from "./Reglog/Login";
@@ -7,6 +8,7 @@ import Contact from "./dash/Contact";
 import Settings from "./dash/Settings";
 import Purchase from "./dash/Purchase";
 import Rfq from "../src/dash/Rfq/Rfq";
+import RForm from "../src/dash/Rfq/R-form"; 
 
 function App() {
   return (
@@ -21,7 +23,7 @@ function App() {
           <Route path="/contact" component={Contact} />
           <Route path="/settings" component={Settings} />
           <Route path="/rfq" component={Rfq} />
-          
+          <Route path="/new-rfq" component={RForm} /> 
         </Switch>
       </Router>
     </>
