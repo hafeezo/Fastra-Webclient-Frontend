@@ -32,7 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function Npr({ onClose, onSubmit }) {
+export default function Rform({ onClose, onSubmit }) {
   const [rows, setRows] = useState([
     {
       productName: "",
