@@ -8,7 +8,8 @@ import Contact from "./dash/Contact";
 import Settings from "./dash/Settings";
 import Purchase from "./dash/Purchase";
 import Rfq from "../src/dash/Rfq/Rfq";
-import Rform from "../src/dash/Rfq/Rform"; 
+import Rform from "../src/dash/Rfq/Rform";
+import Newpr from "./dash/Newpr";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/settings" component={Settings} />
           <Route path="/rfq" component={Rfq} />
           <Route path="/new-rfq" component={RForm} /> 
+          <Route path="/npr" component={Newpr} />
         </Switch>
       </Router>
     </>

@@ -4,6 +4,7 @@ import SearchIcon from "../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import Listview from "./Listview";
+import Newpr from "./Newpr";
 
 export default function Purchreq() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,8 +13,17 @@ export default function Purchreq() {
   const [pendingCount, setPendingCount] = useState(12);
   const [rejectedCount, setRejectedCount] = useState(12);
   const [viewMode, setViewMode] = useState("grid");
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [submittedData, setSubmittedData] = useState([]);
 
+  const handleSubmit = (data) => {
+    // Process the submitted data
+    console.log('Submitted data received in Purchreq:', data);
+    // You can set the submitted data in state or perform any other actions here
+    setSubmittedData(data);
+  };
+console.log('Submitted data:', submittedData);
   const toggleViewMode = (mode) => {
     setViewMode(mode);
   };
@@ -25,13 +35,13 @@ export default function Purchreq() {
   const getStatusColor = (status) => {
     switch (status) {
       case "Approved":
-        return "linear-gradient(225deg, #2ba24c 0%, #103c1c 100%)";
+        return "#2ba24c";
       case "Pending":
-        return "linear-gradient(225deg, #f0b501 0%, #8a6801 100%)";
+        return "#f0b501";
       case "Rejected":
-        return "linear-gradient(225deg, #e43e2b 0%, #7e2218 100%)";
+        return "#e43e2b";
       case "Draft":
-        return "linear-gradient(225deg, #3b7ded 0%, #224787 100%)";
+        return "#3b7ded";
       default:
         return "#7a8a98";
     }
@@ -185,7 +195,9 @@ export default function Purchreq() {
           </div>
           <div className="prq3">
             <div className="p3a">
-              <p className="p3abtn">New Purchase request</p>
+              <button className="p3abtn" onClick={() => setIsFormVisible(true)}>
+                <p>New Purchase request</p>
+              </button>
               <div className="prqsash">
                 <label
                   htmlFor="searchInput"
@@ -232,8 +244,18 @@ export default function Purchreq() {
                   <p className="cardnum">{item.amount}</p>
                   <p className="refname">{item.name}</p>
                   <p className="sales">{item.role}</p>
-                  <p className="status">
-                    <strong style={{ fontSize: "20px" }}>&#x2022;</strong>{" "}
+                  <p
+                    className="status"
+                    style={{ color: getStatusColor(item.status) }}
+                  >
+                    <strong
+                      style={{
+                        fontSize: "20px",
+                        color: getStatusColor(item.status),
+                      }}
+                    >
+                      &#x2022;
+                    </strong>{" "}
                     {item.status}
                   </p>
                 </div>
@@ -241,10 +263,19 @@ export default function Purchreq() {
             </div>
           ) : (
             <div className="prq4lv">
-              <Listview items={items}/>
+              <Listview items={items} />
             </div>
           )}
         </div>
+        {isFormVisible && (
+        <div className="overlay">
+          <Newpr
+            onClose={() => setIsFormVisible(false)}
+            onAddItem={handleNewPurchaseRequest}
+            onSubmit={handleSubmit}
+          />
+        </div>
+      )}
       </div>
     </div>
   );
