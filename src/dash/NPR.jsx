@@ -39,7 +39,7 @@ export default function Npr({ onClose, onAddItem, onSubmit }) {
     {
       productName: "",
       description: "",
-      qty: "",
+      qty: "120",
       unitPrice: "",
       totalPrice: "",
     },
