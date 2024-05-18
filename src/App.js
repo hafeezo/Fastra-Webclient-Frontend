@@ -6,6 +6,7 @@ import GlobalStyle from "./GlobalStyle";
 import Contact from "./dash/Contact";
 import Settings from "./dash/Settings";
 import Purchase from "./dash/Purchase";
+import Npr from './dash/Npr'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/purchase" component={Purchase} />
           <Route path="/contact" component={Contact} />
           <Route path="/settings" component={Settings} />
+          <Route path="/npr" component={Npr} />
         </Switch>
       </Router>
     </>

@@ -132,48 +132,48 @@
     font-size: 10px;
   }
 }
-.purlist{
-    width: 70%;
+.purlist {
+  width: 70%;
   height: 100%;
   display: flex;
-    align-items: center;
+  align-items: center;
   font-size: 16px;
   justify-content: space-evenly;
-    @media screen and (max-width: 1100px) and (min-width: 935px) {
-      width: 90%;
-    }
-    @media screen and (max-width: 934px) and (min-width: 840px) {
-      width: 100%;
-    }
-    @media screen and (max-width: 839px) and (min-width: 740px) {
-      width: 100%;
-      font-size: 14px;
-    }
-    @media screen and (max-width: 739px) and (min-width: 300px) {
-      width: 100%;
-      font-size: 12px;
-      /* 680 */
-    }
+  @media screen and (max-width: 1100px) and (min-width: 935px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 934px) and (min-width: 840px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 839px) and (min-width: 740px) {
+    width: 100%;
+    font-size: 14px;
+  }
+  @media screen and (max-width: 739px) and (min-width: 300px) {
+    width: 100%;
+    font-size: 12px;
+    /* 680 */
+  }
 }
 .purst {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
-.purst:link{
-    text-decoration: none;
-    color: black;
+.purst:link {
+  text-decoration: none;
+  color: black;
 }
-.purst:visited{
-    text-decoration: none;
-    color: black;
+.purst:visited {
+  text-decoration: none;
+  color: black;
 }
-.purst:hover{
-    text-decoration: none;
-    color: #3b7ced;
+.purst:hover {
+  text-decoration: none;
+  color: #3b7ced;
 }
-.purst:active{
-    text-decoration: none;
-    color: #3b7ced;
+.purst:active {
+  text-decoration: none;
+  color: #3b7ced;
 }
 .puralert {
   width: 5%;
