@@ -4,7 +4,7 @@ import SearchIcon from "../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import Listview from "./Listview";
-import Npr from "./Npr";
+import Newpr from "./Newpr";
 
 export default function Purchreq() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -269,7 +269,7 @@ console.log('Submitted data:', submittedData);
         </div>
         {isFormVisible && (
         <div className="overlay">
-          <Npr
+          <Newpr
             onClose={() => setIsFormVisible(false)}
             onAddItem={handleNewPurchaseRequest}
             onSubmit={handleSubmit}
