@@ -8,7 +8,7 @@ import Contact from "./dash/Contact";
 import Settings from "./dash/Settings";
 import Purchase from "./dash/Purchase";
 import Rfq from "../src/dash/Rfq/Rfq";
-import RForm from "../src/dash/Rfq/R-form"; 
+import Rform from "../src/dash/Rfq/Rform"; 
 
 function App() {
   return (
