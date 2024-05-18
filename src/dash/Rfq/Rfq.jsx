@@ -7,7 +7,7 @@ import { IoGrid } from "react-icons/io5";
 import Listview from "../Listview";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import IconButton from "@mui/material/IconButton";
-import Npr from "./R-form";
+import Rform from "./Rform";
 
 export default function Purchreq() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -239,7 +239,7 @@ export default function Purchreq() {
             </div>
           </div>
           {isFormVisible ? (
-            <Npr onClose={handleFormClose} onSubmit={handleFormSubmit} />
+            <Rform onClose={handleFormClose} onSubmit={handleFormSubmit} />
           ) : viewMode === "grid" ? (
             <div className="prq4">
               {filteredItems.map((item) => (
