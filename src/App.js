@@ -1,3 +1,4 @@
+// src/App.js
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Register from "./Reglog/Register";
 import Login from "./Reglog/Login";
@@ -6,6 +7,8 @@ import GlobalStyle from "./GlobalStyle";
 import Contact from "./dash/Contact";
 import Settings from "./dash/Settings";
 import Purchase from "./dash/Purchase";
+import Rfq from "../src/dash/Rfq/Rfq";
+import Rform from "../src/dash/Rfq/Rform";
 import Newpr from "./dash/Newpr";
 
 function App() {
@@ -20,6 +23,8 @@ function App() {
           <Route path="/purchase" component={Purchase} />
           <Route path="/contact" component={Contact} />
           <Route path="/settings" component={Settings} />
+          <Route path="/rfq" component={Rfq} />
+          <Route path="/newrfq" component={RForm} /> 
           <Route path="/npr" component={Newpr} />
         </Switch>
       </Router>
