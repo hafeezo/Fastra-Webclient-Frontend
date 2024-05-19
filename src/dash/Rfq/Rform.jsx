@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
-import "./R-form.css";
+import "./Rform.css";
 import autosave from "../../image/autosave.svg";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -97,7 +97,7 @@ export default function Rform({ onClose, onSubmit }) {
 
   return (
     <div id="newrfq" className="npr fade-in">
-      <div className="npr1">
+      <div className="npr1b">
         <div className="npr2">
           <div className="npr2a">
             <p className="nprhed">New Purchase Request</p>

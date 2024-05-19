@@ -9,16 +9,15 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import IconButton from "@mui/material/IconButton";
 import Rform from "./Rform";
 
-export default function Purchreq() {
+export default function Rfq() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [draftCount, setDraftCount] = useState(12);
-  const [approvedCount, setApprovedCount] = useState(12); // Change the final value here
+  const [approvedCount, setApprovedCount] = useState(12);
   const [pendingCount, setPendingCount] = useState(12);
   const [rejectedCount, setRejectedCount] = useState(12);
   const [viewMode, setViewMode] = useState("grid");
   const [filteredItems, setFilteredItems] = useState([]);
-  const [isFormVisible, setIsFormVisible] = useState(false); // State to track form visibility
-
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  
   const toggleViewMode = (mode) => {
     setViewMode(mode);
   };
@@ -84,21 +83,10 @@ export default function Purchreq() {
 
   const incrementCounts = () => {
     const increment = 1;
-    const interval = 100; // Interval in milliseconds
-    let currentDraftCount = 0;
+    const interval = 100;
     let currentApprovedCount = 0;
     let currentPendingCount = 0;
     let currentRejectedCount = 0;
-
-    const draftInterval = setInterval(() => {
-      if (currentDraftCount <= 12) {
-        // Change the final value here
-        setDraftCount(currentDraftCount);
-        currentDraftCount += increment;
-      } else {
-        clearInterval(draftInterval);
-      }
-    }, interval);
 
     const approvedInterval = setInterval(() => {
       if (currentApprovedCount <= 12) {
@@ -194,7 +182,7 @@ export default function Purchreq() {
           </div>
           <div className="prq3">
             <div className="p3a">
-              <button className="Rfqbtn" onClick={handleNewRfq}>
+              <button className="p3abtn" onClick={handleNewRfq}>
                 New RFQ
               </button>
               <div className="prqsash">
