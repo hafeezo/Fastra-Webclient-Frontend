@@ -254,10 +254,16 @@ export default function Rfq() {
                   <p className="carddate">{item.date}</p>
                   <p
                     className="status"
-                    style={{
-                      color: getStatusColor(item.status), // Changed to set text color only
-                    }}
+                    style={{ color: getStatusColor(item.status) }}
                   >
+                    <strong
+                      style={{
+                        fontSize: "20px",
+                        color: getStatusColor(item.status),
+                      }}
+                    >
+                      &#x2022;
+                    </strong>{" "}
                     {item.status}
                   </p>
                 </div>

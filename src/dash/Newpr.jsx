@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -42,10 +42,43 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
       totalPrice: "",
     },
   ]);
+  const generateNewID = () => {
+    const lastID = localStorage.getItem("lastGeneratedID");
+    let newID = "PR00001";
+
+    if (lastID) {
+      const idNumber = parseInt(lastID.slice(2), 10) + 1;
+      newID = "PR" + idNumber.toString().padStart(5, "0");
+    }
+
+    localStorage.setItem("lastGeneratedID", newID);
+    return newID;
+  };
+
+  const [formState, setFormState] = useState({
+    id: generateNewID(),
+    productName: "",
+    amount: "",
+    requester: "Firstname Lastname", // Assuming requester is the logged-in user
+    department: "Sales",
+    status: "Pending", // Assuming default status
+    date: new Date(), // Current date
+  });
 
   const [page, setPage] = useState(0);
   const rowsPerPage = 3;
   const [showForm, setShowForm] = useState(true); // Define showForm state variable
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFormState((prevState) => ({
+        ...prevState,
+        date: new Date(),
+      }));
+    }, 1000); // Update the date every second
+
+    return () => clearInterval(timer); // Cleanup the timer on component unmount
+  }, []);
 
   const handleInputChange = (index, key, value) => {
     const newRows = [...rows];
@@ -56,6 +89,13 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
       ).toFixed(2);
     }
     setRows(newRows);
+    if (key === "productName") {
+      setFormState({ ...formState, productName: value });
+    }
+
+    if (key === "totalPrice") {
+      setFormState({ ...formState, amount: value });
+    }
   };
 
   const handleSave = () => {
@@ -104,6 +144,20 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
   const currentRows = rows.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   const pageCount = Math.ceil(rows.length / rowsPerPage);
 
+  const formatDate = (date) => {
+    const options = { day: "numeric", month: "short", year: "numeric" };
+    return date.toLocaleDateString("en-US", options);
+  };
+
+  const formatTime = (date) => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "pm" : "am";
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+    return `${formattedHours}:${formattedMinutes}${ampm}`;
+  };
+
   return (
     <div id="npr" className={`npr ${showForm ? "fade-in" : "fade-out"}`}>
       <div className="npr1">
@@ -143,23 +197,35 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
             <div className="npr3b">
               <div className="npr3ba">
                 <p>ID</p>
-                <p style={{ fontSize: "14px", color: "#7a8a98" }}>PR00001</p>
+                <p style={{ fontSize: "14px", color: "#7a8a98" }}>
+                  {formState.id}
+                </p>
               </div>
-              <div className="npr3bb">
+              <div className="npr3bc">
                 <p>Date</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
-                  4 Apr 2024 - 4:48pm
+                  {`${formatDate(formState.date)} - ${formatTime(
+                    formState.date
+                  )}`}
                 </p>
               </div>
               <div className="npr3bb">
                 <p>Requester</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
-                  Firstname Lastname
+                  {formState.requester}
                 </p>
               </div>
               <div className="npr3bb">
                 <p>Department</p>
-                <p style={{ fontSize: "14px", color: "#7a8a98" }}>Sales</p>
+                <p style={{ fontSize: "14px", color: "#7a8a98" }}>
+                  {formState.department}
+                </p>
+              </div>
+              <div className="npr3bb">
+                <p>Status</p>
+                <p style={{ fontSize: "14px", color: "#7a8a98" }}>
+                  {formState.status}
+                </p>
               </div>
             </div>
             <div className="npr3c">

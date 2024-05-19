@@ -108,6 +108,9 @@
   align-items: center;
   border: none;
 }
+.p3abtn:hover{
+  background: #335db2;
+}
 .prqsash {
   width: 50%;
   height: 50%;
@@ -239,7 +242,7 @@ td {
   justify-content: center;
   align-items: center;
   animation: fadeIn 0.3s ease-in-out;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 @keyframes fadeIn {

@@ -179,7 +179,7 @@ export default function Purchreq() {
     <div className="prq" id='rfq'>
       <div className="prq1">
         <div className="prq2">
-          <p>RFQs</p>
+          <p>Purchase Requests</p>
           <div className="prqlist">
           <div className="prql1">
               <p>Draft</p>
