@@ -96,7 +96,7 @@ export default function Rform({ onClose, onSubmit }) {
   const pageCount = Math.ceil(rows.length / rowsPerPage);
 
   return (
-    <div id="npr" className="npr fade-in">
+    <div id="newrfq" className="npr fade-in">
       <div className="npr1">
         <div className="npr2">
           <div className="npr2a">
