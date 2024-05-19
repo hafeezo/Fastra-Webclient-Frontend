@@ -33,8 +33,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function Newpr({ onClose, onAddItem, onSubmit }) {
-  // const [formData, setFormData] = useState([]);
-
   const [rows, setRows] = useState([
     {
       productName: "",
@@ -63,14 +61,17 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
   const handleSave = () => {
     // Save the input data to a global state, local storage, or an API
     console.log("Input data saved:", rows);
+    // Provide feedback to the user
+    alert("Data saved successfully!");
   };
 
-  // Function to handle saving and submitting data
   const handleSaveAndSubmit = () => {
-    // Process the form data as needed
     console.log("Input data submitted:", rows);
 
-    // Call the onSubmit function passed from the parent component
+    rows.forEach((row) => {
+      onAddItem(row);
+    });
+    console.log("Items added:", rows);
     onSubmit(rows);
     onClose();
   };
@@ -102,7 +103,6 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
 
   const currentRows = rows.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   const pageCount = Math.ceil(rows.length / rowsPerPage);
-  console.log("showForm:", showForm);
 
   return (
     <div id="npr" className={`npr ${showForm ? "fade-in" : "fade-out"}`}>
@@ -133,7 +133,7 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
               <button
                 type="button"
                 className="npr3but"
-                onClick={onClose} // Use the onClose function directly
+                onClick={onClose}
                 style={{ marginTop: "1rem" }}
               >
                 Cancel
@@ -190,10 +190,7 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
                 Add Row
               </button>
             </div>
-            <div
-              className="npr3d"
-              // style={{ maxHeight: "300px", overflowY: "auto" }}
-            >
+            <div className="npr3d">
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                   <TableHead>
@@ -211,7 +208,7 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
                   </TableHead>
                   <TableBody>
                     {currentRows.map((row, index) => (
-                      <StyledTableRow key={index}>
+                      <StyledTableRow key={index + page * rowsPerPage}>
                         <StyledTableCell component="th" scope="row">
                           <input
                             type="text"

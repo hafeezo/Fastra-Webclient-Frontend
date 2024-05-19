@@ -12,12 +12,6 @@
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
 }
-
-
-.blurred-content {
-  filter: blur(10px) !important;
-  transition: filter 0.5s ease-in-out !important;
-}
 @keyframes fadeIn {
   from {
     opacity: 0;

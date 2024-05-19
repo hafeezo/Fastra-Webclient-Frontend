@@ -9,7 +9,7 @@ import Newpr from "./Newpr";
 export default function Purchreq() {
   const [searchQuery, setSearchQuery] = useState("");
   const [draftCount, setDraftCount] = useState(12);
-  const [approvedCount, setApprovedCount] = useState(12); // Change the final value here
+  const [approvedCount, setApprovedCount] = useState(12);
   const [pendingCount, setPendingCount] = useState(12);
   const [rejectedCount, setRejectedCount] = useState(12);
   const [viewMode, setViewMode] = useState("grid");
@@ -18,18 +18,17 @@ export default function Purchreq() {
   const [submittedData, setSubmittedData] = useState([]);
 
   const handleSubmit = (data) => {
-    // Process the submitted data
-    console.log('Submitted data received in Purchreq:', data);
-    // You can set the submitted data in state or perform any other actions here
+    console.log("Submitted data received in Purchreq:", data);
     setSubmittedData(data);
+    setItems([...items, ...data]);
   };
-console.log('Submitted data:', submittedData);
+
   const toggleViewMode = (mode) => {
     setViewMode(mode);
   };
 
   const handleNewPurchaseRequest = (newItem) => {
-    setItems([...items, newItem]); // Add new item to the items array
+    setItems([...items, newItem]);
   };
 
   const getStatusColor = (status) => {
@@ -47,65 +46,9 @@ console.log('Submitted data:', submittedData);
     }
   };
 
-  // const items = [
-  //   {
-  //     id: "PR00001",
-  //     product: "Laptop Keyboard & Mouse",
-  //     qty: "4",
-  //     amount: "2,600,000",
-  //     name: "Firstname Lastname",
-  //     role: "Sales",
-  //     status: "Approved",
-  //   },
-  //   {
-  //     id: "PR00002",
-  //     product: "Laptop",
-  //     qty: "4",
-  //     amount: "2,400,000",
-  //     name: "Firstname Lastname",
-  //     role: "Sales",
-  //     status: "Pending",
-  //   },
-  //   {
-  //     id: "PR00003",
-  //     product: "Keyboard & Mouse",
-  //     qty: "4",
-  //     amount: "200,000",
-  //     name: "Firstname Lastname",
-  //     role: "Sales",
-  //     status: "Rejected",
-  //   },
-  //   {
-  //     id: "PR00004",
-  //     product: "Laptop",
-  //     qty: "4",
-  //     amount: "2,400,000",
-  //     name: "Firstname Lastname",
-  //     role: "Sales",
-  //     status: "Approved",
-  //   },
-  //   {
-  //     id: "PR00005",
-  //     product: "Laptop",
-  //     qty: "4",
-  //     amount: "2,400,000",
-  //     name: "Firstname Lastname",
-  //     role: "Sales",
-  //     status: "Rejected",
-  //   },
-  //   {
-  //     id: "PR00006",
-  //     product: "Laptop",
-  //     qty: "4",
-  //     amount: "2,400,000",
-  //     name: "Firstname Lastname",
-  //     role: "Sales",
-  //     status: "Rejected",
-  //   },
-  // ];
   const incrementCounts = () => {
     const increment = 1;
-    const interval = 100; // Interval in milliseconds
+    const interval = 100;
     let currentDraftCount = 0;
     let currentApprovedCount = 0;
     let currentPendingCount = 0;
@@ -113,7 +56,6 @@ console.log('Submitted data:', submittedData);
 
     const draftInterval = setInterval(() => {
       if (currentDraftCount <= 12) {
-        // Change the final value here
         setDraftCount(currentDraftCount);
         currentDraftCount += increment;
       } else {
@@ -123,7 +65,6 @@ console.log('Submitted data:', submittedData);
 
     const approvedInterval = setInterval(() => {
       if (currentApprovedCount <= 12) {
-        // Change the final value here
         setApprovedCount(currentApprovedCount);
         currentApprovedCount += increment;
       } else {
@@ -133,7 +74,6 @@ console.log('Submitted data:', submittedData);
 
     const pendingInterval = setInterval(() => {
       if (currentPendingCount <= 12) {
-        // Change the final value here
         setPendingCount(currentPendingCount);
         currentPendingCount += increment;
       } else {
@@ -143,7 +83,6 @@ console.log('Submitted data:', submittedData);
 
     const rejectedInterval = setInterval(() => {
       if (currentRejectedCount <= 12) {
-        // Change the final value here
         setRejectedCount(currentRejectedCount);
         currentRejectedCount += increment;
       } else {
@@ -154,12 +93,10 @@ console.log('Submitted data:', submittedData);
 
   useEffect(() => {
     incrementCounts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSearch = () => {
-    // You can perform search operations here based on the search query
-    // For example, you can filter a list of items based on the search query
+    // Perform search operations here based on the search query
   };
 
   return (
@@ -238,8 +175,8 @@ console.log('Submitted data:', submittedData);
           </div>
           {viewMode === "grid" ? (
             <div className="prq4">
-              {items.map((item) => (
-                <div className="prq4gv" key={item.id}>
+              {items.map((item, index) => (
+                <div className="prq4gv" key={index}>
                   <p className="cardid">{item.id}</p>
                   <p className="cardnum">{item.amount}</p>
                   <p className="refname">{item.name}</p>
@@ -268,14 +205,14 @@ console.log('Submitted data:', submittedData);
           )}
         </div>
         {isFormVisible && (
-        <div className="overlay">
-          <Newpr
-            onClose={() => setIsFormVisible(false)}
-            onAddItem={handleNewPurchaseRequest}
-            onSubmit={handleSubmit}
-          />
-        </div>
-      )}
+          <div className="overlay">
+            <Newpr
+              onClose={() => setIsFormVisible(false)}
+              onAddItem={handleNewPurchaseRequest}
+              onSubmit={handleSubmit}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
