@@ -167,7 +167,7 @@ export default function Purchreq() {
   };
 
   return (
-    <div className="prq">
+    <div className="prq" id='rfq'>
       <Header />
       <div className="prq1">
         <div className="prq2">
