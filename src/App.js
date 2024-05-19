@@ -24,7 +24,7 @@ function App() {
           <Route path="/contact" component={Contact} />
           <Route path="/settings" component={Settings} />
           <Route path="/rfq" component={Rfq} />
-          <Route path="/newrfq" component={RForm} /> 
+          <Route path="/newrfq" component={Rform} /> 
           <Route path="/npr" component={Newpr} />
         </Switch>
       </Router>
