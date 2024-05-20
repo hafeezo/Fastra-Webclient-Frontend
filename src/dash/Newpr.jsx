@@ -32,7 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function Newpr({ onClose, onSubmit }) {
+export default function Newpr({ onClose, onAddItem, onSubmit }) {
   const [rows, setRows] = useState([
     {
       productName: "",
@@ -66,7 +66,7 @@ export default function Newpr({ onClose, onSubmit }) {
   });
 
   const [page, setPage] = useState(0);
-  const rowsPerPage = 3;
+  const rowsPerPage = 2;
   const [showForm] = useState(true); // Define showForm state variable
 
   useEffect(() => {
@@ -89,30 +89,28 @@ export default function Newpr({ onClose, onSubmit }) {
       ).toFixed(2);
     }
     setRows(newRows);
-    if (key === "productName") {
-      setFormState({ ...formState, productName: value });
-    }
 
-    if (key === "totalPrice") {
-      setFormState({ ...formState, amount: value });
-    }
+    const totalAmount = newRows.reduce(
+      (sum, row) => sum + parseFloat(row.totalPrice || 0),
+      0
+    );
+
+    setFormState((prevState) => ({
+      ...prevState,
+      productName: key === "productName" ? value : prevState.productName,
+      amount: totalAmount.toFixed(2),
+    }));
   };
 
   const handleSave = () => {
-    // Save the input data to a global state, local storage, or an API
     console.log("Input data saved:", rows);
-    // Provide feedback to the user
     alert("Data saved successfully!");
   };
 
   const handleSaveAndSubmit = () => {
-    console.log("Input data submitted:", rows);
-
-    // Combine rows and formState into a single object
     const data = { ...formState, rows };
-
     console.log("Items added:", data);
-    onSubmit(data); // Pass the entire formState object
+    onSubmit(data);
     onClose();
   };
 
@@ -156,6 +154,12 @@ export default function Newpr({ onClose, onSubmit }) {
     const formattedHours = hours % 12 || 12;
     const formattedMinutes = minutes.toString().padStart(2, "0");
     return `${formattedHours}:${formattedMinutes}${ampm}`;
+  };
+
+  const calculateTotalAmount = () => {
+    return rows
+      .reduce((sum, row) => sum + parseFloat(row.totalPrice || 0), 0)
+      .toFixed(2);
   };
 
   return (
@@ -221,12 +225,6 @@ export default function Newpr({ onClose, onSubmit }) {
                   {formState.department}
                 </p>
               </div>
-              {/* <div className="npr3bb">
-                <p>Status</p>
-                <p style={{ fontSize: "14px", color: "#7a8a98" }}>
-                  {formState.status}
-                </p>
-              </div> */}
             </div>
             <div className="npr3c">
               <div className="npr3ca">
@@ -346,6 +344,14 @@ export default function Newpr({ onClose, onSubmit }) {
                         </StyledTableCell>
                       </StyledTableRow>
                     ))}
+                    <StyledTableRow>
+                      <StyledTableCell colSpan={4} align="right">
+                        Total Amount
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {calculateTotalAmount()}
+                      </StyledTableCell>
+                    </StyledTableRow>
                   </TableBody>
                 </Table>
               </TableContainer>
