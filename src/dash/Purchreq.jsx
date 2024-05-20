@@ -8,86 +8,35 @@ import Newpr from "./Newpr";
 
 export default function Purchreq() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [draftCount, setDraftCount] = useState(12);
-  const [approvedCount, setApprovedCount] = useState(12);
-  const [pendingCount, setPendingCount] = useState(12);
-  const [rejectedCount, setRejectedCount] = useState(12);
+  const [draftCount, setDraftCount] = useState(0);
+  const [approvedCount, setApprovedCount] = useState(0);
+  const [pendingCount, setPendingCount] = useState(0);
+  const [rejectedCount, setRejectedCount] = useState(0);
   const [viewMode, setViewMode] = useState("grid");
-  // const [items, setItems] = useState([]);
+  const [items, setItems] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [submittedData, setSubmittedData] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
 
   const toggleViewMode = (mode) => {
     setViewMode(mode);
   };
 
-  const handleNewPurchaseRequest = (newItem) => {
-    // setItems([...items, newItem]);
-    setIsFormVisible(true); // Show the form
-  };
-  const handleSubmit = (data) => {
-    // Here you can handle the form data (e.g., send it to an API)
-    console.log("Submitted data received in Purchreq:", data);
-    setSubmittedData(data);
-    // setItems([...items, ...data]);
-    setIsFormVisible(false);
-  };
-  console.log("Submitted data in Purchreq:", submittedData);
-  const handleFormClose = () => {
-    setIsFormVisible(false); // Close the form without submitting
+  const handleNewPurchaseRequest = () => {
+    setIsFormVisible(true);
   };
 
-  const items = [
-    {
-      id: "PR00001",
-      productName: "Product Name",
-      amount: "2,600,000",
-      requester: "Firstname Lastname",
-      deparment: "sales",
-      status: "Approved",
-    },
-    {
-      id: "PR00002",
-      productName: "Product Name",
-      amount: "2,400,000",
-      requester: "Firstname Lastname",
-      deparment: "sales",
-      status: "Pending",
-    },
-    {
-      id: "PR00003",
-      productName: "Product Name",
-      amount: "200,000",
-      requester: "Firstname Lastname",
-      deparment: "sales",
-      status: "Rejected",
-    },
-    {
-      id: "PR00004",
-      productName: "Product Name",
-      amount: "2,400,000",
-      requester: "Firstname Lastname",
-      deparment: "sales",
-      status: "Approved",
-    },
-    {
-      id: "PR00005",
-      productName: "Product Name",
-      amount: "2,400,000",
-      requester: "Firstname Lastname",
-      deparment: "sales",
-      status: "Draft",
-    },
-    {
-      id: "PR00006",
-      productName: "Product Name",
-      amount: "2,400,000",
-      requester: "Firstname Lastname",
-      deparment: "sales",
-      status: "Rejected",
-    },
-  ];
+  const handleSubmit = (data) => {
+    console.log("Submitted data received in Purchreq:", data);
+    const updatedItems = [...items, data];
+    setItems(updatedItems);
+    setIsFormVisible(false);
+    updateCounts(updatedItems);
+  };
+
+  const handleFormClose = () => {
+    setIsFormVisible(false);
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case "Approved":
@@ -103,60 +52,28 @@ export default function Purchreq() {
     }
   };
 
-  const incrementCounts = () => {
-    const increment = 1;
-    const interval = 100; // Interval in milliseconds
-    let currentDraftCount = 0;
-    let currentApprovedCount = 0;
-    let currentPendingCount = 0;
-    let currentRejectedCount = 0;
-
-    const draftInterval = setInterval(() => {
-      if (currentDraftCount <= 12) {
-        // Change the final value here
-        setDraftCount(currentDraftCount);
-        currentDraftCount += increment;
-      } else {
-        clearInterval(draftInterval);
-      }
-    }, interval);
-
-    const approvedInterval = setInterval(() => {
-      if (currentApprovedCount <= 12) {
-        // Change the final value here
-        setApprovedCount(currentApprovedCount);
-        currentApprovedCount += increment;
-      } else {
-        clearInterval(approvedInterval);
-      }
-    }, interval);
-
-    const pendingInterval = setInterval(() => {
-      if (currentPendingCount <= 12) {
-        // Change the final value here
-        setPendingCount(currentPendingCount);
-        currentPendingCount += increment;
-      } else {
-        clearInterval(pendingInterval);
-      }
-    }, interval);
-
-    const rejectedInterval = setInterval(() => {
-      if (currentRejectedCount <= 12) {
-        // Change the final value here
-        setRejectedCount(currentRejectedCount);
-        currentRejectedCount += increment;
-      } else {
-        clearInterval(rejectedInterval);
-      }
-    }, interval);
+  const updateCounts = (items) => {
+    const draftCount = items.filter((item) => item.status === "Draft").length;
+    const approvedCount = items.filter(
+      (item) => item.status === "Approved"
+    ).length;
+    const pendingCount = items.filter(
+      (item) => item.status === "Pending"
+    ).length;
+    const rejectedCount = items.filter(
+      (item) => item.status === "Rejected"
+    ).length;
+    setDraftCount(draftCount);
+    setApprovedCount(approvedCount);
+    setPendingCount(pendingCount);
+    setRejectedCount(rejectedCount);
   };
 
   useEffect(() => {
-    incrementCounts();
+    updateCounts(items);
     setFilteredItems(items);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [items]);
 
   const handleSearch = () => {
     if (searchQuery === "") {
@@ -167,6 +84,8 @@ export default function Purchreq() {
         (item) =>
           item.id.toLowerCase().includes(lowercasedQuery) ||
           item.productName.toLowerCase().includes(lowercasedQuery) ||
+          item.qty.toLowerCase().includes(lowercasedQuery) ||
+          item.amount.toLowerCase().includes(lowercasedQuery) ||
           item.requester.toLowerCase().includes(lowercasedQuery) ||
           item.date.includes(lowercasedQuery) ||
           item.status.toLowerCase().includes(lowercasedQuery)
@@ -176,12 +95,12 @@ export default function Purchreq() {
   };
 
   return (
-    <div className="prq" id='rfq'>
+    <div className="prq" id="rfq">
       <div className="prq1">
         <div className="prq2">
           <p>Purchase Requests</p>
           <div className="prqlist">
-          <div className="prql1">
+            <div className="prql1">
               <p>Draft</p>
               <p className={`plnum ${draftCount === 0 ? "zero" : ""}`}>
                 {draftCount}
@@ -229,10 +148,7 @@ export default function Purchreq() {
                 </label>
               </div>
             </div>
-            <div
-              className="p3b
-"
-            >
+            <div className="p3b">
               <p className="p3bpage">1-2 of 2</p>
               <div className="p3bnav">
                 <FaCaretLeft className="lr" />
@@ -253,9 +169,13 @@ export default function Purchreq() {
             </div>
           </div>
           {isFormVisible ? (
-            <div className='overlay'>
-            <Newpr onClose={handleFormClose} onAddItem={handleNewPurchaseRequest}
-              onSubmit={handleSubmit} /></div>
+            <div className="overlay">
+              <Newpr
+                onClose={handleFormClose}
+                onAddItem={handleNewPurchaseRequest}
+                onSubmit={handleSubmit}
+              />
+            </div>
           ) : viewMode === "grid" ? (
             <div className="prq4">
               {filteredItems.map((item) => (

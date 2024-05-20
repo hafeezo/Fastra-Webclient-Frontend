@@ -1,252 +1,98 @@
 import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
 import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-
-const generateId = () => {
-  return "_" + Math.random().toString(36).substr(2, 9);
-};
 
 const getStatusColor = (status) => {
   switch (status) {
-    case "Vendor selected":
+    case "Approved":
       return "#2ba24c";
-    case "Awaiting vendors selection":
+    case "Pending":
       return "#f0b501";
-    case "Cancelled":
+    case "Rejected":
       return "#e43e2b";
+    case "Draft":
+      return "#3b7ded";
     default:
       return "#7a8a98";
   }
 };
 
-const columns = [
-  { field: "requestId", headerName: "Request ID", width: 150 },
-  {
-    field: "productName",
-    headerName: "Product Name",
-    width: 250,
-    renderCell: (params) => {
-      const productNames = params.value.split(",");
-      if (productNames.length > 1) {
-        return (
-          <Accordion
-            style={{ backgroundColor: "transparent", boxShadow: "none" }}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              {productNames[0]}
-            </AccordionSummary>
-            <AccordionDetails
-              style={{
-                flexDirection: "column",
-                overflowY: "auto",
-                maxHeight: "150px",
-              }}
-            >
-              {productNames.slice(1).map((productName, index) => (
-                <div key={index}>{productName}</div>
-              ))}
-            </AccordionDetails>
-          </Accordion>
-        );
-      } else {
-        return productNames[0];
-      }
-    },
-  },
-  {
-    field: "qty",
-    headerName: "Qty",
-    type: "number",
-    width: 150,
-    renderCell: (params) => {
-      const quantities = params.value.split(",");
-      if (quantities.length > 1) {
-        return (
-          <Accordion
-            style={{ backgroundColor: "transparent", boxShadow: "none" }}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              {quantities[0]}
-            </AccordionSummary>
-            <AccordionDetails
-              style={{
-                flexDirection: "column",
-                overflowY: "auto",
-                maxHeight: "150px",
-              }}
-            >
-              {quantities.slice(1).map((qty, index) => (
-                <div key={index}>{qty}</div>
-              ))}
-            </AccordionDetails>
-          </Accordion>
-        );
-      } else {
-        return quantities[0];
-      }
-    },
-  },
-  { field: "dateOpened", headerName: "Date Opened", width: 180 },
-  { field: "expiryDate", headerName: "Expiry Date", width: 180 },
-  {
-    field: "vendor",
-    headerName: "Vendor",
-    width: 250,
-    renderCell: (params) => {
-      if (params.row.status === "Awaiting vendors selection") {
-        return (
-          <div style={{ display: "flex", alignItems: "center", color: "blue" }}>
-            <span style={{ color: "blue" }}>Select Vendor</span>
-            <IconButton style={{ color: "blue" }}>
-              <ArrowDropDownIcon />
-            </IconButton>
-          </div>
-        );
-      } else {
-        return params.value;
-      }
-    },
-  },
-  {
-    field: "status",
-    headerName: "Status",
-    width: 150,
-    renderCell: (params) => {
-      const color = getStatusColor(params.value);
-      return (
-        <div style={{ display: "flex", alignItems: "center", color }}>
-          <div
-            style={{
-              width: "10px",
-              height: "10px",
-              borderRadius: "50%",
-              backgroundColor: color,
-              marginRight: "8px",
-            }}
-          ></div>
-          {params.value}
-        </div>
-      );
-    },
-  },
-];
-
-const rows = [
-  {
-    id: generateId(),
-    requestId: "PR00001",
-    productName: "Laptop, Keyboard & Mouse",
-    qty: "4, 4, 1, 2, 3, 5, 6, 2, 9",
-    dateOpened: "2024-05-01",
-    expiryDate: "2024-08-01",
-    vendor: "Vendor Name",
-    status: "Vendor selected",
-  },
-  {
-    id: generateId(),
-    requestId: "PR00002",
-    productName: "Laptop",
-    qty: "4",
-    dateOpened: "2024-05-02",
-    expiryDate: "2024-08-02",
-    vendor: "",
-    status: "Awaiting vendors selection",
-  },
-  {
-    id: generateId(),
-    requestId: "PR00003",
-    productName: "Keyboard & Mouse",
-    qty: "4",
-    dateOpened: "2024-05-03",
-    expiryDate: "2024-08-03",
-    vendor: "Vendor Name",
-    status: "Cancelled",
-  },
-  {
-    id: generateId(),
-    requestId: "PR00004",
-    productName: "Laptop, Keyboard & Mouse",
-    qty: "4, 4, 1, 2, 3, 5, 6, 2, 9",
-    dateOpened: "2024-05-01",
-    expiryDate: "2024-08-01",
-    vendor: "",
-    status: "Awaiting vendors selection",
-  },
-  {
-    id: generateId(),
-    requestId: "PR00005",
-    productName: "Laptop",
-    qty: "4",
-    dateOpened: "2024-05-02",
-    expiryDate: "2024-08-02",
-    vendor: "Vendor Name",
-    status: "Vendor selected",
-  },
-  {
-    id: generateId(),
-    requestId: "PR00006",
-    productName: "Keyboard & Mouse",
-    qty: "4",
-    dateOpened: "2024-05-03",
-    expiryDate: "2024-08-03",
-    vendor: "",
-    status: "Awaiting vendors selection",
-  },
-];
-
-export default function DataTable() {
-  const getRowClassName = (params) => {
-    return params.indexRelativeToCurrentPage % 2 === 0 ? "evenRow" : "oddRow";
-  };
+const ListView = ({ items }) => {
+  if (items.length === 0) {
+    return <p>No items available. Please fill the form to add items.</p>;
+  }
 
   return (
-    <div style={{ height: 500, width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        checkboxSelection
-        autoHeight
-        getRowClassName={getRowClassName}
+    <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+      <Table
         sx={{
-          "& .MuiDataGrid-row.evenRow": {
-            backgroundColor: "#f2f2f2",
+          '&.MuiTable-root': {
+            border: 'none',
           },
-          "& .MuiDataGrid-row.oddRow": {
-            backgroundColor: "#fff",
+          '& .MuiTableCell-root': {
+            border: 'none',
           },
-          "& .MuiDataGrid-cell": {
-            padding: "16px",
-            display: "flex",
-            alignItems: "center",
+          '& .MuiTableCell-head': {
+            border: 'none',
           },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: "#f5f5f5",
-            fontWeight: "bold",
-          },
-          "& .MuiDataGrid-footerContainer": {
-            backgroundColor: "#f5f5f5",
-          },
-          "& .MuiDataGrid-cellContent": {
-            fontSize: "14px",
+          '& .MuiTableCell-body': {
+            border: 'none',
           },
         }}
-      />
-    </div>
+      >
+        <TableHead sx={{backgroundColor: '#f2f2f2'}}>
+          <TableRow>
+            <TableCell>Request ID</TableCell>
+            <TableCell>Product Name</TableCell>
+            <TableCell>Qty</TableCell>
+            <TableCell>Amount</TableCell>
+            <TableCell>Requester</TableCell>
+            <TableCell>Department</TableCell>
+            <TableCell>Status</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {items.map((item, index) => (
+            <TableRow
+              key={item.id}
+              sx={{
+                backgroundColor: index % 2 === 0 ? "#fff" : "#f2f2f2",
+                '&:last-child td, &:last-child th': { border: 0 },
+              }}
+            >
+              <TableCell>{item.id}</TableCell>
+              <TableCell sx={{ color: "#7a8a98", fontSize: "12px" }}>{item.productName || "N/A"}</TableCell>
+              <TableCell sx={{ color: "#7a8a98", fontSize: "12px" }}>{item.qty || "N/A"}</TableCell>
+              <TableCell sx={{ color: "#7a8a98", fontSize: "12px" }}>{item.amount || "N/A"}</TableCell>
+              <TableCell sx={{ color: "#7a8a98", fontSize: "12px" }}>{item.requester || "N/A"}</TableCell>
+              <TableCell sx={{ color: "#7a8a98", fontSize: "12px" }}>{item.department || "N/A"}</TableCell>
+              <TableCell
+                sx={{ fontSize: "12px", display: "flex", alignItems: "center", color: getStatusColor(item.status) }}
+              >
+                <div
+                  style={{
+                    width: "6px",
+                    height: "6px",
+                    borderRadius: "50%",
+                    backgroundColor: getStatusColor(item.status),
+                    marginRight: "8px",
+                  }}
+                ></div>
+                {item.status}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
-}
+};
+
+export default ListView;

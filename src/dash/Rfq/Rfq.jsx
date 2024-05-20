@@ -4,7 +4,7 @@ import Header from "../Purchead";
 import SearchIcon from "../../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
-import Listview from "../Listview";
+import RListview from "./RListview";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import IconButton from "@mui/material/IconButton";
 import Rform from "./Rform";
@@ -270,7 +270,7 @@ export default function Rfq() {
               ))}
             </div>
           ) : (
-            <Listview items={filteredItems} />
+            <RListview items={filteredItems} />
           )}
         </div>
       </div>

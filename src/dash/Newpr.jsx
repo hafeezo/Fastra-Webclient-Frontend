@@ -32,7 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function Newpr({ onClose, onAddItem, onSubmit }) {
+export default function Newpr({ onClose, onSubmit }) {
   const [rows, setRows] = useState([
     {
       productName: "",
@@ -67,7 +67,7 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
 
   const [page, setPage] = useState(0);
   const rowsPerPage = 3;
-  const [showForm, setShowForm] = useState(true); // Define showForm state variable
+  const [showForm] = useState(true); // Define showForm state variable
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -108,11 +108,11 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
   const handleSaveAndSubmit = () => {
     console.log("Input data submitted:", rows);
 
-    rows.forEach((row) => {
-      onAddItem(row);
-    });
-    console.log("Items added:", rows);
-    onSubmit(rows);
+    // Combine rows and formState into a single object
+    const data = { ...formState, rows };
+
+    console.log("Items added:", data);
+    onSubmit(data); // Pass the entire formState object
     onClose();
   };
 
@@ -221,12 +221,12 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
                   {formState.department}
                 </p>
               </div>
-              <div className="npr3bb">
+              {/* <div className="npr3bb">
                 <p>Status</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formState.status}
                 </p>
-              </div>
+              </div> */}
             </div>
             <div className="npr3c">
               <div className="npr3ca">
