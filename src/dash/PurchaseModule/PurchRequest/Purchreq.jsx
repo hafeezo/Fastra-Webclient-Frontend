@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Purchreq.css";
-import SearchIcon from "../image/search.svg";
+import SearchIcon from "../../../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import Listview from "./Listview";
 import Newpr from "./Newpr";
+import Papr from "./Papr";
 
 export default function Purchreq() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,6 +17,17 @@ export default function Purchreq() {
   const [items, setItems] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState(null); // Change to null to handle no data case
+
+  const handleSaveAndSubmit = (data) => {
+    setFormData(data);
+    setIsSubmitted(true);
+  };
+
+  const handleFormDataChange = (data) => {
+    setFormData(data);
+  };
 
   const toggleViewMode = (mode) => {
     setViewMode(mode);
@@ -25,16 +37,9 @@ export default function Purchreq() {
     setIsFormVisible(true);
   };
 
-  const handleSubmit = (data) => {
-    console.log("Submitted data received in Purchreq:", data);
-    const updatedItems = [...items, data];
-    setItems(updatedItems);
-    setIsFormVisible(false);
-    updateCounts(updatedItems);
-  };
-
   const handleFormClose = () => {
     setIsFormVisible(false);
+    setIsSubmitted(false); // Reset form submission state when closing the form
   };
 
   const getStatusColor = (status) => {
@@ -95,7 +100,7 @@ export default function Purchreq() {
   };
 
   return (
-    <div className="prq" id="rfq">
+    <div className="prq" id="purchase">
       <div className="prq1">
         <div className="prq2">
           <p>Purchase Requests</p>
@@ -170,11 +175,15 @@ export default function Purchreq() {
           </div>
           {isFormVisible ? (
             <div className="overlay">
-              <Newpr
-                onClose={handleFormClose}
-                onAddItem={handleNewPurchaseRequest}
-                onSubmit={handleSubmit}
-              />
+              {!isSubmitted ? (
+                <Newpr
+                  onSaveAndSubmit={handleSaveAndSubmit}
+                  onFormDataChange={handleFormDataChange}
+                  onClose={handleFormClose}
+                />
+              ) : (
+                <Papr formData={formData} onClose={handleFormClose} />
+              )}
             </div>
           ) : viewMode === "grid" ? (
             <div className="prq4">

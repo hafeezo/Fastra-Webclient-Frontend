@@ -7,6 +7,7 @@
   align-items: center;
   z-index: 999;
   background-color: white;
+  overflow: auto;
 }
 .fade-in {
   opacity: 1;
@@ -98,7 +99,6 @@
   background-color: white;
   display: flex;
   justify-content: center;
-  margin-top: -0.5rem;
 }
 
 .nprform {
@@ -113,6 +113,7 @@
   justify-content: space-between;
   align-items: center;
   color: #3b7ced;
+  margin-top: -0.5rem;
 }
 
 .npr3but {
@@ -121,35 +122,34 @@
   padding: 10px;
   background: transparent;
 }
-
 .npr3b {
   width: 100%;
-  height: 8%;
+  height: 10%;
   display: flex;
   gap: 4rem;
   align-items: center;
-  margin-top: 2rem;
   border-bottom: 1px solid #e2e6e9;
+  margin-top: 1rem;
 }
 
 .npr3ba {
   width: 5%;
   height: 90%;
   line-height: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .npr3bb {
   width: 10%;
   height: 90%;
   line-height: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .npr3bc {
   width: 15%;
   height: 90%;
   line-height: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .npr3c {
@@ -183,14 +183,13 @@
 
 .npr3d {
   width: 100%;
-  height: 40%;
-  margin-top: 1.5rem;
+  height: 50%;
 }
 
 .npr3e {
   width: 100%;
   height: 8%;
-  margin-top: 2.5rem;
+  margin-top: 1rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;

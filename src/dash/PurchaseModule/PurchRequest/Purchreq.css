@@ -2,6 +2,7 @@
   width: 100%;
   height: 100%;
   font-family: Product Sans;
+  overflow: auto;
 }
 .prq1 {
   width: 100%;
@@ -18,12 +19,31 @@
   top: 5%;
 }
 .prqlist {
-  width: 35%;
+  width: 40%;
   height: 20%;
   display: flex;
   gap: 2rem;
   margin-top: 1.5rem;
   color: white;
+  @media screen and (max-width: 1200px) and (min-width: 850px) {
+    width: 55%;
+  }
+  @media screen and (max-width: 849px) and (min-width: 680px) {
+    width: 65%;
+  }
+  @media screen and (max-width: 679px) and (min-width: 580px) {
+    width: 75%;
+  }
+  @media screen and (max-width: 579px) /*and (min-width: 800px) */ {
+    width: 95%;
+  }
+  @media screen and (max-width: 449px) {
+    font-size: 0.8rem;
+  }
+  @media screen and (max-width: 420px) {
+    width: 100%;
+    gap: 1rem;
+  }
 }
 .prql1 {
   background: linear-gradient(225deg, #3b7ded 0%, #224787 100%);
@@ -35,6 +55,9 @@
   flex-direction: column;
   line-height: 2.5rem;
   border-radius: 5px;
+  @media screen and (max-width: 420px) {
+    width: 22%;
+  }
 }
 .prql2 {
   background: linear-gradient(225deg, #2ba24c 0%, #103c1c 100%);
@@ -42,10 +65,11 @@
   height: 100%;
   display: flex;
   align-items: center;
+  text-align: center;
   justify-content: center;
   flex-direction: column;
   line-height: 2.5rem;
-   border-radius: 5px;
+  border-radius: 5px;
 }
 .prql3 {
   background: linear-gradient(225deg, #f0b501 0%, #8a6801 100%);
@@ -54,6 +78,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   flex-direction: column;
   line-height: 2.5rem;
   border-radius: 5px;
@@ -67,9 +92,13 @@
   justify-content: center;
   flex-direction: column;
   line-height: 2.5rem;
+  text-align: center;
   border-radius: 5px;
+  @media screen and (max-width: 420px) {
+    width: 26%;
+  }
 }
-.prql5{
+.prql5 {
   background: linear-gradient(225deg, #f0b501 0%, #8a6801 100%);
   width: 52%;
   height: 100%;
@@ -78,18 +107,28 @@
   justify-content: center;
   flex-direction: column;
   line-height: 2.5rem;
+  text-align: center;
   border-radius: 5px;
 }
 .plnum {
   font-size: 2rem;
+  @media screen and (max-width: 449px) {
+    font-size: 1.5rem;
+  }
 }
 .prq3 {
   width: 100%;
   height: 10%;
   display: flex;
   align-items: center;
-  gap: 30rem;
+  gap: 27rem;
   margin-top: 2.5rem;
+  @media screen and (max-width: 1200px) and (min-width: 451px) {
+    gap: 0;
+  }
+  @media screen and (max-width: 450px) {
+    gap: 1rem;
+  }
 }
 .p3a {
   display: flex;
@@ -97,6 +136,13 @@
   gap: 2rem;
   width: 50%;
   height: 100%;
+  @media screen and (max-width: 1200px) and (min-width: 540px) {
+    width: 70%;
+    gap: 1rem;
+  }
+  @media screen and (max-width: 539px) {
+    gap: 0.5rem;
+  }
 }
 .p3abtn {
   background: #3b7ced;
@@ -107,8 +153,17 @@
   justify-content: center;
   align-items: center;
   border: none;
+  @media screen and (max-width: 647px) and (min-width: 562px) {
+    font-size: 11px;
+  }
+  @media screen and (max-width: 561px) {
+    font-size: 10px;
+  }
+  @media screen and (max-width: 561px) {
+    padding: 10px;
+  }
 }
-.p3abtn:hover{
+.p3abtn:hover {
   background: #335db2;
 }
 .prqsash {
@@ -117,6 +172,9 @@
   border-radius: 4px;
   background-color: white;
   border: 1px solid #e2e6e9;
+  @media screen and (max-width: 450px) {
+    gap: 0;
+  }
 }
 .ps1 {
   display: flex;
@@ -140,6 +198,9 @@
   :focus {
     outline: none;
   }
+  @media screen and (max-width: 450px) {
+    font-size: xx-small;
+  }
 }
 .p3b {
   display: flex;
@@ -148,9 +209,20 @@
   width: 20%;
   align-items: center;
   justify-content: end;
+  @media screen and (max-width: 1200px) and (min-width: 401px) {
+    width: 45%;
+    gap: 1rem;
+  }
+  @media screen and (max-width: 400px) {
+    width: 45%;
+    gap: 0.5rem;
+  }
 }
 .p3bpage {
   color: #a9b3bc;
+  @media screen and (max-width: 500px) {
+    font-size: 12px;
+  }
 }
 .p3bnav {
   border: 1.2px solid #e2e6e9;
@@ -160,6 +232,9 @@
   align-items: center;
   background-color: white;
   border-radius: 4px;
+  @media screen and (max-width: 400px) {
+    height: 35%;
+  }
 }
 .lr {
   width: 80%;
@@ -174,6 +249,9 @@
   align-items: center;
   background-color: white;
   border-radius: 4px;
+  @media screen and (max-width: 400px) {
+    height: 35%;
+  }
 }
 .grid {
   width: 50%;
@@ -193,6 +271,9 @@
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 2.8rem;
+  @media screen and (max-width: 344px) {
+    justify-content: center;
+  }
 }
 .prq4gv {
   width: 17%;
@@ -205,14 +286,54 @@
   justify-content: center;
   flex-direction: column;
   gap: 0.4rem;
+  @media screen and (max-width: 1200px) and (min-width: 954px) {
+    width: 21%;
+  }
+  @media screen and (max-width: 953px) and (min-width: 892px) {
+    width: 29.5%;
+  }
+  @media screen and (max-width: 891px) and (min-width: 829px) {
+    width: 29.2%;
+  }
+  @media screen and (max-width: 828px) and (min-width: 767px) {
+    width: 20%;
+  }
+  @media screen and (max-width: 766px) and (min-width: 711px) {
+    width: 28.5%;
+  }
+  @media screen and (max-width: 710px) and (min-width: 671px) {
+    width: 28.2%;
+  }
+  @media screen and (max-width: 710px) and (min-width: 645px) {
+    width: 28%;
+  }
+  @media screen and (max-width: 645px) and (min-width: 613px) {
+    width: 27.7%;
+  }
+  @media screen and (max-width: 645px) and (min-width: 547px) {
+    width: 27%;
+  }
+  @media screen and (max-width: 546px) and (min-width: 508px) {
+    width: 26.5%;
+  }
+  @media screen and (max-width: 507px) and (min-width: 345px) {
+    width: 42%;
+  }
+  @media screen and (max-width: 344px) {
+    width: 70%;
+  }
 }
-.pronam, .cardnum, .quant, .sales {
+.pronam,
+.cardnum,
+.quant,
+.sales {
   color: #7a8a98;
   font-size: 12px;
 }
 .refname {
   color: #7a8a98;
   font-size: 14px;
+  text-align: center;
 }
 .status {
   font-size: 12px;
@@ -224,12 +345,6 @@
   width: 100%;
   height: 53%;
   margin-top: 1.5rem;
-}
-table,
-th,
-td {
-  border: 1px solid black;
-  border-collapse: collapse;
 }
 .overlay {
   position: fixed;

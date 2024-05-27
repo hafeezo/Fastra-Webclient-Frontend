@@ -152,29 +152,32 @@
   @media screen and (max-width: 739px) and (min-width: 300px) {
     width: 100%;
     font-size: 12px;
-    /* 680 */
   }
 }
 .purst {
   text-decoration: none;
   color: black;
 }
-.purst:link {
-  text-decoration: none;
-  color: black;
-}
+
+.purst:link,
 .purst:visited {
   text-decoration: none;
   color: black;
 }
+
 .purst:hover {
   text-decoration: none;
   color: #335db2;
 }
+
 .purst:active {
   text-decoration: none;
   color: #3b7ced;
 }
+.purst.active {
+  color: #3b7ced !important;
+}
+
 .puralert {
   width: 5%;
   height: 100%;

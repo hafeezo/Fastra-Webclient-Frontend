@@ -1,4 +1,4 @@
-.npr {
+.rapr {
   width: 100%;
   height: 100%;
   font-family: Product Sans;
@@ -7,12 +7,12 @@
   align-items: center;
   z-index: 999;
   background-color: white;
+  overflow: auto;
 }
 .fade-in {
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
 }
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -22,12 +22,12 @@
   }
 }
 
-.npr1b {
-  width: 100%;
+.rapr1 {
+  width: 95%;
   height: 100%;
 }
 
-.npr2 {
+.rapr2 {
   width: 100%;
   height: 10%;
   display: flex;
@@ -36,7 +36,7 @@
   margin-top: 3rem;
 }
 
-.npr2a {
+.rapr2a {
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -44,18 +44,18 @@
   height: 100%;
 }
 
-.nprhed {
+.raprhed {
   font-size: 1.5rem;
   font-weight: 500;
 }
 
-.nprauto {
+.raprauto {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.npr2b {
+.rapr2b {
   display: flex;
   gap: 1.5rem;
   height: 100%;
@@ -64,11 +64,11 @@
   justify-content: end;
 }
 
-.nprbpg {
+.raprbpg {
   color: #a9b3bc;
 }
 
-.nprbnav {
+.raprbnav {
   border: 1.2px solid #e2e6e9;
   width: 25%;
   height: 40%;
@@ -90,7 +90,7 @@
   border-left: 1px solid #e2e6e9;
 }
 
-.npr3 {
+.rapr3 {
   width: 100%;
   height: 79%;
   padding: 24px 0px 0px 0px;
@@ -102,97 +102,77 @@
   margin-top: -0.5rem;
 }
 
-.nprform {
+.raprform {
   width: 95%;
   height: 100%;
 }
 
-.npr3a {
+.rapr3a {
   width: 100%;
-  height: 5%;
+  height: 10%;
+  margin-top: -1rem;
+}
+.rapr3ae {
+  width: 100%;
+  height: 50%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   color: #3b7ced;
 }
-
-.npr3but {
+.rapr3but {
   color: #3b7ced;
   border: none;
   padding: 10px;
   background: transparent;
 }
 
-.npr3b {
+.rapr3b {
   width: 100%;
-  height: 8%;
+  height: 5%;
   display: flex;
   gap: 4rem;
-  align-items: center;
-  margin-top: 2rem;
   border-bottom: 1px solid #e2e6e9;
+  margin-top: -0.5rem;
 }
 
-.npr3ba {
+.rapr3ba {
   width: 5%;
   height: 90%;
   line-height: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
-.npr3bb {
-  width: 10%;
+.rapr3bb {
+  width: 15%;
   height: 90%;
   line-height: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
-
-.npr3c {
-  width: 100%;
-  height: 16.5%;
-  display: flex;
-  gap: 3rem;
-  border-bottom: 1px solid #e2e6e9;
-  margin-top: 0.5rem;
-}
-
-.npr3ca {
-  width: 25%;
+.rapr3bc {
+  width: 15%;
   height: 90%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   line-height: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.npr3cb {
-  width: 95%;
-  margin-top: 0.1rem;
-  cursor: pointer;
-  outline: none;
-  border: 2px solid #e2e6e9;
-  border-radius: 4px;
-  padding: 15px;
-  margin-bottom: 0.5rem;
-}
-
-.npr3d {
+.rapr3c {
   width: 100%;
-  height: 40%;
-  margin-top: 1.5rem;
+  color: #3b7ced;
+  margin: 1rem 0;
+  font-size: 1.2rem;
 }
 
-.npr3e {
-  width: 100%;
-  height: 8%;
-  margin-top: 2.5rem;
+.rapr3e {
+  width: 40%;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 1.5rem;
+  justify-content: flex-end;
 }
 
-.npr3btn {
+.rapr3btn {
   background-color: #3b7ced;
   color: white;
   border: none;
@@ -201,9 +181,8 @@
   cursor: pointer;
   font-size: 12px;
 }
-
 /* New styles for table inputs */
-.npr3d table input {
+.rapr3d table input {
   width: 100%;
   border: none;
   border-bottom: 1px solid #e2e6e9;
@@ -212,7 +191,7 @@
   outline: none;
 }
 
-.npr3d table input:focus {
+.rapr3d table input:focus {
   outline: none;
   border-bottom: 1px solid #e2e6e9;
 }

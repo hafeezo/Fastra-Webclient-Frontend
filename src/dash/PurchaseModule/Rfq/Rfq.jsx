@@ -1,129 +1,127 @@
 import React, { useState, useEffect } from "react";
-import "../Purchreq.css";
-import Header from "../Purchead";
-import SearchIcon from "../../image/search.svg";
+import "./Rfq.css";
+import SearchIcon from "../../../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import RListview from "./RListview";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import IconButton from "@mui/material/IconButton";
 import Rform from "./Rform";
+import Rapr from "./Rapr";
 
 export default function Rfq() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [approvedCount, setApprovedCount] = useState(12);
-  const [pendingCount, setPendingCount] = useState(12);
-  const [rejectedCount, setRejectedCount] = useState(12);
+  const [approvedCount, setApprovedCount] = useState(0);
+  const [pendingCount, setPendingCount] = useState(0);
+  const [rejectedCount, setRejectedCount] = useState(0);
   const [viewMode, setViewMode] = useState("grid");
-  const [filteredItems, setFilteredItems] = useState([]);
+  const [items, setItems] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
-  
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState(null); // Change to null to handle no data case
+
   const toggleViewMode = (mode) => {
     setViewMode(mode);
   };
-
-  const getCurrentDateTime = () => {
-    const now = new Date();
-    const date = now.toLocaleDateString();
-    const time = now.toLocaleTimeString();
-    return `${date} - ${time}`;
+  const handleNewRfq = () => {
+    setIsFormVisible(true); // Show the form
   };
 
-  const items = [
-    {
-      id: "PR00001",
-      vendorName: "Vendor Name",
-      date: getCurrentDateTime(),
-      status: "vendor selected",
-    },
-    {
-      id: "PR00002",
-      vendorName: "Vendor Name",
-      date: getCurrentDateTime(),
-      status: "Cancelled",
-    },
-    {
-      id: "PR00003",
-      vendorName: "Vendor Name",
-      date: getCurrentDateTime(),
-      status: "Awaiting vendor selection",
-    },
-    {
-      id: "PR00004",
-      vendorName: "Vendor Name",
-      date: getCurrentDateTime(),
-      status: "vendor selected",
-    },
-    {
-      id: "PR00005",
-      vendorName: "Vendor Name",
-      date: getCurrentDateTime(),
-      status: "Awaiting vendor selection",
-    },
-    {
-      id: "PR00006",
-      vendorName: "Vendor Name",
-      date: getCurrentDateTime(),
-      status: "Cancelled",
-    },
-  ];
+  const handleSaveAndSubmit = (data) => {
+    setFormData(data);
+    setIsSubmitted(true);
+  };
+
+  const handleFormDataChange = (data) => {
+    setFormData(data);
+  };
+
+  const handleFormClose = () => {
+    setIsFormVisible(false);
+    setIsSubmitted(false); // Reset form submission state when closing the form
+  };
+
+  // const getCurrentDateTime = () => {
+  //   const now = new Date();
+  //   const date = now.toLocaleDateString();
+  //   const time = now.toLocaleTimeString();
+  //   return `${date} - ${time}`;
+  // };
+
+  // const items = [
+  //   {
+  //     id: "PR00001",
+  //     vendorName: "Vendor Name",
+  //     date: getCurrentDateTime(),
+  //     status: "vendor selected",
+  //   },
+  //   {
+  //     id: "PR00002",
+  //     vendorName: "Vendor Name",
+  //     date: getCurrentDateTime(),
+  //     status: "Cancelled",
+  //   },
+  //   {
+  //     id: "PR00003",
+  //     vendorName: "Vendor Name",
+  //     date: getCurrentDateTime(),
+  //     status: "Awaiting vendor selection",
+  //   },
+  //   {
+  //     id: "PR00004",
+  //     vendorName: "Vendor Name",
+  //     date: getCurrentDateTime(),
+  //     status: "vendor selected",
+  //   },
+  //   {
+  //     id: "PR00005",
+  //     vendorName: "Vendor Name",
+  //     date: getCurrentDateTime(),
+  //     status: "Awaiting vendor selection",
+  //   },
+  //   {
+  //     id: "PR00006",
+  //     vendorName: "Vendor Name",
+  //     date: getCurrentDateTime(),
+  //     status: "Cancelled",
+  //   },
+  // ];
 
   const getStatusColor = (status) => {
     switch (status) {
       case "vendor selected":
-        return "#2ba24c"; // Green color
+        return "#2ba24c";
       case "Awaiting vendor selection":
-        return "#f0b501"; // Yellow color
+        return "#f0b501";
       case "Cancelled":
-        return "#e43e2b"; // Red color
+        return "#e43e2b";
       default:
-        return "#7a8a98"; // Default color for other statuses
+        return "#7a8a98";
     }
   };
 
-  const incrementCounts = () => {
-    const increment = 1;
-    const interval = 100;
-    let currentApprovedCount = 0;
-    let currentPendingCount = 0;
-    let currentRejectedCount = 0;
-
-    const approvedInterval = setInterval(() => {
-      if (currentApprovedCount <= 12) {
-        // Change the final value here
-        setApprovedCount(currentApprovedCount);
-        currentApprovedCount += increment;
-      } else {
-        clearInterval(approvedInterval);
-      }
-    }, interval);
-
-    const pendingInterval = setInterval(() => {
-      if (currentPendingCount <= 12) {
-        // Change the final value here
-        setPendingCount(currentPendingCount);
-        currentPendingCount += increment;
-      } else {
-        clearInterval(pendingInterval);
-      }
-    }, interval);
-
-    const rejectedInterval = setInterval(() => {
-      if (currentRejectedCount <= 12) {
-        // Change the final value here
-        setRejectedCount(currentRejectedCount);
-        currentRejectedCount += increment;
-      } else {
-        clearInterval(rejectedInterval);
-      }
-    }, interval);
+  const updateCounts = (items) => {
+    const draftCount = items.filter((item) => item.status === "Draft").length;
+    const approvedCount = items.filter(
+      (item) => item.status === "Approved"
+    ).length;
+    const pendingCount = items.filter(
+      (item) => item.status === "Pending"
+    ).length;
+    const rejectedCount = items.filter(
+      (item) => item.status === "Rejected"
+    ).length;
+    setApprovedCount(approvedCount);
+    setPendingCount(pendingCount);
+    setRejectedCount(rejectedCount);
   };
 
   useEffect(() => {
-    incrementCounts();
+    updateCounts(items);
     setFilteredItems(items);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [items]);
 
   const handleSearch = () => {
     if (searchQuery === "") {
@@ -140,52 +138,37 @@ export default function Rfq() {
     }
   };
 
-  const handleNewRfq = () => {
-    setIsFormVisible(true); // Show the form
-  };
-
-  const handleFormSubmit = (formData) => {
-    // Here you can handle the form data (e.g., send it to an API)
-    console.log("Form data submitted:", formData);
-    setIsFormVisible(false); // Hide the form and show the cards view
-  };
-
-  const handleFormClose = () => {
-    setIsFormVisible(false); // Close the form without submitting
-  };
-
   return (
-    <div className="prq" id='rfq'>
-      <Header />
-      <div className="prq1">
-        <div className="prq2">
+    <div className="rfq" id='rfq'>
+      <div className="rfq1">
+        <div className="rfq2">
           <p>RFQs</p>
-          <div className="prqlist">
-            <div className="prql2">
-              <p>Vendor Selected</p>
+          <div className="rfqlist">
+            <div className="rfql1">
+              <p style={{lineHeight: '1rem'}}>Vendor Selected</p>
               <p className={`plnum ${approvedCount === 0 ? "zero" : ""}`}>
                 {approvedCount}
               </p>
             </div>
-            <div className="prql5">
-              <p>Awaiting Vendor Selection</p>
+            <div className="rfql2">
+              <p style={{lineHeight: '1rem'}}>Awaiting Vendor Selection</p>
               <p className={`plnum ${pendingCount === 0 ? "zero" : ""}`}>
                 {pendingCount}
               </p>
             </div>
-            <div className="prql4">
+            <div className="rfql3">
               <p>Cancelled</p>
               <p className={`plnum ${rejectedCount === 0 ? "zero" : ""}`}>
                 {rejectedCount}
               </p>
             </div>
           </div>
-          <div className="prq3">
-            <div className="p3a">
-              <button className="p3abtn" onClick={handleNewRfq}>
+          <div className="rfq3">
+            <div className="r3a">
+              <button className="r3abtn" onClick={handleNewRfq}>
                 New RFQ
               </button>
-              <div className="prqsash">
+              <div className="rfqsash">
                 <label
                   htmlFor="searchInput"
                   className="ps1"
@@ -204,16 +187,14 @@ export default function Rfq() {
               </div>
             </div>
             <div
-              className="p3b
-"
-            >
-              <p className="p3bpage">1-2 of 2</p>
-              <div className="p3bnav">
+              className="r3b">
+              <p className="r3bpage">1-2 of 2</p>
+              <div className="r3bnav">
                 <FaCaretLeft className="lr" />
                 <div className="stroke"></div>
                 <FaCaretRight className="lr" />
               </div>
-              <div className="p3bview">
+              <div className="r3bview">
                 <IoGrid
                   className={`grid ${viewMode === "grid" ? "active" : ""}`}
                   onClick={() => toggleViewMode("grid")}
@@ -227,18 +208,29 @@ export default function Rfq() {
             </div>
           </div>
           {isFormVisible ? (
-            <Rform onClose={handleFormClose} onSubmit={handleFormSubmit} />
+            <div className="overlay">
+            {!isSubmitted ? (
+                <Rform
+                  onSaveAndSubmit={handleSaveAndSubmit}
+                  onFormDataChange={handleFormDataChange}
+                  onClose={handleFormClose}
+                />
+              ) : (
+                <Rapr formData={formData} onClose={handleFormClose} />
+              )}
+            </div>
           ) : viewMode === "grid" ? (
-            <div className="prq4">
+            <div className="rfq4">
               {filteredItems.map((item) => (
-                <div className="prq4gv" key={item.id}>
+                <div className="rfq4gv" key={item.id}>
                   <p className="cardid">{item.id}</p>
-                  <p className="vendorname">
+                  <div className="vendname">
                     {item.status === "Awaiting vendor selection" ? (
                       <div
                         style={{
                           display: "flex",
                           alignItems: "center",
+                          justifyContent: "center",
                           color: "blue",
                         }}
                       >
@@ -250,8 +242,8 @@ export default function Rfq() {
                     ) : (
                       item.vendorName
                     )}
-                  </p>
-                  <p className="carddate">{item.date}</p>
+                  </div>
+                  <p className="cardate">{item.date}</p>
                   <p
                     className="status"
                     style={{ color: getStatusColor(item.status) }}

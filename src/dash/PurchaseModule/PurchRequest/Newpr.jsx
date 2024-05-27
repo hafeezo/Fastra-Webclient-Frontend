@@ -8,8 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
+import autosave from "../../../image/autosave.svg";
 import "./Newpr.css";
-import autosave from "../image/autosave.svg";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,7 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function Newpr({ onClose, onAddItem, onSubmit }) {
+export default function Newpr({ onClose, onSaveAndSubmit }) {
   const [rows, setRows] = useState([
     {
       productName: "",
@@ -42,13 +42,14 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
       totalPrice: "",
     },
   ]);
+
   const generateNewID = () => {
     const lastID = localStorage.getItem("lastGeneratedID");
     let newID = "PR00001";
 
     if (lastID) {
       const idNumber = parseInt(lastID.slice(2), 10) + 1;
-      newID = "PR" + idNumber.toString().padStart(5, "0");
+      newID = "PR" + (idNumber + 1).toString().padStart(5, "0");
     }
 
     localStorage.setItem("lastGeneratedID", newID);
@@ -67,7 +68,7 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
 
   const [page, setPage] = useState(0);
   const rowsPerPage = 2;
-  const [showForm] = useState(true); // Define showForm state variable
+  const [showForm] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -75,9 +76,9 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
         ...prevState,
         date: new Date(),
       }));
-    }, 1000); // Update the date every second
+    }, 1000);
 
-    return () => clearInterval(timer); // Cleanup the timer on component unmount
+    return () => clearInterval(timer);
   }, []);
 
   const handleInputChange = (index, key, value) => {
@@ -107,11 +108,16 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
     alert("Data saved successfully!");
   };
 
-  const handleSaveAndSubmit = () => {
-    const data = { ...formState, rows };
-    console.log("Items added:", data);
-    onSubmit(data);
-    onClose();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formDataWithStringDate = {
+      ...formState,
+      date: formState.date.toString(), // Convert date to string
+      rows,
+    };
+
+    onSaveAndSubmit(formDataWithStringDate);
   };
 
   const addRow = () => {
@@ -185,7 +191,7 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
           </div>
         </div>
         <div className="npr3">
-          <form className="nprform">
+          <form className="nprform" onSubmit={handleSubmit}>
             <div className="npr3a">
               <p style={{ fontSize: "20px" }}>Basic Information</p>
               <button
@@ -213,7 +219,7 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
                   )}`}
                 </p>
               </div>
-              <div className="npr3bb">
+              <div className="npr3bc">
                 <p>Requester</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formState.requester}
@@ -234,6 +240,12 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
                   name="purpose"
                   placeholder="Enter a purpose"
                   className="npr3cb"
+                  onChange={(e) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      purpose: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <div className="npr3ca">
@@ -241,8 +253,14 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
                 <input
                   type="text"
                   name="vendor"
-                  placeholder="IT Hardware Sales"
+                  placeholder="Enter a vendor"
                   className="npr3cb"
+                  onChange={(e) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      vendor: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <button
@@ -255,8 +273,32 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
               </button>
             </div>
             <div className="npr3d">
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
+              <TableContainer
+                component={Paper}
+                sx={{
+                  boxShadow: "none",
+                  border: "1px solid #e2e6e9",
+                  marginTop: "1rem",
+                }}
+              >
+                <Table
+                  sx={{
+                    minWidth: 700,
+                    "&.MuiTable-root": {
+                      border: "none",
+                    },
+                    "& .MuiTableCell-root": {
+                      border: "none",
+                    },
+                    "& .MuiTableCell-head": {
+                      border: "none",
+                    },
+                    "& .MuiTableCell-body": {
+                      border: "none",
+                    },
+                  }}
+                  aria-label="customized table"
+                >
                   <TableHead>
                     <TableRow>
                       <StyledTableCell>Product Name</StyledTableCell>
@@ -308,6 +350,7 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
                             type="number"
                             placeholder="0"
                             name="qty"
+                            style={{ textAlign: "right" }}
                             value={row.qty}
                             onChange={(e) =>
                               handleInputChange(
@@ -323,6 +366,7 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
                             type="number"
                             placeholder="000,000"
                             name="unitPrice"
+                            style={{ textAlign: "right" }}
                             value={row.unitPrice}
                             onChange={(e) =>
                               handleInputChange(
@@ -338,6 +382,7 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
                             type="number"
                             placeholder="000,000"
                             name="totalPrice"
+                            style={{ textAlign: "right" }}
                             value={row.totalPrice}
                             readOnly
                           />
@@ -360,11 +405,7 @@ export default function Newpr({ onClose, onAddItem, onSubmit }) {
               <button type="button" className="npr3btn" onClick={handleSave}>
                 Save
               </button>
-              <button
-                type="button"
-                className="npr3btn"
-                onClick={handleSaveAndSubmit}
-              >
+              <button type="submit" className="npr3btn">
                 Save & Submit
               </button>
             </div>

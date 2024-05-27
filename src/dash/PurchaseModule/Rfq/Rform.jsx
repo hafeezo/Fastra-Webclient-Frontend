@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -8,8 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
+import autosave from "../../../image/autosave.svg";
 import "./Rform.css";
-import autosave from "../../image/autosave.svg";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,7 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function Rform({ onClose, onSubmit }) {
+export default function Rform({ onClose, onSaveAndSubmit }) {
   const [rows, setRows] = useState([
     {
       productName: "",
@@ -43,8 +43,44 @@ export default function Rform({ onClose, onSubmit }) {
     },
   ]);
 
+  const generateNewID = () => {
+    const lastID = localStorage.getItem("lastGeneratedID");
+    let newID = "RFQ00001";
+
+    if (lastID && /^RFQ\d{5}$/.test(lastID)) {
+      const idNumber = parseInt(lastID.slice(3), 10);
+      if (!isNaN(idNumber)) {
+        newID = "RFQ" + (idNumber + 1).toString().padStart(5, "0");
+      }
+    }
+
+    localStorage.setItem("lastGeneratedID", newID);
+    console.log(`Generated new ID: ${newID}`); // Debugging line
+    return newID;
+  };
+  
+  const [formState, setFormState] = useState({
+    id: generateNewID(),
+    productName: "",
+    amount: "",
+    status: "Awaititng Vendor Selection", // Assuming default status
+    date: new Date(), // Current date
+  });
+
   const [page, setPage] = useState(0);
-  const rowsPerPage = 3;
+  const rowsPerPage = 2;
+  const [showForm] = useState(true);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFormState((prevState) => ({
+        ...prevState,
+        date: new Date(),
+      }));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const handleInputChange = (index, key, value) => {
     const newRows = [...rows];
@@ -55,16 +91,34 @@ export default function Rform({ onClose, onSubmit }) {
       ).toFixed(2);
     }
     setRows(newRows);
+
+    const totalAmount = newRows.reduce(
+      (sum, row) => sum + parseFloat(row.totalPrice || 0),
+      0
+    );
+
+    setFormState((prevState) => ({
+      ...prevState,
+      productName: key === "productName" ? value : prevState.productName,
+      amount: totalAmount.toFixed(2),
+    }));
   };
 
   const handleSave = () => {
-    // Save the input data to a global state, local storage, or an API
     console.log("Input data saved:", rows);
+    alert("Data saved successfully!");
   };
 
-  const handleSaveAndSubmit = () => {
-    console.log("Input data submitted:", rows);
-    onSubmit(rows);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formDataWithStringDate = {
+      ...formState,
+      date: formState.date.toString(), // Convert date to string
+      rows,
+    };
+
+    onSaveAndSubmit(formDataWithStringDate);
   };
 
   const addRow = () => {
@@ -95,95 +149,166 @@ export default function Rform({ onClose, onSubmit }) {
   const currentRows = rows.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   const pageCount = Math.ceil(rows.length / rowsPerPage);
 
+  const formatDate = (date) => {
+    const options = { day: "numeric", month: "short", year: "numeric" };
+    return date.toLocaleDateString("en-US", options);
+  };
+
+  const formatTime = (date) => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "pm" : "am";
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+    return `${formattedHours}:${formattedMinutes}${ampm}`;
+  };
+
+  const calculateTotalAmount = () => {
+    return rows
+      .reduce((sum, row) => sum + parseFloat(row.totalPrice || 0), 0)
+      .toFixed(2);
+  };
+
   return (
-    <div id="newrfq" className="npr fade-in">
-      <div className="npr1b">
-        <div className="npr2">
-          <div className="npr2a">
-            <p className="nprhed">New Purchase Request</p>
-            <div className="nprauto">
+    <div id="newrfq" className={`rpr ${showForm ? "fade-in" : "fade-out"}`}>
+      <div className="rpr1">
+        <div className="rpr2">
+          <div className="rpr2a">
+            <p className="rprhed">New RFQs</p>
+            <div className="rprauto">
               <p>Autosaved</p>
               <img src={autosave} alt="Autosaved" />
             </div>
           </div>
-          <div className="npr2b">
-            <p className="nprbpg">
+          <div className="rpr2b">
+            <p className="rprbpg">
               {page + 1}-{pageCount} of {pageCount}
             </p>
-            <div className="nprbnav">
+            <div className="rprbnav">
               <FaCaretLeft className="nr" onClick={handlePreviousPage} />
               <div className="sep"></div>
               <FaCaretRight className="nr" onClick={handleNextPage} />
             </div>
           </div>
         </div>
-        <div className="npr3">
-          <form className="nprform">
-            <div className="npr3a">
+        <div className="rpr3">
+          <form className="rprform" onSubmit={handleSubmit}>
+            <div className="rpr3a">
               <p style={{ fontSize: "20px" }}>Basic Information</p>
+              <div className="rpr3e">
               <button
                 type="button"
-                className="npr3but"
+                className="rpr3but"
                 onClick={onClose}
-                style={{ marginTop: "1rem" }}
               >
                 Cancel
               </button>
-            </div>
+              <button type="button" className="rpr3btn" onClick={handleSave}>
+                Save
+              </button>
+              <button type="submit" className="rpr3btn">
+                Send to vendor
+              </button>
+            </div></div>
 
-            <div className="npr3b">
-              <div className="npr3ba">
+            <div className="rpr3b">
+              <div className="rpr3ba">
                 <p>ID</p>
-                <p style={{ fontSize: "14px", color: "#7a8a98" }}>PR00001</p>
-              </div>
-              <div className="npr3bb">
-                <p>Date</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
-                  4 Apr 2024 - 4:48pm
+                  {formState.id}
                 </p>
               </div>
-              <div className="npr3bb">
-                <p>Requester</p>
+              <div className="rpr3bb">
+                <p>Date Opened</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
-                  Firstname Lastname
+                  {`${formatDate(formState.date)} - ${formatTime(
+                    formState.date
+                  )}`}
                 </p>
-              </div>
-              <div className="npr3bb">
-                <p>Department</p>
-                <p style={{ fontSize: "14px", color: "#7a8a98" }}>Sales</p>
               </div>
             </div>
-            <div className="npr3c">
-              <div className="npr3ca">
-                <label>Purpose</label>
+            <div className="rpr3c">
+              <div className="rpr3ca">
+                <label>Expiry Date</label>
                 <input
-                  type="text"
-                  name="purpose"
-                  placeholder="Enter a purpose"
-                  className="npr3cb"
+                  type="date and time"
+                  name="expiry date"
+                  placeholder="DD MMM YYYY - HH MM - AM"
+                  className="rpr3cb"
+                  onChange={(e) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      expiryDate: e.target.value,
+                    }))
+                  }
                 />
               </div>
-              <div className="npr3ca">
-                <label>Suggested Vendor</label>
+              <div className="rpr3ca">
+                <label>Vendor</label>
+                <input
+                  type="text"
+                  name="vendor"
+                  placeholder="Cee Que Enterprises"
+                  className="rpr3cb"
+                  onChange={(e) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      vendor: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+              <div className="rpr3ca">
+                <label>Vendor Category</label>
                 <input
                   type="text"
                   name="vendor"
                   placeholder="IT Hardware Sales"
-                  className="npr3cb"
+                  className="rpr3cb"
+                  onChange={(e) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      vendorCategory: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <button
                 type="button"
-                className="npr3but"
+                className="rpr3but"
                 onClick={addRow}
                 style={{ marginTop: "1rem" }}
               >
                 Add Row
               </button>
             </div>
-            <div className="npr3d">
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <div className="rpr3d">
+              <TableContainer
+                component={Paper}
+                sx={{
+                  boxShadow: "none",
+                  border: "1px solid #e2e6e9",
+                  marginTop: "1rem",
+                }}
+              >
+                <Table
+                  sx={{
+                    minWidth: 700,
+                    "&.MuiTable-root": {
+                      border: "none",
+                    },
+                    "& .MuiTableCell-root": {
+                      border: "none",
+                    },
+                    "& .MuiTableCell-head": {
+                      border: "none",
+                    },
+                    "& .MuiTableCell-body": {
+                      border: "none",
+                    },
+                  }}
+                  aria-label="customized table"
+                >
                   <TableHead>
                     <TableRow>
                       <StyledTableCell>Product Name</StyledTableCell>
@@ -199,7 +324,7 @@ export default function Rform({ onClose, onSubmit }) {
                   </TableHead>
                   <TableBody>
                     {currentRows.map((row, index) => (
-                      <StyledTableRow key={index}>
+                      <StyledTableRow key={index + page * rowsPerPage}>
                         <StyledTableCell component="th" scope="row">
                           <input
                             type="text"
@@ -235,6 +360,7 @@ export default function Rform({ onClose, onSubmit }) {
                             type="number"
                             placeholder="0"
                             name="qty"
+                            style={{ textAlign: "right" }}
                             value={row.qty}
                             onChange={(e) =>
                               handleInputChange(
@@ -250,6 +376,7 @@ export default function Rform({ onClose, onSubmit }) {
                             type="number"
                             placeholder="000,000"
                             name="unitPrice"
+                            style={{ textAlign: "right" }}
                             value={row.unitPrice}
                             onChange={(e) =>
                               handleInputChange(
@@ -265,27 +392,24 @@ export default function Rform({ onClose, onSubmit }) {
                             type="number"
                             placeholder="000,000"
                             name="totalPrice"
+                            style={{ textAlign: "right" }}
                             value={row.totalPrice}
                             readOnly
                           />
                         </StyledTableCell>
                       </StyledTableRow>
                     ))}
+                    <StyledTableRow>
+                      <StyledTableCell colSpan={4} align="right">
+                        Total Amount
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {calculateTotalAmount()}
+                      </StyledTableCell>
+                    </StyledTableRow>
                   </TableBody>
                 </Table>
               </TableContainer>
-            </div>
-            <div className="npr3e">
-              <button type="button" className="npr3btn" onClick={handleSave}>
-                Save
-              </button>
-              <button
-                type="button"
-                className="npr3btn"
-                onClick={handleSaveAndSubmit}
-              >
-                Save & Submit
-              </button>
             </div>
           </form>
         </div>
