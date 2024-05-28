@@ -89,11 +89,11 @@ const SendButton = styled("button")(({ theme }) => ({
   marginLeft: "10px",
 }));
 
-export default function Papr({ formData }) {
+export default function Papr({ formData, onUpdateStatus }) {
   const [rejectionReason, setRejectionReason] = useState("");
   const [stakeholderUsername, setStakeholderUsername] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
-
+   
   useEffect(() => {
     if (formData && formData.rows) {
       const total = formData.rows.reduce((sum, row) => {
@@ -105,11 +105,13 @@ export default function Papr({ formData }) {
   }, [formData]);
 
   const handleRejection = () => {
+    onUpdateStatus(formData.id, "Rejected");
     console.log("Rejected with reason: ", rejectionReason);
     // Implement rejection logic here
   };
 
   const handleApproval = () => {
+    onUpdateStatus(formData.id, "Approved");
     console.log("Approved");
     // Implement approval logic here
   };
@@ -282,7 +284,6 @@ export default function Papr({ formData }) {
               <RejectButton onClick={handleRejection}>Reject</RejectButton>
             </div>
             <div style={{ marginBottom: "1rem" }}>
-              {/* <label htmlFor="rejectionReason">Rejection Reason</label> */}
               <TextArea
                 id="rejectionReason"
                 placeholder="Enter reason for rejection"

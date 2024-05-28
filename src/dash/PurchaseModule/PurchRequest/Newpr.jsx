@@ -267,7 +267,6 @@ export default function Newpr({ onClose, onSaveAndSubmit }) {
                 type="button"
                 className="npr3but"
                 onClick={addRow}
-                style={{ marginTop: "1rem" }}
               >
                 Add Row
               </button>

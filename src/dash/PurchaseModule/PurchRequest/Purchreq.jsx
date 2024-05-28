@@ -18,11 +18,14 @@ export default function Purchreq() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState(null); // Change to null to handle no data case
+  const [formData, setFormData] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null); // Add state for selected item
 
   const handleSaveAndSubmit = (data) => {
     setFormData(data);
     setIsSubmitted(true);
+    setItems([...items, data]);
+    setIsFormVisible(false);
   };
 
   const handleFormDataChange = (data) => {
@@ -39,7 +42,17 @@ export default function Purchreq() {
 
   const handleFormClose = () => {
     setIsFormVisible(false);
-    setIsSubmitted(false); // Reset form submission state when closing the form
+    setIsSubmitted(false);
+  };
+
+  const handleUpdateStatus = (id, status) => {
+    const updatedItems = items.map((item) =>
+      item.id === id ? { ...item, status: status } : item
+    );
+    setItems(updatedItems);
+    setIsSubmitted(false);
+    setIsFormVisible(false);
+    setSelectedItem(null); // Hide Papr after status update
   };
 
   const getStatusColor = (status) => {
@@ -97,6 +110,10 @@ export default function Purchreq() {
       );
       setFilteredItems(filtered);
     }
+  };
+
+  const handleCardClick = (item) => {
+    setSelectedItem(item);
   };
 
   return (
@@ -182,13 +199,18 @@ export default function Purchreq() {
                   onClose={handleFormClose}
                 />
               ) : (
-                <Papr formData={formData} onClose={handleFormClose} />
+                <Papr
+                  formData={formData}
+                  onUpdateStatus={handleUpdateStatus}
+                />
               )}
             </div>
+          ) : selectedItem ? (
+            <Papr formData={selectedItem} onUpdateStatus={handleUpdateStatus} />
           ) : viewMode === "grid" ? (
             <div className="prq4">
               {filteredItems.map((item) => (
-                <div className="prq4gv" key={item.id}>
+                <div className="prq4gv" key={item.id} onClick={() => handleCardClick(item)}>
                   <p className="cardid">{item.id}</p>
                   <p className="cardnum">{item.amount}</p>
                   <p className="refname">{item.requester}</p>

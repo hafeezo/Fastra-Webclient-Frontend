@@ -158,7 +158,7 @@
   display: flex;
   gap: 3rem;
   border-bottom: 1px solid #e2e6e9;
-  margin-top: 0.5rem;
+  margin: 1.5rem 0;
 }
 
 .npr3ca {
@@ -178,7 +178,7 @@
   border: 2px solid #e2e6e9;
   border-radius: 4px;
   padding: 15px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .npr3d {
@@ -189,7 +189,7 @@
 .npr3e {
   width: 100%;
   height: 8%;
-  margin-top: 1rem;
+  margin-top: -0.5rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
