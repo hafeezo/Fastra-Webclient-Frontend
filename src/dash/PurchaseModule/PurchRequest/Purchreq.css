@@ -19,7 +19,7 @@
   top: 5%;
 }
 .prqlist {
-  width: 40%;
+  width: 50%;
   height: 20%;
   display: flex;
   gap: 2rem;
@@ -47,7 +47,7 @@
 }
 .prql1 {
   background: linear-gradient(225deg, #3b7ded 0%, #224787 100%);
-  width: 20%;
+  width: 35%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -73,7 +73,7 @@
 }
 .prql3 {
   background: linear-gradient(225deg, #f0b501 0%, #8a6801 100%);
-  width: 26%;
+  width: 35%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -85,7 +85,7 @@
 }
 .prql4 {
   background: linear-gradient(225deg, #e43e2b 0%, #7e2218 100%);
-  width: 24%;
+  width: 35%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -97,18 +97,6 @@
   @media screen and (max-width: 420px) {
     width: 26%;
   }
-}
-.prql5 {
-  background: linear-gradient(225deg, #f0b501 0%, #8a6801 100%);
-  width: 52%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  line-height: 2.5rem;
-  text-align: center;
-  border-radius: 5px;
 }
 .plnum {
   font-size: 2rem;
@@ -367,4 +355,14 @@
   to {
     opacity: 1;
   }
+}
+.prq4gv.clickable {
+  cursor: pointer;
+  /* any other styles for clickable cards */
+}
+
+.prq4gv.not-clickable {
+  cursor: not-allowed;
+  opacity: 0.6; /* to visually distinguish non-clickable cards */
+  /* any other styles for non-clickable cards */
 }

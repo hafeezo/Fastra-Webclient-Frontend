@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes, FaBell } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 import "./Purchead.css";
 import admin from "../../image/admin.svg";
 import { NavLink } from "react-router-dom";
@@ -7,9 +8,15 @@ import { NavLink } from "react-router-dom";
 export default function Purchead() {
   const [notifications, setNotifications] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
+  const [click, setClick] = useState(false);
   console.log("Purchead rendered"); // Log to confirm rendering
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  
+  const handleLinkClick = () => {
+    setClick(false);
   };
 
   return (
@@ -39,14 +46,24 @@ export default function Purchead() {
             <NavLink exact to="/pod" className="purst" activeClassName="active">
               Purchase Orders
             </NavLink>
-            <NavLink
-              exact
-              to="/vend"
-              className="purst"
-              activeClassName="active"
-            >
-              Vendors
-            </NavLink>
+            <div className="prodrop">
+              <NavLink
+                exact
+                to="/vend"
+                className="purst"
+                activeClassName="active"
+              >
+                <p className="p2">
+                  Vendor
+                  <IoIosArrowDown className="ardan" />
+                </p>
+              </NavLink>
+              <div className="prolst">
+                <NavLink to="/varcat" className="dropdown-link" onClick={handleLinkClick}>
+                  Vendor Category
+                </NavLink>
+              </div>
+            </div>
             <NavLink
               exact
               to="/prod"

@@ -32,8 +32,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function Rform({ onClose, onSaveAndSubmit }) {
-  const [rows, setRows] = useState([
+export default function Rform({
+  onClose,
+  onSaveAndSubmit,
+  initialData,
+  vendors,
+  categories
+}) {
+  const defaultRows = initialData?.rows || [
     {
       productName: "",
       description: "",
@@ -41,7 +47,9 @@ export default function Rform({ onClose, onSaveAndSubmit }) {
       unitPrice: "",
       totalPrice: "",
     },
-  ]);
+  ];
+
+  const [rows, setRows] = useState(defaultRows);
 
   const generateNewID = () => {
     const lastID = localStorage.getItem("lastGeneratedID");
@@ -58,18 +66,24 @@ export default function Rform({ onClose, onSaveAndSubmit }) {
     console.log(`Generated new ID: ${newID}`); // Debugging line
     return newID;
   };
-  
+
   const [formState, setFormState] = useState({
-    id: generateNewID(),
-    productName: "",
-    amount: "",
-    status: "Awaititng Vendor Selection", // Assuming default status
-    date: new Date(), // Current date
+    id: initialData?.id || generateNewID(),
+    productName: initialData?.productName || "",
+    amount: initialData?.amount || "",
+    status: initialData?.status || "Awaiting Vendor Selection", // Assuming default status
+    date: initialData?.date ? new Date(initialData.date) : new Date(), // Current date or initial date
+    expiryDate: initialData?.expiryDate || "",
+    vendor: initialData?.vendor || "",
+    vendorCategory: initialData?.vendorCategory || "",
   });
 
   const [page, setPage] = useState(0);
   const rowsPerPage = 2;
   const [showForm] = useState(true);
+
+  const [vendorDropdownVisible, setVendorDropdownVisible] = useState(false);
+  const [categoryDropdownVisible, setCategoryDropdownVisible] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -169,6 +183,22 @@ export default function Rform({ onClose, onSaveAndSubmit }) {
       .toFixed(2);
   };
 
+  const handleVendorSelect = (vendor) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      vendor: vendor.vendorName,
+    }));
+    setVendorDropdownVisible(false);
+  };
+
+  const handleCategorySelect = (category) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      vendorCategory: category,
+    }));
+    setCategoryDropdownVisible(false);
+  };
+
   return (
     <div id="newrfq" className={`rpr ${showForm ? "fade-in" : "fade-out"}`}>
       <div className="rpr1">
@@ -196,20 +226,17 @@ export default function Rform({ onClose, onSaveAndSubmit }) {
             <div className="rpr3a">
               <p style={{ fontSize: "20px" }}>Basic Information</p>
               <div className="rpr3e">
-              <button
-                type="button"
-                className="rpr3but"
-                onClick={onClose}
-              >
-                Cancel
-              </button>
-              <button type="button" className="rpr3btn" onClick={handleSave}>
-                Save
-              </button>
-              <button type="submit" className="rpr3btn">
-                Send to vendor
-              </button>
-            </div></div>
+                <button type="button" className="rpr3but" onClick={onClose}>
+                  Cancel
+                </button>
+                <button type="button" className="rpr3btn" onClick={handleSave}>
+                  Save
+                </button>
+                <button type="submit" className="rpr3btn">
+                  Send to vendor
+                </button>
+              </div>
+            </div>
 
             <div className="rpr3b">
               <div className="rpr3ba">
@@ -231,10 +258,11 @@ export default function Rform({ onClose, onSaveAndSubmit }) {
               <div className="rpr3ca">
                 <label>Expiry Date</label>
                 <input
-                  type="date and time"
-                  name="expiry date"
+                  type="date"
+                  name="expiryDate"
                   placeholder="DD MMM YYYY - HH MM - AM"
                   className="rpr3cb"
+                  value={formState.expiryDate}
                   onChange={(e) =>
                     setFormState((prev) => ({
                       ...prev,
@@ -245,33 +273,57 @@ export default function Rform({ onClose, onSaveAndSubmit }) {
               </div>
               <div className="rpr3ca">
                 <label>Vendor</label>
-                <input
-                  type="text"
-                  name="vendor"
-                  placeholder="Cee Que Enterprises"
-                  className="rpr3cb"
-                  onChange={(e) =>
-                    setFormState((prev) => ({
-                      ...prev,
-                      vendor: e.target.value,
-                    }))
-                  }
-                />
+                <div className="dropdown-container">
+                  <input
+                    type="text"
+                    name="vendor"
+                    placeholder="Select Vendor"
+                    className="rpr3cb"
+                    value={formState.vendor}
+                    onClick={() => setVendorDropdownVisible(!vendorDropdownVisible)}
+                    readOnly={false} // Make it editable
+                  />
+                  {vendorDropdownVisible && vendors && (
+                    <div className="dropdown-menu">
+                      {vendors.map((vendor, index) => (
+                        <div
+                          key={index}
+                          className="dropdown-item"
+                          onClick={() => handleVendorSelect(vendor)}
+                        >
+                          {vendor.vendorName}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="rpr3ca">
                 <label>Vendor Category</label>
-                <input
-                  type="text"
-                  name="vendor"
-                  placeholder="IT Hardware Sales"
-                  className="rpr3cb"
-                  onChange={(e) =>
-                    setFormState((prev) => ({
-                      ...prev,
-                      vendorCategory: e.target.value,
-                    }))
-                  }
-                />
+                <div className="dropdown-container">
+                  <input
+                    type="text"
+                    name="vendorCategory"
+                    placeholder="Select Category"
+                    className="rpr3cb"
+                    value={formState.vendorCategory}
+                    onClick={() => setCategoryDropdownVisible(!categoryDropdownVisible)}
+                    readOnly={false} // Make it editable
+                  />
+                  {categoryDropdownVisible && categories && (
+                    <div className="dropdown-menu">
+                      {categories.map((category, index) => (
+                        <div
+                          key={index}
+                          className="dropdown-item"
+                          onClick={() => handleCategorySelect(category)}
+                        >
+                          {category}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               <button
                 type="button"
@@ -374,7 +426,7 @@ export default function Rform({ onClose, onSaveAndSubmit }) {
                         <StyledTableCell align="right">
                           <input
                             type="number"
-                            placeholder="000,000"
+                            placeholder="0.00"
                             name="unitPrice"
                             style={{ textAlign: "right" }}
                             value={row.unitPrice}
@@ -390,7 +442,7 @@ export default function Rform({ onClose, onSaveAndSubmit }) {
                         <StyledTableCell align="right">
                           <input
                             type="number"
-                            placeholder="000,000"
+                            placeholder="0.00"
                             name="totalPrice"
                             style={{ textAlign: "right" }}
                             value={row.totalPrice}

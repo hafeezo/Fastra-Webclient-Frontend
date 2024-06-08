@@ -49,7 +49,7 @@ export default function Newpr({ onClose, onSaveAndSubmit }) {
 
     if (lastID) {
       const idNumber = parseInt(lastID.slice(2), 10) + 1;
-      newID = "PR" + (idNumber + 1).toString().padStart(5, "0");
+      newID = "PR" + idNumber.toString().padStart(5, "0");
     }
 
     localStorage.setItem("lastGeneratedID", newID);
@@ -83,6 +83,9 @@ export default function Newpr({ onClose, onSaveAndSubmit }) {
 
   const handleInputChange = (index, key, value) => {
     const newRows = [...rows];
+    if (key === "qty" || key === "unitPrice") {
+      value = Math.max(0, parseFloat(value) || 0);
+    }
     newRows[index][key] = value;
     if (key === "qty" || key === "unitPrice") {
       newRows[index]["totalPrice"] = (
@@ -263,11 +266,7 @@ export default function Newpr({ onClose, onSaveAndSubmit }) {
                   }
                 />
               </div>
-              <button
-                type="button"
-                className="npr3but"
-                onClick={addRow}
-              >
+              <button type="button" className="npr3but" onClick={addRow}>
                 Add Row
               </button>
             </div>
@@ -347,8 +346,9 @@ export default function Newpr({ onClose, onSaveAndSubmit }) {
                         <StyledTableCell align="right">
                           <input
                             type="number"
-                            placeholder="0"
+                            placeholder="0.00"
                             name="qty"
+                            className="no-arrows"
                             style={{ textAlign: "right" }}
                             value={row.qty}
                             onChange={(e) =>
@@ -363,8 +363,9 @@ export default function Newpr({ onClose, onSaveAndSubmit }) {
                         <StyledTableCell align="right">
                           <input
                             type="number"
-                            placeholder="000,000"
+                            placeholder="0.00"
                             name="unitPrice"
+                            className="no-arrows"
                             style={{ textAlign: "right" }}
                             value={row.unitPrice}
                             onChange={(e) =>

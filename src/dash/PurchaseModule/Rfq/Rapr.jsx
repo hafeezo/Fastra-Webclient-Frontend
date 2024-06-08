@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./Rapr.css";
 import autosave from "../../../image/autosave.svg";
+import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -50,8 +51,9 @@ const ApproveButton = styled("button")(({ theme }) => ({
   margin: "1rem 0",
 }));
 
-export default function Rapr({ onClose, formData }) {
+export default function Rapr({ onUpdateStatus, formData, onClose }) {
   const [totalPrice, setTotalPrice] = useState(0);
+  const [currentView, setCurrentView] = useState("rfq"); // State to manage current view
 
   useEffect(() => {
     if (formData && formData.rows) {
@@ -64,8 +66,8 @@ export default function Rapr({ onClose, formData }) {
   }, [formData]);
 
   const handleApproval = () => {
+    onUpdateStatus(formData.id, "Approved");
     console.log("Approved");
-    // Implement approval logic here
   };
 
   const formatDate = (date) => {
@@ -94,132 +96,246 @@ export default function Rapr({ onClose, formData }) {
             </div>
           </div>
         </div>
-        <div className="rapr3" style={{ height: "auto" }}>
-          <form className="raprform">
-            <div className="rapr3a">
-              <div className="rapr3ae">
-                <p style={{ fontSize: "20px" }}>
-                  Basic Information
-                </p>
-                <div className="rapr3e">
-                  <button type="button" className="rapr3but" onClick={onClose}>
-                    Cancel
-                  </button>
-                  <button type="submit" className="rapr3btn">
-                    Send to vendor
-                  </button>
+        <div className="raprclk">
+          <p
+            className={`togclk ${currentView === "rfq" ? "active" : ""}`}
+            onClick={() => setCurrentView("rfq")}
+          >
+            RFQ
+          </p>
+          <p
+            className={`togclk ${
+              currentView === "vendorQuote" ? "active" : ""
+            }`}
+            onClick={() => setCurrentView("vendorQuote")}
+          >
+            Vendor Quotes
+          </p>
+        </div>
+        {currentView === "rfq" ? (
+          <div className="rapr3" style={{ height: "auto" }}>
+            <form className="raprform">
+              <div className="rapr3a">
+                <div className="rapr3ae">
+                  <p style={{ fontSize: "20px" }}>Basic Information</p>
+                  <div className="rapr3e">
+                    <button
+                      type="button"
+                      className="rapr3but"
+                      onClick={onClose}
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="rapr3btn">
+                      Send to vendor
+                    </button>
+                  </div>
+                </div>
+                <div style={{ marginTop: "1rem" }}>
+                  <p>Status</p>
+                  <p style={{ fontSize: "14px" }}>
+                    {formData ? formData.status : ""}
+                  </p>
                 </div>
               </div>
-              <div style={{ marginBottom: "1rem" }}>
-                <p>Status</p>
-                <p style={{ fontSize: "14px" }}>
-                  {formData ? formData.status : ""}
-                </p>
+              <div className="rapr3b">
+                <div className="rapr3ba">
+                  <p>ID</p>
+                  <p style={{ fontSize: "14px", color: "#7a8a98" }}>
+                    {formData ? formData.id : ""}
+                  </p>
+                </div>
+                <div className="rapr3bb">
+                  <p>Date Opened</p>
+                  <p style={{ fontSize: "14px", color: "#7a8a98" }}>
+                    {formData
+                      ? formatDate(formData.date) +
+                        " - " +
+                        formatTime(formData.date)
+                      : ""}
+                  </p>
+                </div>
+                <div className="rapr3bb">
+                  <p>Expiry Date</p>
+                  <p style={{ fontSize: "14px", color: "#7a8a98" }}>
+                    {formData ? formData.expiryDate : ""}
+                  </p>
+                </div>
+                <div className="rapr3bb">
+                  <p>Vendor Category</p>
+                  <p style={{ fontSize: "14px", color: "#7a8a98" }}>
+                    {formData ? formData.vendorCategory : ""}
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="rapr3b">
-              <div className="rapr3ba">
-                <p>ID</p>
-                <p style={{ fontSize: "14px", color: "#7a8a98" }}>
-                  {formData ? formData.id : ""}
-                </p>
-              </div>
-              <div className="rapr3bb">
-                <p>Date Opened</p>
-                <p style={{ fontSize: "14px", color: "#7a8a98" }}>
-                  {formData
-                    ? formatDate(formData.date) +
-                      " - " +
-                      formatTime(formData.date)
-                    : ""}
-                </p>
-              </div>
-              <div className="rapr3bb">
-                <p>Expiry Date</p>
-                <p style={{ fontSize: "14px", color: "#7a8a98" }}>
-                  {formData ? formData.expiryDate : ""}
-                </p>
-              </div>
-              <div className="rapr3bb">
-                <p>Suggested Vendor</p>
-                <p style={{ fontSize: "14px", color: "#7a8a98" }}>
-                  {formData ? formData.vendorCategory : ""}
-                </p>
-              </div>
-            </div>
-            <p className="rapr3c">
-              RFQ Content
-            </p>
-            <div className="rapr3d">
-              <StyledTableContainer
-                component={Paper}
-                sx={{ boxShadow: "none", border: "1px solid #e2e6e9" }}
-              >
-                <StyledTable
-                  sx={{ minWidth: 700, border: "none" }}
-                  aria-label="customized table"
+              <p className="rapr3c">RFQ Content</p>
+              <div className="rapr3d">
+                <StyledTableContainer
+                  component={Paper}
+                  sx={{ boxShadow: "none", border: "1px solid #e2e6e9" }}
                 >
-                  <TableHead>
-                    <TableRow>
-                      <StyledTableCell>Product Name</StyledTableCell>
-                      <StyledTableCell>Description</StyledTableCell>
-                      <StyledTableCell align="right">Qty</StyledTableCell>
-                      <StyledTableCell align="right">
-                        Estimated Unit Price
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        Total Price
-                      </StyledTableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {formData && formData.rows && formData.rows.length > 0 ? (
-                      formData.rows.map((row, index) => (
-                        <StyledTableRow key={index}>
-                          <StyledTableCell>{row.productName}</StyledTableCell>
-                          <StyledTableCell>{row.description}</StyledTableCell>
-                          <StyledTableCell align="right">
-                            {row.qty}
-                          </StyledTableCell>
-                          <StyledTableCell align="right">
-                            {row.unitPrice}
-                          </StyledTableCell>
-                          <StyledTableCell align="right">
-                            {row.totalPrice}
+                  <StyledTable
+                    sx={{ minWidth: 700, border: "none" }}
+                    aria-label="customized table"
+                  >
+                    <TableHead>
+                      <TableRow>
+                        <StyledTableCell>Product Name</StyledTableCell>
+                        <StyledTableCell>Description</StyledTableCell>
+                        <StyledTableCell align="right">Qty</StyledTableCell>
+                        <StyledTableCell align="right">
+                          Estimated Unit Price
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          Total Price
+                        </StyledTableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {formData && formData.rows && formData.rows.length > 0 ? (
+                        formData.rows.map((row, index) => (
+                          <StyledTableRow key={index}>
+                            <StyledTableCell>{row.productName}</StyledTableCell>
+                            <StyledTableCell>{row.description}</StyledTableCell>
+                            <StyledTableCell align="right">
+                              {row.qty}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">
+                              {row.unitPrice}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">
+                              {row.totalPrice}
+                            </StyledTableCell>
+                          </StyledTableRow>
+                        ))
+                      ) : (
+                        <StyledTableRow>
+                          <StyledTableCell colSpan={5} align="center">
+                            No products available
                           </StyledTableCell>
                         </StyledTableRow>
-                      ))
-                    ) : (
+                      )}
                       <StyledTableRow>
-                        <StyledTableCell colSpan={5} align="center">
-                          No products available
+                        <StyledTableCell
+                          colSpan={4}
+                          align="right"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          Total
+                        </StyledTableCell>
+                        <StyledTableCell
+                          align="right"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {totalPrice.toFixed(2)}
                         </StyledTableCell>
                       </StyledTableRow>
-                    )}
-                    <StyledTableRow>
-                      <StyledTableCell
-                        colSpan={4}
-                        align="right"
-                        style={{ fontWeight: "bold" }}
-                      >
-                        Total
-                      </StyledTableCell>
-                      <StyledTableCell
-                        align="right"
-                        style={{ fontWeight: "bold" }}
-                      >
-                        {totalPrice.toFixed(2)}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  </TableBody>
-                </StyledTable>
-              </StyledTableContainer>
-            </div>
-            <div>
-              <ApproveButton onClick={handleApproval}>Approve</ApproveButton>
-            </div>
-          </form>
-        </div>
+                    </TableBody>
+                  </StyledTable>
+                </StyledTableContainer>
+              </div>
+            </form>
+          </div>
+        ) : (
+          <div className="rapr4">
+            <form className="raprform2">
+              <div className="rapr4a">
+                <p style={{ fontSize: "20px" }}>Basic Details</p>
+                <div className="rapr4ab">
+                  <p className="rapr4pg">1 of 6</p>
+                  <div className="rapr4nav">
+                    <FaCaretLeft className="nr" />
+                    <div className="sep"></div>
+                    <FaCaretRight className="nr" />
+                  </div>
+                </div>
+              </div>
+              <div className="rapr4b">
+                <div className="rapr4ba">
+                  <p>Vendor Name</p>
+                  <p style={{ fontSize: "14px", color: "#7a8a98" }}>
+                    {formData ? formData.vendor : ""}
+                  </p>
+                </div>
+                <div className="rapr4ba">
+                  <p>Vendor Category</p>
+                  <p style={{ fontSize: "14px", color: "#7a8a98" }}>
+                    {formData ? formData.vendorCategory : ""}
+                  </p>
+                </div>
+              </div>
+              <p className="rapr3c">Quote</p>
+              <div className="rapr3d">
+                <StyledTableContainer
+                  component={Paper}
+                  sx={{ boxShadow: "none", border: "1px solid #e2e6e9" }}
+                >
+                  <StyledTable
+                    sx={{ minWidth: 700, border: "none" }}
+                    aria-label="customized table"
+                  >
+                    <TableHead>
+                      <TableRow>
+                        <StyledTableCell>Product Name</StyledTableCell>
+                        <StyledTableCell>Description</StyledTableCell>
+                        <StyledTableCell align="right">Qty</StyledTableCell>
+                        <StyledTableCell align="right">
+                          Estimated Unit Price
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          Total Price
+                        </StyledTableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {formData && formData.rows && formData.rows.length > 0 ? (
+                        formData.rows.map((row, index) => (
+                          <StyledTableRow key={index}>
+                            <StyledTableCell>{row.productName}</StyledTableCell>
+                            <StyledTableCell>{row.description}</StyledTableCell>
+                            <StyledTableCell align="right">
+                              {row.qty}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">
+                              {row.unitPrice}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">
+                              {row.totalPrice}
+                            </StyledTableCell>
+                          </StyledTableRow>
+                        ))
+                      ) : (
+                        <StyledTableRow>
+                          <StyledTableCell colSpan={5} align="center">
+                            No products available
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      )}
+                      <StyledTableRow>
+                        <StyledTableCell
+                          colSpan={4}
+                          align="right"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          Total
+                        </StyledTableCell>
+                        <StyledTableCell
+                          align="right"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {totalPrice.toFixed(2)}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    </TableBody>
+                  </StyledTable>
+                </StyledTableContainer>
+              </div>
+              <div>
+                <ApproveButton onClick={handleApproval}>Approve</ApproveButton>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );

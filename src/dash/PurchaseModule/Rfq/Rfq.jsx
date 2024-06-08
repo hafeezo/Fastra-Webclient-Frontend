@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 import "./Rfq.css";
 import SearchIcon from "../../../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
@@ -19,74 +20,54 @@ export default function Rfq() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState(null); // Change to null to handle no data case
+  const [currentFormData, setCurrentFormData] = useState(null); // Renamed state
+  const [selectedItem, setSelectedItem] = useState(null); // Add state for selected item
+  const [initialFormData, setInitialFormData] = useState(null);
+
+  const location = useLocation();
+  const locationFormData = location.state?.formData;
+
+  useEffect(() => {
+    if (locationFormData) {
+      // Logic to autofill form
+      setInitialFormData(locationFormData);
+      setIsFormVisible(true); // Open the form with the initial data
+    }
+  }, [locationFormData]);
+
+  const handleSaveAndSubmit = (data) => {
+    setCurrentFormData(data);
+    setIsSubmitted(true);
+    setItems([...items, data]);
+    setIsFormVisible(false);
+  };
+
+  const handleFormDataChange = (data) => {
+    setCurrentFormData(data);
+  };
 
   const toggleViewMode = (mode) => {
     setViewMode(mode);
   };
+
   const handleNewRfq = () => {
-    setIsFormVisible(true); // Show the form
-  };
-
-  const handleSaveAndSubmit = (data) => {
-    setFormData(data);
-    setIsSubmitted(true);
-  };
-
-  const handleFormDataChange = (data) => {
-    setFormData(data);
+    setIsFormVisible(true);
   };
 
   const handleFormClose = () => {
     setIsFormVisible(false);
-    setIsSubmitted(false); // Reset form submission state when closing the form
+    setIsSubmitted(false);
   };
 
-  // const getCurrentDateTime = () => {
-  //   const now = new Date();
-  //   const date = now.toLocaleDateString();
-  //   const time = now.toLocaleTimeString();
-  //   return `${date} - ${time}`;
-  // };
-
-  // const items = [
-  //   {
-  //     id: "PR00001",
-  //     vendorName: "Vendor Name",
-  //     date: getCurrentDateTime(),
-  //     status: "vendor selected",
-  //   },
-  //   {
-  //     id: "PR00002",
-  //     vendorName: "Vendor Name",
-  //     date: getCurrentDateTime(),
-  //     status: "Cancelled",
-  //   },
-  //   {
-  //     id: "PR00003",
-  //     vendorName: "Vendor Name",
-  //     date: getCurrentDateTime(),
-  //     status: "Awaiting vendor selection",
-  //   },
-  //   {
-  //     id: "PR00004",
-  //     vendorName: "Vendor Name",
-  //     date: getCurrentDateTime(),
-  //     status: "vendor selected",
-  //   },
-  //   {
-  //     id: "PR00005",
-  //     vendorName: "Vendor Name",
-  //     date: getCurrentDateTime(),
-  //     status: "Awaiting vendor selection",
-  //   },
-  //   {
-  //     id: "PR00006",
-  //     vendorName: "Vendor Name",
-  //     date: getCurrentDateTime(),
-  //     status: "Cancelled",
-  //   },
-  // ];
+  const handleUpdateStatus = (id, status) => {
+    const updatedItems = items.map((item) =>
+      item.id === id ? { ...item, status: status } : item
+    );
+    setItems(updatedItems);
+    setIsSubmitted(false);
+    setIsFormVisible(false);
+    setSelectedItem(null); // Hide Rapr after status update
+  };
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -102,7 +83,6 @@ export default function Rfq() {
   };
 
   const updateCounts = (items) => {
-    const draftCount = items.filter((item) => item.status === "Draft").length;
     const approvedCount = items.filter(
       (item) => item.status === "Approved"
     ).length;
@@ -138,20 +118,32 @@ export default function Rfq() {
     }
   };
 
+  const handleCardClick = (item) => {
+    setSelectedItem(item);
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   return (
-    <div className="rfq" id='rfq'>
+    <div className="rfq" id="rfq">
       <div className="rfq1">
         <div className="rfq2">
           <p>RFQs</p>
           <div className="rfqlist">
             <div className="rfql1">
-              <p style={{lineHeight: '1rem'}}>Vendor Selected</p>
+              <p style={{ lineHeight: "1rem" }}>Vendor Selected</p>
               <p className={`plnum ${approvedCount === 0 ? "zero" : ""}`}>
                 {approvedCount}
               </p>
             </div>
             <div className="rfql2">
-              <p style={{lineHeight: '1rem'}}>Awaiting Vendor Selection</p>
+              <p style={{ lineHeight: "1rem" }}>Awaiting Vendor Selection</p>
               <p className={`plnum ${pendingCount === 0 ? "zero" : ""}`}>
                 {pendingCount}
               </p>
@@ -186,8 +178,7 @@ export default function Rfq() {
                 </label>
               </div>
             </div>
-            <div
-              className="r3b">
+            <div className="r3b">
               <p className="r3bpage">1-2 of 2</p>
               <div className="r3bnav">
                 <FaCaretLeft className="lr" />
@@ -209,20 +200,28 @@ export default function Rfq() {
           </div>
           {isFormVisible ? (
             <div className="overlay">
-            {!isSubmitted ? (
-                <Rform
-                  onSaveAndSubmit={handleSaveAndSubmit}
-                  onFormDataChange={handleFormDataChange}
-                  onClose={handleFormClose}
-                />
-              ) : (
-                <Rapr formData={formData} onClose={handleFormClose} />
-              )}
+              <Rform
+                onSaveAndSubmit={handleSaveAndSubmit}
+                onFormDataChange={handleFormDataChange}
+                onClose={handleFormClose}
+                initialData={initialFormData} // Pass the initial data here
+              />
+            </div>
+          ) : selectedItem ? (
+            <div className="overlay">
+              <Rapr
+                formData={selectedItem}
+                onUpdateStatus={handleUpdateStatus}
+              />
             </div>
           ) : viewMode === "grid" ? (
             <div className="rfq4">
               {filteredItems.map((item) => (
-                <div className="rfq4gv" key={item.id}>
+                <div
+                  className="rfq4gv"
+                  key={item.id}
+                  onClick={() => handleCardClick(item)}
+                >
                   <p className="cardid">{item.id}</p>
                   <div className="vendname">
                     {item.status === "Awaiting vendor selection" ? (
@@ -240,10 +239,10 @@ export default function Rfq() {
                         </IconButton>
                       </div>
                     ) : (
-                      item.vendorName
+                      item.vendor
                     )}
                   </div>
-                  <p className="cardate">{item.date}</p>
+                  <p className="cardate">{formatDate(item.date)}</p>
                   <p
                     className="status"
                     style={{ color: getStatusColor(item.status) }}

@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import "./Papr.css";
+import "./Var.css";
 import autosave from "../../../image/autosave.svg";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -89,11 +89,10 @@ const SendButton = styled("button")(({ theme }) => ({
   marginLeft: "10px",
 }));
 
-export default function Papr({ formData, onUpdateStatus }) {
+export default function Var({ formData, onUpdateStatus }) {
   const [rejectionReason, setRejectionReason] = useState("");
   const [stakeholderUsername, setStakeholderUsername] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
-  const [rows, setRows] = useState([]);
 
   useEffect(() => {
     if (formData && formData.rows) {
@@ -102,7 +101,6 @@ export default function Papr({ formData, onUpdateStatus }) {
         return sum + rowTotal;
       }, 0);
       setTotalPrice(total);
-      setRows(formData.rows);
     }
   }, [formData]);
 
@@ -141,20 +139,20 @@ export default function Papr({ formData, onUpdateStatus }) {
   };
 
   return (
-    <div id="papr" className="papr fade-in">
-      <div className="papr1">
-        <div className="papr2">
-          <div className="papr2a">
-            <p className="paprhed">New Purchase Request</p>
-            <div className="paprauto">
+    <div id="Var" className="Var fade-in">
+      <div className="Var1">
+        <div className="Var2">
+          <div className="Var2a">
+            <p className="Varhed">New Purchase Request</p>
+            <div className="Varauto">
               <p>Autosaved</p>
               <img src={autosave} alt="Autosaved" />
             </div>
           </div>
         </div>
-        <div className="papr3" style={{ height: "auto" }}>
-          <form className="paprform">
-            <div className="papr3a">
+        <div className="Var3" style={{ height: "auto" }}>
+          <form className="Varform">
+            <div className="Var3a">
               <p style={{ fontSize: "20px", marginBottom: "2rem" }}>
                 Basic Information
               </p>
@@ -165,14 +163,14 @@ export default function Papr({ formData, onUpdateStatus }) {
                 {formData ? formData.status : ""}
               </p>
             </div>
-            <div className="papr3b">
-              <div className="papr3ba">
+            <div className="Var3b">
+              <div className="Var3ba">
                 <p>ID</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData ? formData.id : ""}
                 </p>
               </div>
-              <div className="papr3bb">
+              <div className="Var3bb">
                 <p>Date</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData
@@ -182,34 +180,34 @@ export default function Papr({ formData, onUpdateStatus }) {
                     : ""}
                 </p>
               </div>
-              <div className="papr3bb">
+              <div className="Var3bb">
                 <p>Requester</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData ? formData.requester : ""}
                 </p>
               </div>
-              <div className="papr3ba">
+              <div className="Var3ba">
                 <p>Department</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData ? formData.department : ""}
                 </p>
               </div>
             </div>
-            <div className="papr3c">
-              <div className="papr3ca">
+            <div className="Var3c">
+              <div className="Var3ca">
                 <label>Purpose</label>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData ? formData.purpose : ""}
                 </p>
               </div>
-              <div className="papr3ca">
+              <div className="Var3ca">
                 <label>Suggested Vendor</label>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData ? formData.vendor : ""}
                 </p>
               </div>
             </div>
-            <div className="papr3d">
+            <div className="var3d">
               <StyledTableContainer
                 component={Paper}
                 sx={{ boxShadow: "none", border: "1px solid #e2e6e9" }}
@@ -232,8 +230,8 @@ export default function Papr({ formData, onUpdateStatus }) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows && rows.length > 0 ? (
-                      rows.map((row, index) => (
+                    {formData && formData.rows && formData.rows.length > 0 ? (
+                      formData.rows.map((row, index) => (
                         <StyledTableRow key={index}>
                           <StyledTableCell>{row.productName}</StyledTableCell>
                           <StyledTableCell>{row.description}</StyledTableCell>
@@ -275,7 +273,7 @@ export default function Papr({ formData, onUpdateStatus }) {
               </StyledTableContainer>
             </div>
             <div
-              className="papr3e"
+              className="Var3e"
               style={{
                 display: "flex",
                 justifyContent: "start",

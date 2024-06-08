@@ -11,10 +11,14 @@ import Rform from "../src/dash/PurchaseModule/Rfq/Rform";
 import Newpr from "./dash/PurchaseModule/PurchRequest/Newpr";
 import Papr from "./dash/PurchaseModule/PurchRequest/Papr";
 import Vend from "../src/dash/PurchaseModule/Vendor/Vend";
+import VendorDetails from "../src/dash/PurchaseModule/Vendor/VendorDetails";
+import Newvendor from "../src/dash/PurchaseModule/Vendor/Newvendor";
+import Varcat from "./dash/PurchaseModule/Vendor/vendorcat/Varcat";
+import Edit from "./dash/PurchaseModule/Vendor/vendorcat/Edit";
 import Pod from "../src/dash/PurchaseModule/PurchOrder/Pod";
 import Prod from "../src/dash/PurchaseModule/Product/Prod";
 import Rapr from "./dash/PurchaseModule/Rfq/Rapr";
-
+import CRfq from "./dash/PurchaseModule/PurchRequest/CRfq";
 
 function App() {
   return (
@@ -28,11 +32,16 @@ function App() {
           <Route path="/purchase" component={Purchase} />
           <Route path="/npr" component={Newpr} />
           <Route path="/papr" component={Papr} />
+          <Route path="/crfq" component={CRfq} />
           <Route path="/rfq" component={Rfq} />
           <Route path="/newrfq" component={Rform} /> 
           <Route path="/rapr" component={Rapr} />
           <Route path="/pod" component={Pod} />
           <Route path="/vend" component={Vend} />
+          <Route path="/VendorDetails/:id" component={VendorDetails}/>
+          <Route path="/Newvendor" component={Newvendor} />
+          <Route path="/varcat" component={Varcat} />
+          <Route path="/edit" component={Edit} />
           <Route path="/prod" component={Prod} />
           <Route path="/contact" component={Contact} />
           <Route path="/settings" component={Settings} />

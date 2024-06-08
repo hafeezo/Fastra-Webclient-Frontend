@@ -6,6 +6,7 @@ import { IoGrid } from "react-icons/io5";
 import Listview from "./Listview";
 import Newpr from "./Newpr";
 import Papr from "./Papr";
+import CRfq from "./CRfq";
 
 export default function Purchreq() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,13 +20,16 @@ export default function Purchreq() {
   const [filteredItems, setFilteredItems] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null); // Add state for selected item
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedRequest, setSelectedRequest] = useState(null);
 
   const handleSaveAndSubmit = (data) => {
-    setFormData(data);
+    const newData = { ...data, status: "Pending" }; // Set status to Pending
+    setFormData(newData);
     setIsSubmitted(true);
-    setItems([...items, data]);
+    setItems([...items, newData]);
     setIsFormVisible(false);
+    setSelectedItem(newData); // Immediately select the new item
   };
 
   const handleFormDataChange = (data) => {
@@ -43,16 +47,17 @@ export default function Purchreq() {
   const handleFormClose = () => {
     setIsFormVisible(false);
     setIsSubmitted(false);
+    setSelectedItem(null);
   };
 
   const handleUpdateStatus = (id, status) => {
     const updatedItems = items.map((item) =>
-      item.id === id ? { ...item, status: status } : item
+      item.id === id ? { ...item, status } : item
     );
     setItems(updatedItems);
     setIsSubmitted(false);
     setIsFormVisible(false);
-    setSelectedItem(null); // Hide Papr after status update
+    setSelectedItem(null);
   };
 
   const getStatusColor = (status) => {
@@ -90,7 +95,6 @@ export default function Purchreq() {
   useEffect(() => {
     updateCounts(items);
     setFilteredItems(items);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
 
   const handleSearch = () => {
@@ -114,6 +118,8 @@ export default function Purchreq() {
 
   const handleCardClick = (item) => {
     setSelectedItem(item);
+    setSelectedRequest(item); // Update selected request
+    setIsFormVisible(false);
   };
 
   return (
@@ -192,25 +198,41 @@ export default function Purchreq() {
           </div>
           {isFormVisible ? (
             <div className="overlay">
-              {!isSubmitted ? (
-                <Newpr
-                  onSaveAndSubmit={handleSaveAndSubmit}
-                  onFormDataChange={handleFormDataChange}
-                  onClose={handleFormClose}
-                />
-              ) : (
-                <Papr
-                  formData={formData}
-                  onUpdateStatus={handleUpdateStatus}
-                />
-              )}
+              <Newpr
+                onSaveAndSubmit={handleSaveAndSubmit}
+                onFormDataChange={handleFormDataChange}
+                onClose={handleFormClose}
+              />
             </div>
           ) : selectedItem ? (
-            <Papr formData={selectedItem} onUpdateStatus={handleUpdateStatus} />
+            selectedItem.status === "Approved" ? (
+              <div className="overlay">
+                <CRfq
+                  formData={selectedItem}
+                  onUpdateStatus={handleUpdateStatus}
+                />
+              </div>
+            ) : (
+              <div className="overlay">
+                <Papr
+                  formData={selectedItem}
+                  onUpdateStatus={handleUpdateStatus}
+                />
+              </div>
+            )
           ) : viewMode === "grid" ? (
             <div className="prq4">
               {filteredItems.map((item) => (
-                <div className="prq4gv" key={item.id} onClick={() => handleCardClick(item)}>
+                <div
+                  className={`prq4gv ${
+                    item.status === "Approved" ||
+                    (item === selectedItem && isSubmitted)
+                      ? "clickable"
+                      : "not-clickable"
+                  }`}
+                  key={item.id}
+                  onClick={() => handleCardClick(item)}
+                >
                   <p className="cardid">{item.id}</p>
                   <p className="cardnum">{item.amount}</p>
                   <p className="refname">{item.requester}</p>

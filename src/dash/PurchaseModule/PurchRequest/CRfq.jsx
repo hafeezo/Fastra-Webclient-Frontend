@@ -7,8 +7,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import "./Papr.css";
+import "./CRfq.css";
 import autosave from "../../../image/autosave.svg";
+import { useHistory } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,16 +39,6 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
 const StyledTable = styled(Table)(({ theme }) => ({
   borderCollapse: "separate",
   borderSpacing: "0 10px",
-}));
-
-const ApproveButton = styled("button")(({ theme }) => ({
-  backgroundColor: "green",
-  color: "white",
-  border: "none",
-  padding: "10px 20px",
-  borderRadius: "5px",
-  cursor: "pointer",
-  marginLeft: "10px",
 }));
 
 const RejectButton = styled("button")(({ theme }) => ({
@@ -88,8 +79,7 @@ const SendButton = styled("button")(({ theme }) => ({
   cursor: "pointer",
   marginLeft: "10px",
 }));
-
-export default function Papr({ formData, onUpdateStatus }) {
+export default function CRfq({ formData, onUpdateStatus }) {
   const [rejectionReason, setRejectionReason] = useState("");
   const [stakeholderUsername, setStakeholderUsername] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
@@ -110,12 +100,6 @@ export default function Papr({ formData, onUpdateStatus }) {
     onUpdateStatus(formData.id, "Rejected");
     console.log("Rejected with reason: ", rejectionReason);
     // Implement rejection logic here
-  };
-
-  const handleApproval = () => {
-    onUpdateStatus(formData.id, "Approved");
-    console.log("Approved");
-    // Implement approval logic here
   };
 
   const handleRejectionReasonChange = (event) => {
@@ -140,39 +124,63 @@ export default function Papr({ formData, onUpdateStatus }) {
     return `${formattedHours}:${formattedMinutes}${ampm}`;
   };
 
+  const history = useHistory();
+
+  const handleNewRFQClick = () => {
+    const data = {
+      date: formData ? formData.date : "",
+      vendor: formData ? formData.vendor : "",
+      productName: formData ? formData.productName : "",
+      qty: formData ? formData.qty : "",
+      rows: formData ? formData.rows : [],
+    };
+
+    history.push({
+      pathname: "/rfq",
+      state: { formData: data },
+    });
+  };
+
   return (
-    <div id="papr" className="papr fade-in">
-      <div className="papr1">
-        <div className="papr2">
-          <div className="papr2a">
-            <p className="paprhed">New Purchase Request</p>
-            <div className="paprauto">
+    <div id="crfq" className="crfq fade-in">
+      <div className="crfq1">
+        <div className="crfq2">
+          <div className="crfq2a">
+            <p className="crfqhed">New Purchase Request</p>
+            <div className="crfqauto">
               <p>Autosaved</p>
               <img src={autosave} alt="Autosaved" />
             </div>
           </div>
         </div>
-        <div className="papr3" style={{ height: "auto" }}>
-          <form className="paprform">
-            <div className="papr3a">
-              <p style={{ fontSize: "20px", marginBottom: "2rem" }}>
-                Basic Information
-              </p>
+        <div className="crfq3" style={{ height: "auto" }}>
+          <form className="crfqform">
+            <div className="crfq3a">
+              <div className="crfq3ae">
+                <p style={{ fontSize: "20px" }}>Basic Information</p>
+                <button
+                  type="submit"
+                  className="crfq3btn"
+                  onClick={handleNewRFQClick}
+                >
+                  New RFQ
+                </button>
+              </div>
+              <div style={{ margin: "1rem 0" }}>
+                <p>Status</p>
+                <p style={{ fontSize: "14px" }}>
+                  {formData ? formData.status : ""}
+                </p>
+              </div>
             </div>
-            <div style={{ marginBottom: "1rem", marginTop: "-1.5rem" }}>
-              <p>Status</p>
-              <p style={{ fontSize: "14px" }}>
-                {formData ? formData.status : ""}
-              </p>
-            </div>
-            <div className="papr3b">
-              <div className="papr3ba">
+            <div className="crfq3b">
+              <div className="crfq3ba">
                 <p>ID</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData ? formData.id : ""}
                 </p>
               </div>
-              <div className="papr3bb">
+              <div className="crfq3bb">
                 <p>Date</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData
@@ -182,37 +190,41 @@ export default function Papr({ formData, onUpdateStatus }) {
                     : ""}
                 </p>
               </div>
-              <div className="papr3bb">
+              <div className="crfq3bb">
                 <p>Requester</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData ? formData.requester : ""}
                 </p>
               </div>
-              <div className="papr3ba">
+              <div className="crfq3ba">
                 <p>Department</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData ? formData.department : ""}
                 </p>
               </div>
             </div>
-            <div className="papr3c">
-              <div className="papr3ca">
+            <div className="crfq3c">
+              <div className="crfq3ca">
                 <label>Purpose</label>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData ? formData.purpose : ""}
                 </p>
               </div>
-              <div className="papr3ca">
+              <div className="crfq3ca">
                 <label>Suggested Vendor</label>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formData ? formData.vendor : ""}
                 </p>
               </div>
             </div>
-            <div className="papr3d">
+            <div className="crfq3d">
               <StyledTableContainer
                 component={Paper}
-                sx={{ boxShadow: "none", border: "1px solid #e2e6e9" }}
+                sx={{
+                  boxShadow: "none",
+                  border: "1px solid #e2e6e9",
+                  margin: "1rem 0",
+                }}
               >
                 <StyledTable
                   sx={{ minWidth: 700, border: "none" }}
@@ -275,17 +287,15 @@ export default function Papr({ formData, onUpdateStatus }) {
               </StyledTableContainer>
             </div>
             <div
-              className="papr3e"
               style={{
                 display: "flex",
                 justifyContent: "start",
-                marginBottom: "1rem",
+                margin: "1rem 0",
               }}
             >
-              <ApproveButton onClick={handleApproval}>Approve</ApproveButton>
               <RejectButton onClick={handleRejection}>Reject</RejectButton>
             </div>
-            <div style={{ marginBottom: "1rem" }}>
+            <div style={{ margin: "1rem 0" }}>
               <TextArea
                 id="rejectionReason"
                 placeholder="Enter reason for rejection"
@@ -293,7 +303,7 @@ export default function Papr({ formData, onUpdateStatus }) {
                 onChange={handleRejectionReasonChange}
               />
             </div>
-            <div style={{ marginBottom: "1rem" }}>
+            <div style={{ margin: "1rem 0" }}>
               <label htmlFor="stakeholderUsername">
                 Send to another stakeholder
               </label>
