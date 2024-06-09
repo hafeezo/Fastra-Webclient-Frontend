@@ -37,7 +37,7 @@ export default function Rform({
   onSaveAndSubmit,
   initialData,
   vendors,
-  categories
+  categories,
 }) {
   const defaultRows = initialData?.rows || [
     {
@@ -280,8 +280,10 @@ export default function Rform({
                     placeholder="Select Vendor"
                     className="rpr3cb"
                     value={formState.vendor}
-                    onClick={() => setVendorDropdownVisible(!vendorDropdownVisible)}
-                    readOnly={false} // Make it editable
+                    onClick={() =>
+                      setVendorDropdownVisible(!vendorDropdownVisible)
+                    }
+                    readOnly={false}
                   />
                   {vendorDropdownVisible && vendors && (
                     <div className="dropdown-menu">
@@ -307,8 +309,10 @@ export default function Rform({
                     placeholder="Select Category"
                     className="rpr3cb"
                     value={formState.vendorCategory}
-                    onClick={() => setCategoryDropdownVisible(!categoryDropdownVisible)}
-                    readOnly={false} // Make it editable
+                    onClick={() =>
+                      setCategoryDropdownVisible(!categoryDropdownVisible)
+                    }
+                    readOnly={false}
                   />
                   {categoryDropdownVisible && categories && (
                     <div className="dropdown-menu">

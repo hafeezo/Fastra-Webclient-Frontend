@@ -9,6 +9,23 @@ import Listview from "./Listview";
 import Newvendor from "./Newvendor";
 import Var from "./Var";
 
+export const getVendors = (items) => {
+  // Return the vendors data from the items state or fetch from data source
+  return items.map((item) => ({
+    id: item.id,
+    vendorName: item.vendorName,
+    email: item.email,
+    phone: item.phone,
+    address: item.address,
+    category: item.category,
+  }));
+};
+
+export const getCategories = (items) => {
+  // Return the unique categories from the items state or fetch from data source
+  const categories = new Set(items.map((item) => item.category));
+  return Array.from(categories);
+};
 export default function Vend() {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
@@ -49,6 +66,7 @@ export default function Vend() {
   const [categories, setCategories] = useState([]);
   const [vendorDropdownVisible, setVendorDropdownVisible] = useState(false);
   const [categoryDropdownVisible, setCategoryDropdownVisible] = useState(false);
+  
 
   useEffect(() => {
     setFilteredItems(items);

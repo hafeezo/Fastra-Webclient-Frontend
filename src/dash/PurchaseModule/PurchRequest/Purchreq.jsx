@@ -15,9 +15,12 @@ export default function Purchreq() {
   const [pendingCount, setPendingCount] = useState(0);
   const [rejectedCount, setRejectedCount] = useState(0);
   const [viewMode, setViewMode] = useState("grid");
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(() => {
+    const storedItems = JSON.parse(localStorage.getItem("purchaseRequests")) || [];
+    return storedItems;
+  });
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [filteredItems, setFilteredItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState(items);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -27,7 +30,9 @@ export default function Purchreq() {
     const newData = { ...data, status: "Pending" }; // Set status to Pending
     setFormData(newData);
     setIsSubmitted(true);
-    setItems([...items, newData]);
+    const updatedItems = [...items, newData];
+    setItems(updatedItems);
+    localStorage.setItem("purchaseRequests", JSON.stringify(updatedItems));
     setIsFormVisible(false);
     setSelectedItem(newData); // Immediately select the new item
   };
@@ -55,6 +60,7 @@ export default function Purchreq() {
       item.id === id ? { ...item, status } : item
     );
     setItems(updatedItems);
+    localStorage.setItem("purchaseRequests", JSON.stringify(updatedItems));
     setIsSubmitted(false);
     setIsFormVisible(false);
     setSelectedItem(null);

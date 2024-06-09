@@ -16,9 +16,12 @@ export default function Rfq() {
   const [pendingCount, setPendingCount] = useState(0);
   const [rejectedCount, setRejectedCount] = useState(0);
   const [viewMode, setViewMode] = useState("grid");
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(() => {
+    const storedItems = JSON.parse(localStorage.getItem("rfqs")) || [];
+    return storedItems;
+  });
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [filteredItems, setFilteredItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState(items);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [currentFormData, setCurrentFormData] = useState(null); // Renamed state
   const [selectedItem, setSelectedItem] = useState(null); // Add state for selected item
@@ -36,9 +39,11 @@ export default function Rfq() {
   }, [locationFormData]);
 
   const handleSaveAndSubmit = (data) => {
+    const updatedItems = [...items, data];
     setCurrentFormData(data);
     setIsSubmitted(true);
-    setItems([...items, data]);
+    setItems(updatedItems);
+    localStorage.setItem("rfqs", JSON.stringify(updatedItems));
     setIsFormVisible(false);
   };
 
@@ -64,6 +69,7 @@ export default function Rfq() {
       item.id === id ? { ...item, status: status } : item
     );
     setItems(updatedItems);
+    localStorage.setItem("rfqs", JSON.stringify(updatedItems));
     setIsSubmitted(false);
     setIsFormVisible(false);
     setSelectedItem(null); // Hide Rapr after status update
@@ -243,7 +249,7 @@ export default function Rfq() {
                     )}
                   </div>
                   <p className="cardate">{formatDate(item.date)}</p>
-                  <p
+                                    <p
                     className="status"
                     style={{ color: getStatusColor(item.status) }}
                   >
@@ -268,3 +274,4 @@ export default function Rfq() {
     </div>
   );
 }
+
