@@ -10,6 +10,8 @@ import Paper from "@mui/material/Paper";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import autosave from "../../../image/autosave.svg";
 import "./Rform.css";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,8 +38,8 @@ export default function Rform({
   onClose,
   onSaveAndSubmit,
   initialData,
-  vendors,
-  categories,
+  vendors = [],
+  categories = [],
 }) {
   const defaultRows = initialData?.rows || [
     {
@@ -81,9 +83,6 @@ export default function Rform({
   const [page, setPage] = useState(0);
   const rowsPerPage = 2;
   const [showForm] = useState(true);
-
-  const [vendorDropdownVisible, setVendorDropdownVisible] = useState(false);
-  const [categoryDropdownVisible, setCategoryDropdownVisible] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -183,20 +182,33 @@ export default function Rform({
       .toFixed(2);
   };
 
-  const handleVendorSelect = (vendor) => {
-    setFormState((prevState) => ({
-      ...prevState,
-      vendor: vendor.vendorName,
-    }));
-    setVendorDropdownVisible(false);
-  };
+  const [vendorInputValue, setVendorInputValue] = useState("");
+  const [selectedVendor, setSelectedVendor] = useState(null);
+  const [category, setCategory] = useState("");
 
-  const handleCategorySelect = (category) => {
-    setFormState((prevState) => ({
-      ...prevState,
-      vendorCategory: category,
-    }));
-    setCategoryDropdownVisible(false);
+  // Filter vendors based on input value
+  const filteredVendors = vendors.filter((vendor) =>
+    vendor.vendorName.toLowerCase().includes(vendorInputValue.toLowerCase())
+  );
+
+  useEffect(() => {
+    if (selectedVendor) {
+      // Update category when a vendor is selected
+      const selectedVendorData = vendors.find(
+        (vendor) => vendor.vendorName === selectedVendor
+      );
+      if (selectedVendorData) {
+        setCategory(selectedVendorData.category);
+      }
+    }
+  }, [selectedVendor, vendors]);
+
+  const handleVendorChange = (event, value) => {
+    if (value) {
+      setSelectedVendor(value.vendorName);
+    } else {
+      setSelectedVendor(null);
+    }
   };
 
   return (
@@ -273,61 +285,50 @@ export default function Rform({
               </div>
               <div className="rpr3ca">
                 <label>Vendor</label>
-                <div className="dropdown-container">
-                  <input
-                    type="text"
-                    name="vendor"
-                    placeholder="Select Vendor"
-                    className="rpr3cb"
-                    value={formState.vendor}
-                    onClick={() =>
-                      setVendorDropdownVisible(!vendorDropdownVisible)
-                    }
-                    readOnly={false}
-                  />
-                  {vendorDropdownVisible && vendors && (
-                    <div className="dropdown-menu">
-                      {vendors.map((vendor, index) => (
-                        <div
-                          key={index}
-                          className="dropdown-item"
-                          onClick={() => handleVendorSelect(vendor)}
-                        >
-                          {vendor.vendorName}
-                        </div>
-                      ))}
-                    </div>
+                <Autocomplete
+                  value={selectedVendor}
+                  onChange={(event, newValue) => {
+                    handleVendorChange(event, newValue);
+                    setFormState((prev) => ({
+                      ...prev,
+                      vendor: newValue ? newValue.vendorName : "",
+                    }));
+                  }}
+                  inputValue={vendorInputValue}
+                  onInputChange={(event, newInputValue) => {
+                    setVendorInputValue(newInputValue);
+                  }}
+                  options={filteredVendors}
+                  getOptionLabel={(option) => option.vendorName}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="Select Vendor"
+                      className="rpr3cb"
+                    />
                   )}
-                </div>
+                />
               </div>
               <div className="rpr3ca">
                 <label>Vendor Category</label>
-                <div className="dropdown-container">
-                  <input
-                    type="text"
-                    name="vendorCategory"
-                    placeholder="Select Category"
-                    className="rpr3cb"
-                    value={formState.vendorCategory}
-                    onClick={() =>
-                      setCategoryDropdownVisible(!categoryDropdownVisible)
-                    }
-                    readOnly={false}
-                  />
-                  {categoryDropdownVisible && categories && (
-                    <div className="dropdown-menu">
-                      {categories.map((category, index) => (
-                        <div
-                          key={index}
-                          className="dropdown-item"
-                          onClick={() => handleCategorySelect(category)}
-                        >
-                          {category}
-                        </div>
-                      ))}
-                    </div>
+                <Autocomplete
+                  value={category}
+                  onChange={(event, newValue) => {
+                    setCategory(newValue);
+                    setFormState((prev) => ({
+                      ...prev,
+                      vendorCategory: newValue,
+                    }));
+                  }}
+                  options={categories}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="Select Category"
+                      className="rpr3cb"
+                    />
                   )}
-                </div>
+                />
               </div>
               <button
                 type="button"

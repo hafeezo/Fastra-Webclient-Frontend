@@ -66,7 +66,7 @@ export default function Vend() {
   const [categories, setCategories] = useState([]);
   const [vendorDropdownVisible, setVendorDropdownVisible] = useState(false);
   const [categoryDropdownVisible, setCategoryDropdownVisible] = useState(false);
-  
+    
 
   useEffect(() => {
     setFilteredItems(items);

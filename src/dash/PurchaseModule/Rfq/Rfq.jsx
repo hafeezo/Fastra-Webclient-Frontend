@@ -9,6 +9,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import IconButton from "@mui/material/IconButton";
 import Rform from "./Rform";
 import Rapr from "./Rapr";
+import { getVendors, getCategories } from "../Vendor/Vend";
 
 export default function Rfq() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,6 +27,21 @@ export default function Rfq() {
   const [currentFormData, setCurrentFormData] = useState(null); // Renamed state
   const [selectedItem, setSelectedItem] = useState(null); // Add state for selected item
   const [initialFormData, setInitialFormData] = useState(null);
+  const [vendors, setVendors] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // Check if items is not undefined before calling getVendors and getCategories
+      if (items) {
+        const vendorsData = getVendors(items);
+        const categoriesData = getCategories(items);
+        setVendors(vendorsData);
+        setCategories(categoriesData);
+      }
+    };
+    fetchData();
+  }, [items]);
 
   const location = useLocation();
   const locationFormData = location.state?.formData;
