@@ -184,33 +184,23 @@ export default function Rform({
 
   const [vendorInputValue, setVendorInputValue] = useState("");
   const [selectedVendor, setSelectedVendor] = useState(null);
-  const [category, setCategory] = useState("");
-
-  // Filter vendors based on input value
-  const filteredVendors = vendors.filter((vendor) =>
-    vendor.vendorName.toLowerCase().includes(vendorInputValue.toLowerCase())
-  );
-
-  useEffect(() => {
-    if (selectedVendor) {
-      // Update category when a vendor is selected
-      const selectedVendorData = vendors.find(
-        (vendor) => vendor.vendorName === selectedVendor
-      );
-      if (selectedVendorData) {
-        setCategory(selectedVendorData.category);
-      }
-    }
-  }, [selectedVendor, vendors]);
-
-  const handleVendorChange = (event, value) => {
-    if (value) {
-      setSelectedVendor(value.vendorName);
+  const savedVendors = JSON.parse(localStorage.getItem("vendors")) || [];
+  const handleVendorSelect = (event, newValue) => {
+    setSelectedVendor(newValue);
+    if (newValue) {
+      setFormState((prev) => ({
+        ...prev,
+        vendor: newValue.vendorName,
+        vendorCategory: newValue.vendorCategory,
+      }));
     } else {
-      setSelectedVendor(null);
+      setFormState((prev) => ({
+        ...prev,
+        vendor: "",
+        vendorCategory: "",
+      }));
     }
   };
-
   return (
     <div id="newrfq" className={`rpr ${showForm ? "fade-in" : "fade-out"}`}>
       <div className="rpr1">
@@ -287,47 +277,30 @@ export default function Rform({
                 <label>Vendor</label>
                 <Autocomplete
                   value={selectedVendor}
-                  onChange={(event, newValue) => {
-                    handleVendorChange(event, newValue);
-                    setFormState((prev) => ({
-                      ...prev,
-                      vendor: newValue ? newValue.vendorName : "",
-                    }));
-                  }}
+                  onChange={handleVendorSelect}
                   inputValue={vendorInputValue}
                   onInputChange={(event, newInputValue) => {
                     setVendorInputValue(newInputValue);
                   }}
-                  options={filteredVendors}
+                  options={savedVendors}
                   getOptionLabel={(option) => option.vendorName}
                   renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      placeholder="Select Vendor"
-                      className="rpr3cb"
-                    />
+                    <TextField {...params} label="Select vendor" className="rpr3cb" />
                   )}
                 />
               </div>
               <div className="rpr3ca">
-                <label>Vendor Category</label>
-                <Autocomplete
-                  value={category}
-                  onChange={(event, newValue) => {
-                    setCategory(newValue);
-                    setFormState((prev) => ({
-                      ...prev,
-                      vendorCategory: newValue,
-                    }));
-                  }}
-                  options={categories}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      placeholder="Select Category"
-                      className="rpr3cb"
-                    />
-                  )}
+                <p>Vendor Category</p>
+                <input
+                className="rpr3cb"
+                  type="text"
+                  value={formState.vendorCategory}
+                  onChange={(e) =>
+                    setFormState((prevState) => ({
+                      ...prevState,
+                      vendorCategory: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <button
