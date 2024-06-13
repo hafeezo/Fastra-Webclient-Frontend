@@ -1,0 +1,15 @@
+.npro {
+  width: 100%;
+  height: 100%;
+  font-family: Product Sans;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  background-color: white;
+  overflow: auto;
+}
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}

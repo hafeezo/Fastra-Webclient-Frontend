@@ -47,13 +47,19 @@ export default function Newvendor({ onClose, onSaveAndSubmit }) {
     e.preventDefault();
 
     const formDataWithStringDate = {
-      ...formState,
-      date: formState.date.toString(),
+        ...formState,
+        date: formState.date.toString(),
     };
+
+    // Save the vendor details to local storage
+    const savedVendors = JSON.parse(localStorage.getItem("vendors")) || [];
+    savedVendors.push(formDataWithStringDate);
+    localStorage.setItem("vendors", JSON.stringify(savedVendors));
 
     onSaveAndSubmit(formDataWithStringDate);
     onClose();
-  };
+};
+
 
   return (
     <div id="nvr" className={`nvr ${showForm ? "fade-in" : "fade-out"}`}>
