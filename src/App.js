@@ -17,10 +17,10 @@ import Varcat from "./dash/PurchaseModule/Vendor/vendorcat/Varcat";
 import Edit from "./dash/PurchaseModule/Vendor/vendorcat/Edit";
 import Pod from "../src/dash/PurchaseModule/PurchOrder/Pod";
 import Prod from "../src/dash/PurchaseModule/Product/Prod";
-// import ProductDetails from "../src/dash/PurchaseModule/Product/ProductDetails";
+import ProductDetails from "../src/dash/PurchaseModule/Product/ProductDetails";
 import Newprod from "../src/dash/PurchaseModule/Product/Newprod";
-// import Procat from "./dash/PurchaseModule/Product/procat/Procat";
-// import Predit from "./dash/PurchaseModule/Product/procat/Predit";
+import Procat from "./dash/PurchaseModule/Product/Prodcat/Procat";
+// import Predit from "./dash/PurchaseModule/Product/Prodcat/Predit";
 import Rapr from "./dash/PurchaseModule/Rfq/Rapr";
 import CRfq from "./dash/PurchaseModule/PurchRequest/CRfq";
 
@@ -47,9 +47,9 @@ function App() {
           <Route path="/varcat" component={Varcat} />
           <Route path="/edit" component={Edit} />
           <Route path="/prod" component={Prod} />
-          {/* <Route path="/ProductDetails/:id" component={ProductDetails}/> */}
+          <Route path="/prodetails/:id" component={ProductDetails}/>
           <Route path="/newprod" component={Newprod} />
-          {/* <Route path="/procat" component={Procat} /> */}
+          <Route path="/procat" component={Procat} />
           {/* <Route path="/predit" component={Predit} /> */}
           <Route path="/contact" component={Contact} />
           <Route path="/settings" component={Settings} />

@@ -9,14 +9,14 @@ export default function Purchead() {
   const [notifications, setNotifications] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
   const [click, setClick] = useState(false);
-  console.log("Purchead rendered"); // Log to confirm rendering
+
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
-  
   const handleLinkClick = () => {
     setClick(false);
+    setShowMenu(false); // Close the menu on link click
   };
 
   return (
@@ -36,14 +36,27 @@ export default function Purchead() {
               exact
               to="/purchase"
               className="purst"
-              activeClassName="active"
+                           activeClassName="active"
+              onClick={handleLinkClick}
             >
               Purchase Requests
             </NavLink>
-            <NavLink exact to="/rfq" className="purst" activeClassName="active">
+            <NavLink
+              exact
+              to="/rfq"
+              className="purst"
+              activeClassName="active"
+              onClick={handleLinkClick}
+            >
               RFQs
             </NavLink>
-            <NavLink exact to="/pod" className="purst" activeClassName="active">
+            <NavLink
+              exact
+              to="/pod"
+              className="purst"
+              activeClassName="active"
+              onClick={handleLinkClick}
+            >
               Purchase Orders
             </NavLink>
             <div className="prodrop">
@@ -52,6 +65,7 @@ export default function Purchead() {
                 to="/vend"
                 className="purst"
                 activeClassName="active"
+                onClick={handleLinkClick}
               >
                 <p className="p2">
                   Vendor
@@ -59,19 +73,38 @@ export default function Purchead() {
                 </p>
               </NavLink>
               <div className="prolst">
-                <NavLink to="/varcat" className="dropdown-link" onClick={handleLinkClick}>
+                <NavLink
+                  to="/varcat"
+                  className="dropdown-link"
+                  onClick={handleLinkClick}
+                >
                   Vendor Category
                 </NavLink>
               </div>
             </div>
-            <NavLink
-              exact
-              to="/prod"
-              className="purst"
-              activeClassName="active"
-            >
-              Products
-            </NavLink>
+            <div className="prodrop">
+              <NavLink
+                exact
+                to="/prod"
+                className="purst"
+                activeClassName="active"
+                onClick={handleLinkClick}
+              >
+                <p className="p2">
+                  Product
+                  <IoIosArrowDown className="ardan" />
+                </p>
+              </NavLink>
+              <div className="prolst">
+                <NavLink
+                  to="/procat"
+                  className="dropdown-link"
+                  onClick={handleLinkClick}
+                >
+                  Product Category
+                </NavLink>
+              </div>
+            </div>
           </div>
         </li>
         <li className="puralert">
@@ -121,3 +154,4 @@ export default function Purchead() {
     </div>
   );
 }
+

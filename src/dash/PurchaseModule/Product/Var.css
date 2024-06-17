@@ -1,4 +1,4 @@
-.newp {
+.Var {
   width: 100%;
   height: 100%;
   font-family: Product Sans;
@@ -9,12 +9,10 @@
   background-color: white;
   overflow: auto;
 }
-
 .fade-in {
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
 }
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -24,12 +22,12 @@
   }
 }
 
-.newp1 {
+.Var1 {
   width: 95%;
   height: 100%;
 }
 
-.newp2 {
+.Var2 {
   width: 100%;
   height: 10%;
   display: flex;
@@ -38,7 +36,7 @@
   margin-top: 3rem;
 }
 
-.newp2a {
+.Var2a {
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -46,18 +44,18 @@
   height: 100%;
 }
 
-.newphed {
+.Varhed {
   font-size: 1.5rem;
   font-weight: 500;
 }
 
-.newpauto {
+.Varauto {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.newp2b {
+.Var2b {
   display: flex;
   gap: 1.5rem;
   height: 100%;
@@ -66,11 +64,11 @@
   justify-content: end;
 }
 
-.newpbpg {
+.Varbpg {
   color: #a9b3bc;
 }
 
-.newpbnav {
+.Varbnav {
   border: 1.2px solid #e2e6e9;
   width: 25%;
   height: 40%;
@@ -92,7 +90,7 @@
   border-left: 1px solid #e2e6e9;
 }
 
-.newp3 {
+.Var3 {
   width: 100%;
   height: 79%;
   padding: 24px 0px 0px 0px;
@@ -101,40 +99,71 @@
   background-color: white;
   display: flex;
   justify-content: center;
+  margin-top: -0.5rem;
 }
 
-.newpform {
+.Varform {
   width: 95%;
   height: 100%;
 }
 
-.newp3a {
+.Var3a {
   width: 100%;
   height: 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #3b7ced;
   margin-top: -0.5rem;
+  color: #3b7ced;
 }
 
-.newp3but {
+.Var3but {
   color: #3b7ced;
   border: none;
   padding: 10px;
   background: transparent;
 }
 
-.newp3b {
+.Var3b {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  gap: 4rem;
+  /* align-items: center; */
+  border-bottom: 1px solid #e2e6e9;
+  margin-top: -0.5rem;
+}
+
+.Var3ba {
+  width: 5%;
+  height: 90%;
+  line-height: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.Var3bb {
+  width: 15%;
+  height: 90%;
+  line-height: 1.5rem;
+  margin-bottom: 1rem;
+}
+.Var3bc {
+  width: 15%;
+  height: 90%;
+  line-height: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.Var3c {
   width: 100%;
   height: 16.5%;
   display: flex;
   gap: 3rem;
   border-bottom: 1px solid #e2e6e9;
-  margin: 1.5rem 0;
+  margin-top: 0.5rem;
 }
 
-.newp3ba {
+.Var3ca {
   width: 25%;
   height: 90%;
   display: flex;
@@ -143,25 +172,7 @@
   line-height: 1.5rem;
 }
 
-.newp3c {
-  width: 100%;
-  height: 16.5%;
-  display: flex;
-  gap: 3rem;
-  border-bottom: 1px solid #e2e6e9;
-  margin: 1.5rem 0;
-}
-
-.newp3ca {
-  width: 25%;
-  height: 90%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  line-height: 1.5rem;
-}
-
-.newp3cb {
+.Var3cb {
   width: 95%;
   margin-top: 0.1rem;
   cursor: pointer;
@@ -169,45 +180,26 @@
   border: 2px solid #e2e6e9;
   border-radius: 4px;
   padding: 15px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.newp3a2 {
+.Var3d {
   width: 100%;
-  height: 5%;
-  color: #3b7ced;
-  margin: 2rem 0;
+  height: 50%;
 }
 
-.newp3d {
-  width: 100%;
-  height: 16.5%;
-  display: flex;
-  gap: 3rem;
-  border-bottom: 1px solid #e2e6e9;
-  margin: 1.5rem 0;
-}
-
-.newp3da {
-  width: 25%;
-  height: 90%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  line-height: 1.5rem;
-}
-
-.newp3e {
+.Var3e {
   width: 100%;
   height: 8%;
-  margin-top: -0.5rem;
+  margin-top: 3rem;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 1.5rem;
 }
 
-.newp3btn {
-  background-color: #3b7ced;
+.Var3btn {
+  background-color: red;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -216,16 +208,17 @@
   font-size: 12px;
 }
 
-/* Remove the spinner buttons from number input fields */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  appearance: none;
-  margin: 0;
+/* New styles for table inputs */
+.Var3d table input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #e2e6e9;
+  padding: 5px;
+  background: none;
+  outline: none;
 }
 
-input[type="number"] {
-  -moz-appearance: textfield;
-  -webkit-appearance: none;
-  appearance: none;
+.Var3d table input:focus {
+  outline: none;
+  border-bottom: 1px solid #e2e6e9;
 }

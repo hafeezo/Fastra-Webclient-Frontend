@@ -187,7 +187,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.7rem;
   @media screen and (max-width: 1200px) and (min-width: 954px) {
     width: 21%;
   }
@@ -238,4 +238,17 @@
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-in-out;
+  /* overflow-y: auto; */
 }
