@@ -3,10 +3,18 @@ import "./prod.css";
 import SearchIcon from "../../../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
-import imag from "../../../image/vendor2.svg";
 import Newprod from "./Newprod";
 import ProdListview from "./ProdListview";
 import ProductDetails from "./ProductDetails";
+
+// Directly import images
+import gunImage from "../../../image/gun.jpeg";
+
+const productImages = {
+  gun: gunImage,
+  // Add other product mappings here
+  // Example: 'productName': productImagePath
+};
 
 export default function Prod() {
   const [showNewProd, setShowNewProd] = useState(false);
@@ -74,6 +82,16 @@ export default function Prod() {
     setSelectedProduct(null);
   };
 
+  const handleSaveProductDetails = (updatedProduct) => {
+    const updatedProducts = products.map((product) =>
+      product.id === updatedProduct.id ? updatedProduct : product
+    );
+    setProducts(updatedProducts);
+    setFilteredProducts(updatedProducts);
+    localStorage.setItem("products", JSON.stringify(updatedProducts));
+    setSelectedProduct(updatedProduct);
+  };
+
   return (
     <div className="pro" id="prod">
       <div className="pro1">
@@ -128,23 +146,32 @@ export default function Prod() {
               <ProductDetails
                 product={selectedProduct}
                 onClose={handleCloseProductDetails}
+                onSave={handleSaveProductDetails}
               />
             ) : viewMode === "grid" ? (
-              filteredProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="pro4gv"
-                  onClick={() => handleProductClick(product)}
-                >
-                  <div className="promage">
-                    <img src={imag} alt="product" className="cirmage" />
+              filteredProducts.map((product) => {
+                const imagePath = productImages[product.name.toLowerCase()];
+                console.log(`Product Name: ${product.name}, Image Path: ${imagePath}`);
+                return (
+                  <div
+                    key={product.id}
+                    className="pro4gv"
+                    onClick={() => handleProductClick(product)}
+                  >
+                    <div className="promage">
+                      <img
+                        src={imagePath}
+                        alt={product.name}
+                        className="cirmage"
+                      />
+                    </div>
+                    <p className="proname">{product.name}</p>
+                    <p className="promount">{product.sp}</p>
+                    <p className="protype">{product.type}</p>
+                    <p className="procat">{product.category}</p>
                   </div>
-                  <p className="proname">{product.name}</p>
-                  <p className="promount">{product.sp}</p>
-                  <p className="protype">{product.type}</p>
-                  <p className="procat">{product.category}</p>
-                </div>
-              ))
+                );
+              })
             ) : (
               <ProdListview items={filteredProducts} onItemClick={handleProductClick} />
             )}

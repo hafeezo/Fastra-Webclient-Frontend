@@ -78,8 +78,12 @@ const ProdListview = ({ items, onItemClick }) => {
               />
             </TableCell>
             <TableCell>Product Name</TableCell>
-            <TableCell>Unit of Measure</TableCell>
             <TableCell>Selling Price</TableCell>
+            <TableCell>Cost Price</TableCell>
+            <TableCell>Unit of Measure</TableCell>
+            <TableCell>Type</TableCell>
+            <TableCell>Category</TableCell>
+            <TableCell>Company</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -105,8 +109,12 @@ const ProdListview = ({ items, onItemClick }) => {
               <TableCell component="th" scope="row" id={`product-list-label-${item.id}`}>
                 {item.name}
               </TableCell>
-              <TableCell>{item.unm}</TableCell>
-              <TableCell>{item.sp}</TableCell>
+              <TableCell sx={{color: '#3b7ced'}}>{item.sp}</TableCell>
+              <TableCell sx={{color: '#3b7ced'}}>{item.cp}</TableCell>
+              <TableCell>{item.unt}</TableCell>
+              <TableCell>{item.type}</TableCell>
+              <TableCell>{item.category}</TableCell>
+              <TableCell>{item.company}</TableCell>
             </TableRow>
           ))}
         </TableBody>

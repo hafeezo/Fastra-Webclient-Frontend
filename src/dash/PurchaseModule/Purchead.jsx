@@ -4,6 +4,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import "./Purchead.css";
 import admin from "../../image/admin.svg";
 import { NavLink } from "react-router-dom";
+import Sidebar from "../../components/Sidebar";
 
 export default function Purchead() {
   const [notifications, setNotifications] = useState(0);
@@ -36,7 +37,7 @@ export default function Purchead() {
               exact
               to="/purchase"
               className="purst"
-                           activeClassName="active"
+              activeClassName="active"
               onClick={handleLinkClick}
             >
               Purchase Requests
@@ -122,36 +123,7 @@ export default function Purchead() {
           </div>
         </li>
       </ul>
-      <div className={`navli ${showMenu ? "active" : ""}`}>
-        <NavLink
-          exact
-          to="/dashboard"
-          className="navig"
-          activeClassName="active"
-          onClick={() => setShowMenu(false)}
-        >
-          Home
-        </NavLink>
-        <NavLink
-          exact
-          to="/contact"
-          className="navig"
-          activeClassName="active"
-          onClick={() => setShowMenu(false)}
-        >
-          Contact
-        </NavLink>
-        <NavLink
-          exact
-          to="/settings"
-          className="navig"
-          activeClassName="active"
-          onClick={() => setShowMenu(false)}
-        >
-          Setting
-        </NavLink>
-      </div>
+      {showMenu && <Sidebar />}
     </div>
   );
 }
-

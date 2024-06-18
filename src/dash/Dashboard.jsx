@@ -4,7 +4,7 @@ import SearchIcon from "../image/search.svg";
 import "./Dashboard.css";
 import admin from "../image/admin.svg";
 import DashCard from "./DashCard";
-import { Link } from "react-router-dom";
+import Sidebar from ".././components/Sidebar";
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -68,30 +68,7 @@ export default function Dashboard() {
           </li>
         </ul>
       </div>
-
-      <div className={`navli ${showMenu ? "active" : ""}`}>
-        <Link
-          to="/dashboard"
-          className="navig"
-          onClick={() => setShowMenu(false)}
-        >
-          Home
-        </Link>
-        <Link
-          to="/contact"
-          className="navig"
-          onClick={() => setShowMenu(false)}
-        >
-          Contact
-        </Link>
-        <Link
-          to="/settings"
-          className="navig"
-          onClick={() => setShowMenu(false)}
-        >
-          Setting
-        </Link>
-      </div>
+      {showMenu && <Sidebar />}
 
       <div className="dashbody">
         <div className="bocard">

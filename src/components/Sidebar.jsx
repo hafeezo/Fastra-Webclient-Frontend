@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   FaTachometerAlt,
   FaBook,
@@ -9,7 +10,7 @@ import {
   FaAddressBook,
   FaCogs,
 } from "react-icons/fa";
-import "./Sidebar.css"; // Import the CSS file
+import './sidebar.css';
 
 const Sidebar = () => {
   return (
@@ -19,38 +20,40 @@ const Sidebar = () => {
         <span className="sidebar-title">fastra suite</span>
       </div>
       <div className="sidebar-menu">
-        <div className="sidebar-item selected">
+        <Link to="/dashboard" className="sidebar-item" activeClassName="selected">
           <FaTachometerAlt className="sidebar-icon" />
           <span>Dashboard</span>
-        </div>
-        <div className="sidebar-item">
+        </Link>
+        <Link to="/books" className="sidebar-item" activeClassName="selected">
           <FaBook className="sidebar-icon" />
           <span>Books</span>
-        </div>
-        <div className="sidebar-item">
+        </Link>
+        <Link to="/sell" className="sidebar-item" activeClassName="selected">
           <FaDollarSign className="sidebar-icon" />
           <span>Sell</span>
-        </div>
-        <div className="sidebar-item">
+        </Link>
+        <Link to="/source" className="sidebar-item" activeClassName="selected">
           <FaIndustry className="sidebar-icon" />
           <span>Source</span>
-        </div>
-        <div className="sidebar-item">
+        </Link>
+        <Link to="/stock" className="sidebar-item" activeClassName="selected">
           <FaWarehouse className="sidebar-icon" />
           <span>Stock</span>
-        </div>
-        <div className="sidebar-item">
+        </Link>
+        <Link to="/talent" className="sidebar-item" activeClassName="selected">
           <FaUsers className="sidebar-icon" />
           <span>Talent</span>
-        </div>
-        <div className="sidebar-item">
+        </Link>
+        <Link to="/contact" className="sidebar-item" activeClassName="selected">
           <FaAddressBook className="sidebar-icon" />
           <span>Contacts</span>
-        </div>
+        </Link>
       </div>
       <div className="sidebar-footer">
-        <FaCogs className="sidebar-icon" />
-        <span>Settings</span>
+        <Link to="/settings" className="sidebar-item" activeClassName="selected">
+          <FaCogs className="sidebar-icon" />
+          <span>Settings</span>
+        </Link>
       </div>
     </div>
   );
