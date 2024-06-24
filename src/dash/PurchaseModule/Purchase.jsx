@@ -5,7 +5,7 @@ import Rfq from "./Rfq/Rfq";
 import Bg from "../../image/bg.svg";
 import Vend from "./Vendor/Vend";
 import Prod from "./Product/Prod";
-import Pod from "./PurchOrder/Pod";
+import PurchaseOrder from "./PurchOrder/PurchaseOrder";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 export default function Purchase() {
   return (
@@ -17,7 +17,7 @@ export default function Purchase() {
           <Route path="/rfq" component={Rfq} />
           <Route path="/vend" component={Vend} />
           <Route path="/prod" component={Prod} />
-          <Route path="/pod" component={Pod} />
+          <Route path="/pod" component={PurchaseOrder} />
         </Switch>
       </Purcont>
     </Router>
