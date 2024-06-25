@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import autosave from "../../../image/autosave.svg";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
-import './Orapr.css';
+import "./Orapr.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -56,7 +56,6 @@ export default function Orapr({ onUpdateStatus, formData, onClose }) {
   const [currentView, setCurrentView] = useState("orfq");
   const [currentFormData, setCurrentFormData] = useState(formData);
 
-
   useEffect(() => {
     if (currentFormData && currentFormData.rows) {
       const total = currentFormData.rows.reduce((sum, row) => {
@@ -77,7 +76,6 @@ export default function Orapr({ onUpdateStatus, formData, onClose }) {
     setCurrentFormData(updatedFormData);
     onUpdateStatus(currentFormData.id, "Deselect");
   };
-
 
   const formatDate = (date) => {
     const options = { day: "numeric", month: "short", year: "numeric" };
@@ -142,7 +140,7 @@ export default function Orapr({ onUpdateStatus, formData, onClose }) {
                 </div>
                 <div style={{ marginTop: "1rem" }}>
                   <p>Status</p>
-                  <p style={{ fontSize: "14px", color: '#f0b501' }}>
+                  <p style={{ fontSize: "14px", color: "#f0b501" }}>
                     {formData ? formData.status : ""}
                   </p>
                 </div>
@@ -340,7 +338,9 @@ export default function Orapr({ onUpdateStatus, formData, onClose }) {
                 </StyledTableContainer>
               </div>
               <div>
-                <DeselectButton onClick={handleDeselect}>Deselect Vendor</DeselectButton>
+                <DeselectButton onClick={handleDeselect}>
+                  Deselect Vendor
+                </DeselectButton>
               </div>
             </form>
           </div>

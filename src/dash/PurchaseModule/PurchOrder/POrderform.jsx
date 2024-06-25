@@ -12,7 +12,7 @@ import autosave from "../../../image/autosave.svg";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { useHistory } from "react-router-dom";
-import './POrderform.css';
+import "./POrderform.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -134,7 +134,7 @@ export default function POrderform({
 
     onSaveAndSubmit(formDataWithStringDate);
 
-    history.push("/Orapr");
+    history.push("/orapr");
   };
 
   const addRow = () => {

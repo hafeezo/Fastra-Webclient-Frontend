@@ -6,18 +6,33 @@ import admin from "../../image/admin.svg";
 import { NavLink } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 
+
 export default function Purchead() {
   const [notifications, setNotifications] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
-  const [click, setClick] = useState(false);
+  const [showVendorDropdown, setShowVendorDropdown] = useState(false);
+  const [showProductDropdown, setShowProductDropdown] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
   const handleLinkClick = () => {
-    setClick(false);
-    setShowMenu(false); // Close the menu on link click
+    setShowMenu(false);
+    setShowVendorDropdown(false);
+    setShowProductDropdown(false);
+  };
+
+  const toggleVendorDropdown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowVendorDropdown(!showVendorDropdown);
+  };
+
+  const toggleProductDropdown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowProductDropdown(!showProductDropdown);
   };
 
   return (
@@ -68,20 +83,23 @@ export default function Purchead() {
                 activeClassName="active"
                 onClick={handleLinkClick}
               >
-                <p className="p2">
-                  Vendor
-                  <IoIosArrowDown className="ardan" />
-                </p>
+                Vendor
               </NavLink>
-              <div className="prolst">
-                <NavLink
-                  to="/varcat"
-                  className="dropdown-link"
-                  onClick={handleLinkClick}
-                >
-                  Vendor Category
-                </NavLink>
-              </div>
+              <IoIosArrowDown
+                className="ardan"
+                onClick={toggleVendorDropdown}
+              />
+              {showVendorDropdown && (
+                <div className="prolst">
+                  <NavLink
+                    to="/varcat"
+                    className="dropdown-link"
+                    onClick={handleLinkClick}
+                  >
+                    Vendor Category
+                  </NavLink>
+                </div>
+              )}
             </div>
             <div className="prodrop">
               <NavLink
@@ -91,20 +109,23 @@ export default function Purchead() {
                 activeClassName="active"
                 onClick={handleLinkClick}
               >
-                <p className="p2">
-                  Product
-                  <IoIosArrowDown className="ardan" />
-                </p>
+                Product
               </NavLink>
-              <div className="prolst">
-                <NavLink
-                  to="/procat"
-                  className="dropdown-link"
-                  onClick={handleLinkClick}
-                >
-                  Product Category
-                </NavLink>
-              </div>
+              <IoIosArrowDown
+                className="ardan"
+                onClick={toggleProductDropdown}
+              />
+              {showProductDropdown && (
+                <div className="prolst">
+                  <NavLink
+                    to="/procat"
+                    className="dropdown-link"
+                    onClick={handleLinkClick}
+                  >
+                    Product Category
+                  </NavLink>
+                </div>
+              )}
             </div>
           </div>
         </li>

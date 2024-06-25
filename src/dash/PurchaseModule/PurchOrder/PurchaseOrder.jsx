@@ -17,7 +17,6 @@ export default function PurchaseOrder() {
     const savedItems = localStorage.getItem("purchaseOrders");
     return savedItems ? JSON.parse(savedItems) : [];
   });
-
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [filteredItems, setFilteredItems] = useState(items);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -41,8 +40,6 @@ export default function PurchaseOrder() {
 
   const handleSaveAndSubmit = (data) => {
     const updatedItems = [...items, data];
-    setCurrentFormData(data);
-    setIsSubmitted(true);
     setItems(updatedItems);
     localStorage.setItem("purchaseOrders", JSON.stringify(updatedItems));
     setIsFormVisible(false);
@@ -117,7 +114,7 @@ export default function PurchaseOrder() {
   };
 
   return (
-    <div className="purchaseOrder">
+    <div className="purchaseOrder" id="pod">
       <div className="purchaseOrder1">
         <div className="purchaseOrder2">
           <div className="purchaseOrder3">
@@ -144,7 +141,9 @@ export default function PurchaseOrder() {
               </div>
             </div>
             <div className="r3b">
-              <p className="r3bpage">1-{filteredItems.length} of {items.length}</p>
+              <p className="r3bpage">
+                1-{filteredItems.length} of {items.length}
+              </p>
               <div className="r3bnav">
                 <FaCaretLeft className="lr" />
                 <div className="stroke"></div>
