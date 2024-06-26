@@ -9,9 +9,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import autosave from "../../image/autosave.svg";
-import "./Rform.css";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import { useHistory } from "react-router-dom";
+import "./POrderform.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,7 +35,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function Rform({
+export default function POrderform({
   onClose,
   onSaveAndSubmit,
   initialData,
@@ -50,22 +51,21 @@ export default function Rform({
       totalPrice: "",
     },
   ];
-
-  const [rows, setRows] = useState(defaultRows);
+  const history = useHistory();
 
   const generateNewID = () => {
     const lastID = localStorage.getItem("lastGeneratedID");
-    let newID = "RFQ00001";
+    let newID = "P00001";
 
-    if (lastID && /^RFQ\d{5}$/.test(lastID)) {
-      const idNumber = parseInt(lastID.slice(3), 10);
+    if (lastID && /^P\d{5}$/.test(lastID)) {
+      const idNumber = parseInt(lastID.slice(1), 10);
       if (!isNaN(idNumber)) {
-        newID = "RFQ" + (idNumber + 1).toString().padStart(5, "0");
+        newID = "P" + (idNumber + 1).toString().padStart(5, "0");
       }
     }
 
     localStorage.setItem("lastGeneratedID", newID);
-    console.log(`Generated new ID: ${newID}`); // Debugging line
+    console.log(`Generated new ID: ${newID}`);
     return newID;
   };
 
@@ -73,13 +73,14 @@ export default function Rform({
     id: initialData?.id || generateNewID(),
     productName: initialData?.productName || "",
     amount: initialData?.amount || "",
-    status: initialData?.status || "Awaiting Vendor Selection", // Assuming default status
-    date: initialData?.date ? new Date(initialData.date) : new Date(), // Current date or initial date
+    status: initialData?.status || "Awaiting Goods",
+    date: initialData?.date ? new Date(initialData.date) : new Date(),
     expiryDate: initialData?.expiryDate || "",
     vendor: initialData?.vendor || "",
     vendorCategory: initialData?.vendorCategory || "",
   });
 
+  const [rows, setRows] = useState(defaultRows);
   const [page, setPage] = useState(0);
   const rowsPerPage = 2;
   const [showForm] = useState(true);
@@ -127,11 +128,13 @@ export default function Rform({
 
     const formDataWithStringDate = {
       ...formState,
-      date: formState.date.toString(), // Convert date to string
+      date: formState.date.toString(),
       rows,
     };
 
     onSaveAndSubmit(formDataWithStringDate);
+
+    history.push("/Orapr");
   };
 
   const addRow = () => {
@@ -185,6 +188,7 @@ export default function Rform({
   const [vendorInputValue, setVendorInputValue] = useState("");
   const [selectedVendor, setSelectedVendor] = useState(null);
   const savedVendors = JSON.parse(localStorage.getItem("vendors")) || [];
+
   const handleVendorSelect = (event, newValue) => {
     setSelectedVendor(newValue);
     if (newValue) {
@@ -201,18 +205,29 @@ export default function Rform({
       }));
     }
   };
+
+  const handleVendorCategoryChange = (event, newValue) => {
+    setFormState((prev) => ({
+      ...prev,
+      vendorCategory: newValue,
+    }));
+  };
+
   return (
-    <div id="newrfq" className={`rpr ${showForm ? "fade-in" : "fade-out"}`}>
-      <div className="rpr1">
-        <div className="rpr2">
-          <div className="rpr2a">
-            <p className="rprhed">New RFQs</p>
+    <div
+      id="newPurchaseOrder"
+      className={`newpod ${showForm ? "fade-in" : "fade-out"}`}
+    >
+      <div className="newpod1">
+        <div className="newpod2">
+          <div className="newpod2a">
+            <p className="rprhed">New Purchase Order</p>
             <div className="rprauto">
               <p>Autosaved</p>
               <img src={autosave} alt="Autosaved" />
             </div>
           </div>
-          <div className="rpr2b">
+          <div className="newpod2b">
             <p className="rprbpg">
               {page + 1}-{pageCount} of {pageCount}
             </p>
@@ -223,32 +238,31 @@ export default function Rform({
             </div>
           </div>
         </div>
-        <div className="rpr3">
-          <form className="rprform" onSubmit={handleSubmit}>
-            <div className="rpr3a">
+        <div className="newpod3">
+          <form className="newform" onSubmit={handleSubmit}>
+            <div className="newpod3a">
               <p style={{ fontSize: "20px" }}>Basic Information</p>
-              <div className="rpr3e">
-                <button type="button" className="rpr3but" onClick={onClose}>
+              <div className="newpod3e">
+                <button type="button" className="new3but" onClick={onClose}>
                   Cancel
                 </button>
-                <button type="button" className="rpr3btn" onClick={handleSave}>
+                <button type="button" className="new3btn" onClick={handleSave}>
                   Save
                 </button>
-                <button type="submit" className="rpr3btn">
-                  Send to vendor
+                <button type="submit" className="new3btn">
+                  Save &amp; Send
                 </button>
               </div>
             </div>
-
-            <div className="rpr3b">
-              <div className="rpr3ba">
+            <div className="newpod3b">
+              <div className="newpod3ba">
                 <p>ID</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {formState.id}
                 </p>
               </div>
-              <div className="rpr3bb">
-                <p>Date Opened</p>
+              <div className="newpod3bb">
+                <p>Date Created</p>
                 <p style={{ fontSize: "14px", color: "#7a8a98" }}>
                   {`${formatDate(formState.date)} - ${formatTime(
                     formState.date
@@ -256,25 +270,9 @@ export default function Rform({
                 </p>
               </div>
             </div>
-            <div className="rpr3c">
-              <div className="rpr3ca">
-                <label>Expiry Date</label>
-                <input
-                  type="date"
-                  name="expiryDate"
-                  placeholder="DD MMM YYYY - HH MM - AM"
-                  className="rpr3cb"
-                  value={formState.expiryDate}
-                  onChange={(e) =>
-                    setFormState((prev) => ({
-                      ...prev,
-                      expiryDate: e.target.value,
-                    }))
-                  }
-                />
-              </div>
-              <div className="rpr3ca">
-                <label>Vendor</label>
+            <div className="newpod3c">
+              <div className="newpod3ca" style={{ marginTop: "-0.5rem" }}>
+                <p>Vendor</p>
                 <Autocomplete
                   value={selectedVendor}
                   onChange={handleVendorSelect}
@@ -288,35 +286,47 @@ export default function Rform({
                     <TextField
                       {...params}
                       label="Select vendor"
-                      className="rpr3cb"
+                      className="newpod3cb"
                     />
                   )}
                 />
               </div>
-              <div className="rpr3ca">
+              <div className="newpod3ca">
                 <p>Vendor Category</p>
-                <input
-                  className="rpr3cb"
-                  type="text"
+                <Autocomplete
                   value={formState.vendorCategory}
-                  onChange={(e) =>
-                    setFormState((prevState) => ({
-                      ...prevState,
-                      vendorCategory: e.target.value,
-                    }))
-                  }
+                  onChange={handleVendorCategoryChange}
+                  inputValue={formState.vendorCategory}
+                  onInputChange={(event, newInputValue) => {
+                    setFormState((prev) => ({
+                      ...prev,
+                      vendorCategory: newInputValue,
+                    }));
+                  }}
+                  options={categories}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select category"
+                      className="newpod3cb"
+                    />
+                  )}
                 />
               </div>
               <button
                 type="button"
-                className="rpr3but"
+                className="new3but"
                 onClick={addRow}
                 style={{ marginTop: "1rem" }}
               >
                 Add Row
               </button>
             </div>
-            <div className="rpr3d">
+
+            <p style={{ fontSize: "20px", color: "blue", marginTop: "1rem" }}>
+              Purchase Order Content
+            </p>
+            <div className="newpod3d">
               <TableContainer
                 component={Paper}
                 sx={{

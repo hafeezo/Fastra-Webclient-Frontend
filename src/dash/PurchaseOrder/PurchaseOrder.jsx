@@ -1,83 +1,62 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import "./Rfq.css";
 import SearchIcon from "../../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
-import RListview from "../Listview";
+import Orderlistview from "./Orderlistview";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import IconButton from "@mui/material/IconButton";
-import Rform from "./R-form";
-import Rapr from "./Rapr";
-import { getVendors, getCategories } from "../vendor/vendor";
+import POrderform from "./POrderform";
+import Orapr from "./Orapr";
+import "./PurchaseOrder.css";
 
-export default function Rfq() {
+export default function PurchaseOrder() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [approvedCount, setApprovedCount] = useState(0);
-  const [pendingCount, setPendingCount] = useState(0);
-  const [rejectedCount, setRejectedCount] = useState(0);
   const [viewMode, setViewMode] = useState("grid");
   const [items, setItems] = useState(() => {
-    const storedItems = JSON.parse(localStorage.getItem("rfqs")) || [];
-    return storedItems;
+    const savedItems = localStorage.getItem("purchaseOrders");
+    return savedItems ? JSON.parse(savedItems) : [];
   });
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [filteredItems, setFilteredItems] = useState(items);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [currentFormData, setCurrentFormData] = useState(null); // Renamed state
-  const [selectedItem, setSelectedItem] = useState(null); // Add state for selected item
-  const [initialFormData, setInitialFormData] = useState(null);
-  const [vendors, setVendors] = useState([]);
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // Check if items is not undefined before calling getVendors and getCategories
-      if (items) {
-        const vendorsData = getVendors(items);
-        const categoriesData = getCategories(items);
-        setVendors(vendorsData);
-        setCategories(categoriesData);
-      }
-    };
-    fetchData();
-  }, [items]);
+  const [currentFormData, setCurrentFormData] = useState(null);
+  const [initialFormData, setInitialFormData] = useState(null); // Added state for initial form data
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const location = useLocation();
   const locationFormData = location.state?.formData;
 
   useEffect(() => {
     if (locationFormData) {
-      // Logic to autofill form
       setInitialFormData(locationFormData);
-      setIsFormVisible(true); // Open the form with the initial data
+      setIsFormVisible(true);
     }
   }, [locationFormData]);
 
+  useEffect(() => {
+    setFilteredItems(items);
+  }, [items]);
+
   const handleSaveAndSubmit = (data) => {
     const updatedItems = [...items, data];
-    setCurrentFormData(data);
-    setIsSubmitted(true);
     setItems(updatedItems);
-    localStorage.setItem("rfqs", JSON.stringify(updatedItems));
+    localStorage.setItem("purchaseOrders", JSON.stringify(updatedItems));
     setIsFormVisible(false);
   };
 
-  const handleFormDataChange = (data) => {
-    setCurrentFormData(data);
+  const handleFormClose = () => {
+    setIsFormVisible(false);
+    setIsSubmitted(false);
+    setInitialFormData(null); // Reset initial form data when closing the form
   };
 
   const toggleViewMode = (mode) => {
     setViewMode(mode);
   };
 
-  const handleNewRfq = () => {
+  const handleNewPurchaseOrder = () => {
     setIsFormVisible(true);
-  };
-
-  const handleFormClose = () => {
-    setIsFormVisible(false);
-    setIsSubmitted(false);
   };
 
   const handleUpdateStatus = (id, status) => {
@@ -85,45 +64,11 @@ export default function Rfq() {
       item.id === id ? { ...item, status: status } : item
     );
     setItems(updatedItems);
-    localStorage.setItem("rfqs", JSON.stringify(updatedItems));
+    localStorage.setItem("purchaseOrders", JSON.stringify(updatedItems));
     setIsSubmitted(false);
     setIsFormVisible(false);
-    setSelectedItem(null); // Hide Rapr after status update
+    setSelectedItem(null);
   };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "vendor selected":
-        return "#2ba24c";
-      case "Awaiting vendor selection":
-        return "#f0b501";
-      case "Cancelled":
-        return "#e43e2b";
-      default:
-        return "#7a8a98";
-    }
-  };
-
-  const updateCounts = (items) => {
-    const approvedCount = items.filter(
-      (item) => item.status === "Approved"
-    ).length;
-    const pendingCount = items.filter(
-      (item) => item.status === "Pending"
-    ).length;
-    const rejectedCount = items.filter(
-      (item) => item.status === "Rejected"
-    ).length;
-    setApprovedCount(approvedCount);
-    setPendingCount(pendingCount);
-    setRejectedCount(rejectedCount);
-  };
-
-  useEffect(() => {
-    updateCounts(items);
-    setFilteredItems(items);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items]);
 
   const handleSearch = () => {
     if (searchQuery === "") {
@@ -132,7 +77,7 @@ export default function Rfq() {
       const lowercasedQuery = searchQuery.toLowerCase();
       const filtered = items.filter(
         (item) =>
-          item.vendorName.toLowerCase().includes(lowercasedQuery) ||
+          item.productName.toLowerCase().includes(lowercasedQuery) ||
           item.date.includes(lowercasedQuery) ||
           item.status.toLowerCase().includes(lowercasedQuery)
       );
@@ -149,40 +94,35 @@ export default function Rfq() {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Order Approved":
+        return "#2ba24c";
+      case "Awaiting Goods":
+        return "#f0b501";
+      case "Deselected":
+      case "Cancelled":
+        return "#e43e2b";
+      default:
+        return "#7a8a98";
+    }
   };
 
   return (
-    <div className="rfq" id="rfq">
-      <div className="rfq1">
-        <div className="rfq2">
-          <p>RFQs</p>
-          <div className="rfqlist">
-            <div className="rfql1">
-              <p style={{ lineHeight: "1rem" }}>Vendor Selected</p>
-              <p className={`plnum ${approvedCount === 0 ? "zero" : ""}`}>
-                {approvedCount}
-              </p>
-            </div>
-            <div className="rfql2">
-              <p style={{ lineHeight: "1rem" }}>Awaiting Vendor Selection</p>
-              <p className={`plnum ${pendingCount === 0 ? "zero" : ""}`}>
-                {pendingCount}
-              </p>
-            </div>
-            <div className="rfql3">
-              <p>Cancelled</p>
-              <p className={`plnum ${rejectedCount === 0 ? "zero" : ""}`}>
-                {rejectedCount}
-              </p>
-            </div>
-          </div>
-          <div className="rfq3">
+    <div className="purchaseOrder">
+      <div className="purchaseOrder1">
+        <div className="purchaseOrder2">
+          <div className="purchaseOrder3">
             <div className="r3a">
-              <button className="r3abtn" onClick={handleNewRfq}>
-                New RFQ
+              <button className="r3abtn" onClick={handleNewPurchaseOrder}>
+                New Purchase Order
               </button>
-              <div className="rfqsash">
+              <div className="purchaseOrdersash">
                 <label
                   htmlFor="searchInput"
                   className="ps1"
@@ -201,7 +141,9 @@ export default function Rfq() {
               </div>
             </div>
             <div className="r3b">
-              <p className="r3bpage">1-2 of 2</p>
+              <p className="r3bpage">
+                1-{filteredItems.length} of {items.length}
+              </p>
               <div className="r3bnav">
                 <FaCaretLeft className="lr" />
                 <div className="stroke"></div>
@@ -222,31 +164,31 @@ export default function Rfq() {
           </div>
           {isFormVisible ? (
             <div className="overlay">
-              <Rform
+              <POrderform
                 onSaveAndSubmit={handleSaveAndSubmit}
-                onFormDataChange={handleFormDataChange}
                 onClose={handleFormClose}
-                initialData={initialFormData} // Pass the initial data here
+                initialData={initialFormData} // Pass initial form data to child component
               />
             </div>
           ) : selectedItem ? (
             <div className="overlay">
-              <Rapr
+              <Orapr
                 formData={selectedItem}
                 onUpdateStatus={handleUpdateStatus}
+                onClose={() => setSelectedItem(null)} // Add onClose prop to Orapr
               />
             </div>
           ) : viewMode === "grid" ? (
-            <div className="rfq4">
+            <div className="purchaseOrder4">
               {filteredItems.map((item) => (
                 <div
-                  className="rfq4gv"
+                  className="purchaseOrder4gv"
                   key={item.id}
                   onClick={() => handleCardClick(item)}
                 >
                   <p className="cardid">{item.id}</p>
                   <div className="vendname">
-                    {item.status === "Awaiting vendor selection" ? (
+                    {item.status === "Pending" ? (
                       <div
                         style={{
                           display: "flex",
@@ -264,6 +206,7 @@ export default function Rfq() {
                       item.vendor
                     )}
                   </div>
+                  <p className="cardname">{item.productName}</p>
                   <p className="cardate">{formatDate(item.date)}</p>
                   <p
                     className="status"
@@ -283,7 +226,7 @@ export default function Rfq() {
               ))}
             </div>
           ) : (
-            <RListview items={filteredItems} />
+            <Orderlistview items={filteredItems} />
           )}
         </div>
       </div>

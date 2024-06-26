@@ -14,8 +14,9 @@ import report from "../image/report.svg";
 import settings from "../image/settings.svg";
 import app from "../image/app.svg";
 import dots from "../image/dots.svg";
+import { Link } from "react-router-dom";
 
-const Card = ({ name, description }) => {
+const Card = ({ name, description, link }) => {
   let icon;
   switch (name) {
     case "Account":
@@ -114,14 +115,14 @@ const Card = ({ name, description }) => {
   }
 
   return (
-    <div className="card">
+    <Link to={link} className="card">
       {icon && <img src={icon} alt={name} />}
       <div className="cardtext">
         <h3 className="cardhed">{name}</h3>
         <p className="cardesc">{description}</p>
       </div>
       {icon2 && <img src={icon2} alt={name} />}
-    </div>
+    </Link>
   );
 };
 
@@ -130,71 +131,85 @@ const fastra = [
     name: "Account",
     description:
       "Manage all financial transactions, including invoicing, billing, and ledger entries, to ensure accurate accounting records and financial reporting.",
+    link: "/account",
   },
   {
     name: "Purchase",
     description:
       "Streamline procurement processes by tracking purchase orders, vendor management, and inventory replenishment to optimize supply chain efficiency and cost savings.",
+    link: "/purchase",
   },
   {
     name: "Sales",
     description:
       "Track sales leads, manage customer relationships, and monitor sales performance to drive revenue growth and customer satisfaction.",
+    link: "/sales",
   },
   {
     name: "Inventory",
     description:
       "Monitor stock levels, track inventory movements, and optimize warehouse operations to ensure optimal inventory management and minimize stockouts.",
+    link: "/inventory",
   },
   {
     name: "HR",
     description:
       "Manage employee information, track attendance, process payroll, and oversee performance evaluations to support efficient HR administration and talent management.",
+    link: "/hr",
   },
   {
     name: "Project Costing",
     description:
       "Track project expenses, monitor budget allocations, and analyze project profitability to ensure projects are delivered on time and within budget.",
+    link: "/project-costing",
   },
   {
     name: "CRM",
     description:
       "Maintain a centralized database of customer information, track interactions, and manage sales pipelines to enhance customer relationships and boost sales effectiveness.",
+    link: "/crm",
   },
   {
     name: "Contact",
     description:
       "Store and organize contact information for customers, vendors, and other stakeholders to facilitate communication and collaboration.",
+    link: "/contact",
   },
   {
     name: "Planning",
     description:
       "Collaborate on strategic planning, set goals, allocate resources, and track progress towards objectives to drive organizational growth and success.",
+    link: "/planning",
   },
   {
     name: "Manufacturing",
     description:
       "Manage production processes, track work orders, and optimize resource allocation to maximize manufacturing efficiency and product quality.",
+    link: "/manufacturing",
   },
   {
     name: "Logistics",
     description:
       "Coordinate transportation, manage delivery schedules, and track shipment statuses to ensure timely and cost-effective logistics operations.",
+    link: "/logistics",
   },
   {
     name: "Reports",
     description:
       "Generate customizable reports, analyze key performance metrics, and gain actionable insights to support data-driven decision-making and business optimization.",
+    link: "/reports",
   },
   {
     name: "App",
     description:
       "Explore additional applications and integrations to extend the functionality of the Fastra suite and address specific business needs and requirements.",
+    link: "/app",
   },
   {
     name: "Settings",
     description:
       "Configure system preferences, manage user permissions, and customize application settings to align with organizational requirements and user preferences.",
+    link: "/settings",
   },
 ];
 
@@ -202,7 +217,12 @@ const DashCard = () => {
   return (
     <div className="cardlist">
       {fastra.map((fastra, index) => (
-        <Card key={index} name={fastra.name} description={fastra.description} />
+        <Card
+          key={index}
+          name={fastra.name}
+          description={fastra.description}
+          link={fastra.link}
+        />
       ))}
     </div>
   );
