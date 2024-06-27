@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import SearchIcon from "../../../../image/search.svg";
+import SearchIcon from "../../../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import Listview from "./Vlistview";
 import Newvc from "./Newvc";
-import VendorDetails from "../VendorDetails";
+import Varc from "../VendorDetails";
 import EditVendor from "./Edit";
 
-export default function Varcat() {
+export default function Vendor() {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
   const [items, setItems] = useState([
@@ -95,7 +95,7 @@ export default function Varcat() {
   };
 
   return (
-    <div className="prq" id="varcat">
+    <div className="prq" id="vendor">
       <div className="prq1">
         <div className="prq2">
           <div className="prq3">
@@ -154,7 +154,7 @@ export default function Varcat() {
                   onClose={handleFormClose}
                 />
               ) : (
-                <VendorDetails formData={formData} />
+                <Varc formData={formData} />
               )}
             </div>
           ) : selectedItem ? (

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./vendor.css";
-import SearchIcon from "../../../image/search.svg";
-import VendorImage from "../../../image/vendor.svg";
+import SearchIcon from "../../image/search.svg";
+import VendorImage from "../../image/vendor.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import Listview from "./Listview";
@@ -66,7 +66,6 @@ export default function Vend() {
   const [categories, setCategories] = useState([]);
   const [vendorDropdownVisible, setVendorDropdownVisible] = useState(false);
   const [categoryDropdownVisible, setCategoryDropdownVisible] = useState(false);
-    
 
   useEffect(() => {
     setFilteredItems(items);
@@ -76,7 +75,7 @@ export default function Vend() {
   useEffect(() => {
     const storedVendors = JSON.parse(localStorage.getItem("vendors")) || [];
     setVendors(storedVendors);
-    
+
     // Example categories, replace with your actual category fetching logic
     setCategories(["IT Hardware Sales", "Printing & Branding"]);
   }, []);

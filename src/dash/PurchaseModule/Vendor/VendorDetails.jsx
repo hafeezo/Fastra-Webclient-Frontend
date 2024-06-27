@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { DataGrid } from "@mui/x-data-grid";
-import { Accordion, AccordionSummary, AccordionDetails, IconButton } from "@mui/material";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  IconButton,
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "./VendorDetails.css";
@@ -47,11 +52,23 @@ const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
         const productNames = params.value.split(",");
         if (productNames.length > 1) {
           return (
-            <Accordion style={{ backgroundColor: "transparent", boxShadow: "none" }}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+            <Accordion
+              style={{ backgroundColor: "transparent", boxShadow: "none" }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
                 {productNames[0]}
               </AccordionSummary>
-              <AccordionDetails style={{ flexDirection: "column", overflowY: "auto", maxHeight: "150px" }}>
+              <AccordionDetails
+                style={{
+                  flexDirection: "column",
+                  overflowY: "auto",
+                  maxHeight: "150px",
+                }}
+              >
                 {productNames.slice(1).map((productName, index) => (
                   <div key={index}>{productName}</div>
                 ))}
@@ -72,11 +89,23 @@ const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
         const quantities = params.value.split(",");
         if (quantities.length > 1) {
           return (
-            <Accordion style={{ backgroundColor: "transparent", boxShadow: "none" }}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+            <Accordion
+              style={{ backgroundColor: "transparent", boxShadow: "none" }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
                 {quantities[0]}
               </AccordionSummary>
-              <AccordionDetails style={{ flexDirection: "column", overflowY: "auto", maxHeight: "150px" }}>
+              <AccordionDetails
+                style={{
+                  flexDirection: "column",
+                  overflowY: "auto",
+                  maxHeight: "150px",
+                }}
+              >
                 {quantities.slice(1).map((qty, index) => (
                   <div key={index}>{qty}</div>
                 ))}
@@ -97,7 +126,9 @@ const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
       renderCell: (params) => {
         if (params.row.status === "Awaiting Vendor Selection") {
           return (
-            <div style={{ display: "flex", alignItems: "center", color: "blue" }}>
+            <div
+              style={{ display: "flex", alignItems: "center", color: "blue" }}
+            >
               <span style={{ color: "blue" }}>Select Vendor</span>
               <IconButton style={{ color: "blue" }}>
                 <ArrowDropDownIcon />
@@ -143,11 +174,23 @@ const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
         const productNames = params.value.split(",");
         if (productNames.length > 1) {
           return (
-            <Accordion style={{ backgroundColor: "transparent", boxShadow: "none" }}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+            <Accordion
+              style={{ backgroundColor: "transparent", boxShadow: "none" }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
                 {productNames[0]}
               </AccordionSummary>
-              <AccordionDetails style={{ flexDirection: "column", overflowY: "auto", maxHeight: "150px" }}>
+              <AccordionDetails
+                style={{
+                  flexDirection: "column",
+                  overflowY: "auto",
+                  maxHeight: "150px",
+                }}
+              >
                 {productNames.slice(1).map((productName, index) => (
                   <div key={index}>{productName}</div>
                 ))}
@@ -168,11 +211,23 @@ const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
         const quantities = params.value.split(",");
         if (quantities.length > 1) {
           return (
-            <Accordion style={{ backgroundColor: "transparent", boxShadow: "none" }}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+            <Accordion
+              style={{ backgroundColor: "transparent", boxShadow: "none" }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
                 {quantities[0]}
               </AccordionSummary>
-              <AccordionDetails style={{ flexDirection: "column", overflowY: "auto", maxHeight: "150px" }}>
+              <AccordionDetails
+                style={{
+                  flexDirection: "column",
+                  overflowY: "auto",
+                  maxHeight: "150px",
+                }}
+              >
                 {quantities.slice(1).map((qty, index) => (
                   <div key={index}>{qty}</div>
                 ))}
@@ -280,12 +335,20 @@ const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
             </div>
             <div className="nvr3c">
               <div style={{ height: 400, width: "100%" }}>
-                <DataGrid rows={filteredRfqs} columns={rfqColumns} pageSize={5} />
+                <DataGrid
+                  rows={filteredRfqs}
+                  columns={rfqColumns}
+                  pageSize={5}
+                />
               </div>
             </div>
             <div className="nvr3c">
               <div style={{ height: 400, width: "100%" }}>
-                <DataGrid rows={filteredOrders} columns={orderColumns} pageSize={5} />
+                <DataGrid
+                  rows={filteredOrders}
+                  columns={orderColumns}
+                  pageSize={5}
+                />
               </div>
             </div>
           </form>

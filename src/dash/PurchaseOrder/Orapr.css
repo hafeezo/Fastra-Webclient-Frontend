@@ -1,4 +1,4 @@
-.rapr {
+.orapr {
   width: 100%;
   height: 100%;
   font-family: Product Sans;
@@ -22,12 +22,12 @@
   }
 }
 
-.rapr1 {
+.orapr1 {
   width: 95%;
   height: 100%;
 }
 
-.rapr2 {
+.orapr2 {
   width: 100%;
   height: 10%;
   display: flex;
@@ -36,7 +36,7 @@
   margin-top: 3rem;
 }
 
-.rapr2a {
+.orapr2a {
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -44,18 +44,18 @@
   height: 100%;
 }
 
-.raprhed {
+.oraprhed {
   font-size: 1.5rem;
   font-weight: 500;
 }
 
-.raprauto {
+.oraprauto {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.rapr3 {
+.orapr3 {
   width: 100%;
   height: 79%;
   padding: 24px 0px 0px 0px;
@@ -66,17 +66,17 @@
   justify-content: center;
 }
 
-.raprform {
+.oraprform {
   width: 95%;
   height: 100%;
 }
 
-.rapr3a {
+.orapr3a {
   width: 100%;
   height: 10%;
   margin-top: -1rem;
 }
-.rapr3ae {
+.orapr3ae {
   width: 100%;
   height: 50%;
   display: flex;
@@ -84,14 +84,14 @@
   justify-content: space-between;
   color: #3b7ced;
 }
-.rapr3but {
+.orapr3but {
   color: #3b7ced;
   border: none;
   padding: 10px;
   background: transparent;
 }
 
-.rapr3b {
+.orapr3b {
   width: 100%;
   height: 5%;
   display: flex;
@@ -100,28 +100,28 @@
   margin-top: 1rem;
 }
 
-.rapr3ba {
+.orapr3ba {
   width: 5%;
   height: 90%;
   line-height: 1.5rem;
   margin-bottom: 1rem;
 }
 
-.rapr3bb {
+.orapr3bb {
   width: 15%;
   height: 90%;
   line-height: 1.5rem;
   margin-bottom: 1rem;
 }
 
-.rapr3c {
+.orapr3c {
   width: 100%;
   color: #3b7ced;
   margin: 1rem 0;
   font-size: 1.2rem;
 }
 
-.rapr3e {
+.orapr3e {
   width: 40%;
   height: 100%;
   display: flex;
@@ -130,7 +130,7 @@
   justify-content: flex-end;
 }
 
-.rapr3btn {
+.orapr3btn {
   background-color: #3b7ced;
   color: white;
   border: none;
@@ -140,8 +140,8 @@
   font-size: 12px;
   outline: none;
 }
-.raprclk {
-  width: 20%;
+.oraprclk {
+  width: 30%;
   display: flex;
   gap: 0.5rem;
 }
@@ -153,7 +153,7 @@
   cursor: pointer;
 }
 /* New styles for table inputs */
-.rapr3d table input {
+.orapr3d table input {
   width: 100%;
   border: none;
   border-bottom: 1px solid #e2e6e9;
@@ -162,11 +162,11 @@
   outline: none;
 }
 
-.rapr3d table input:focus {
+.orapr3d table input:focus {
   outline: none;
   border-bottom: 1px solid #e2e6e9;
 }
-.rapr4 {
+.orapr4 {
   width: 100%;
   height: 79%;
   padding: 24px 0px 0px 0px;
@@ -176,11 +176,11 @@
   display: flex;
   justify-content: center;
 }
-.raprform2 {
+.oraprform2 {
   width: 95%;
   height: 100%;
 }
-.rapr4a {
+.orapr4a {
   width: 100%;
   height: 10%;
   display: flex;
@@ -189,7 +189,7 @@
   color: #3b7ced;
   justify-content: space-between;
 }
-.rapr4ab {
+.orapr4ab {
   width: 20%;
   height: 100%;
   display: flex;
@@ -198,11 +198,11 @@
   justify-content: flex-end;
 }
 
-.rapr4pg {
+.orapr4pg {
   color: #a9b3bc;
 }
 
-.rapr4nav {
+.orapr4nav {
   border: 1px solid #e2e6e9;
   width: 20%;
   height: 50%;
@@ -224,7 +224,7 @@
   border-left: 1px solid #e2e6e9;
 }
 
-.rapr4b {
+.orapr4b {
   width: 100%;
   height: 13%;
   display: flex;
@@ -232,7 +232,7 @@
   border-bottom: 1px solid #e2e6e9;
   margin-top: 1rem;
 }
-.rapr4ba {
+.orapr4ba {
   width: 15%;
   height: 90%;
   line-height: 1.5rem;

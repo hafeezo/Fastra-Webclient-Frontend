@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
-import autosave from "../../../../image/autosave.svg";
+import autosave from "../../../image/autosave.svg";
 
 export default function Newvendor({ onClose, onSaveAndSubmit }) {
   const generateNewID = () => {
