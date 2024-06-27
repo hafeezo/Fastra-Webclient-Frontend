@@ -47,8 +47,8 @@ export default function Newvendor({ onClose, onSaveAndSubmit }) {
     e.preventDefault();
 
     const formDataWithStringDate = {
-        ...formState,
-        date: formState.date.toString(),
+      ...formState,
+      date: formState.date.toString(),
     };
 
     // Save the vendor details to local storage
@@ -58,8 +58,7 @@ export default function Newvendor({ onClose, onSaveAndSubmit }) {
 
     onSaveAndSubmit(formDataWithStringDate);
     onClose();
-};
-
+  };
 
   return (
     <div id="nvr" className={`nvr ${showForm ? "fade-in" : "fade-out"}`}>

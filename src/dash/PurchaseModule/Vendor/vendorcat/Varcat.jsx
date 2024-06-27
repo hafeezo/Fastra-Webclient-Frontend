@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SearchIcon from "../../../image/search.svg";
+import SearchIcon from "../../../../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import Listview from "./Vlistview";
@@ -7,7 +7,7 @@ import Newvc from "./Newvc";
 import Varc from "../VendorDetails";
 import EditVendor from "./Edit";
 
-export default function Vendor() {
+export default function Varcat() {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
   const [items, setItems] = useState([

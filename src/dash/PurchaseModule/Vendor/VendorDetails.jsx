@@ -12,16 +12,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "./VendorDetails.css";
 
-const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
+const VendorDetails = ({ onClose, showForm, handleSubmit, onSave }) => {
   const { id } = useParams();
   const [vendor, setVendor] = useState(null);
   const [filteredRfqs, setFilteredRfqs] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
-  const [isFormVisible, setIsFormVisible] = useState(false);
-
-  const handleNewVendor = () => {
-    setIsFormVisible(true);
-  };
+  const [editMode, setEditMode] = useState(false);
+  const [formState, setFormState] = useState({});
 
   useEffect(() => {
     const vendors = JSON.parse(localStorage.getItem("vendors")) || [];
@@ -36,6 +33,7 @@ const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
 
     setFilteredRfqs(vendorRfqs);
     setFilteredOrders(vendorOrders);
+    setFormState({ ...selectedVendor });
   }, [id]);
 
   if (!vendor) {
@@ -280,15 +278,15 @@ const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
     }
   };
 
+  const handleSave = () => {
+    onSave(formState);
+    setEditMode(false);
+  };
+
   return (
-    <div id="nvr" className={`nvr ${showForm ? "fade-in" : "fade-out"}`}>
+    <div id="VendorDetails" className={`nvr ${showForm ? "fade-in" : "fade-out"}`}>
       <div className="nvr1">
         <div className="nvr2" style={{ marginBottom: "35px" }}>
-          <div className="nvr2a">
-            <button className="p3abtn" onClick={handleNewVendor}>
-              New Vendor
-            </button>
-          </div>
           <div className="nvr2b">
             <p className="p3bpage">1-2 of 2</p>
             <div className="nvrbnav">
@@ -300,7 +298,7 @@ const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
         </div>
         <div className="nvr3">
           <form className="nvrform" onSubmit={handleSubmit}>
-            <div className="nvr3a">
+            <div className="prodet2a">
               <p style={{ fontSize: "20px" }}>Basic Information</p>
               <button
                 type="button"
@@ -310,6 +308,23 @@ const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
               >
                 Cancel
               </button>
+              {editMode ? (
+                <button
+                  type="button"
+                  className="prodet2btn"
+                  onClick={handleSave}
+                >
+                  Save
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="prodet2btn"
+                  onClick={() => setEditMode(true)}
+                >
+                  Edit
+                </button>
+              )}
             </div>
             <div className="nvr3c">
               <div className="nvr3ca">
@@ -339,6 +354,7 @@ const VendorDetails = ({ onClose, showForm, handleSubmit }) => {
                   rows={filteredRfqs}
                   columns={rfqColumns}
                   pageSize={5}
+                  disableColumnFilter={!editMode} // Disable column filter when not in edit mode
                 />
               </div>
             </div>

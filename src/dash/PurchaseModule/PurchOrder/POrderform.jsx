@@ -134,7 +134,7 @@ export default function POrderform({
 
     onSaveAndSubmit(formDataWithStringDate);
 
-    history.push("/orapr");
+    history.push("/Orapr");
   };
 
   const addRow = () => {

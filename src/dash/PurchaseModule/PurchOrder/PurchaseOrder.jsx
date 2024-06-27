@@ -114,7 +114,7 @@ export default function PurchaseOrder() {
   };
 
   return (
-    <div className="purchaseOrder" id="pod">
+    <div className="purchaseOrder">
       <div className="purchaseOrder1">
         <div className="purchaseOrder2">
           <div className="purchaseOrder3">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
+import Select from "react-select";
 import autosave from "../../../image/autosave.svg";
 import './Newprod.css'
 
@@ -25,7 +26,6 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
     category: "",
     company: "", 
     sp: "",
-    cp: "",
   });
 
   const [showForm] = useState(true);
@@ -72,6 +72,46 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
     onClose();
   };
 
+  const unitOptions = [
+    { value: 'QTY', label: 'Quantity' },
+    { value: 'LBS', label: 'Pounds' },
+    { value: 'KG', label: 'Kilograms' },
+    // Add more options as needed
+  ];
+
+  const categoryOptions = [
+    { value: 'Electronics', label: 'Electronics' },
+    { value: 'Furniture', label: 'Furniture' },
+    { value: 'Clothing', label: 'Clothing' },
+    // Add more options as needed
+  ];
+
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      width: '95%',
+      marginTop: '0.1rem',
+      cursor: 'pointer',
+      outline: 'none',
+      border: '2px solid #e2e6e9',
+      borderRadius: '4px',
+      padding: '5px',
+      marginBottom: '1rem',
+    }),
+    menu: (provided) => ({
+      ...provided,
+      width: '95%',
+    }),
+    menuList: (provided) => ({
+      ...provided,
+      width: '95%',
+    }),
+    option: (provided) => ({
+      ...provided,
+      cursor: 'pointer',
+    }),
+  };
+
   return (
     <div id="newprod" className={`newp ${showForm ? "fade-in" : "fade-out"}`}>
       <div className="newp1">
@@ -109,7 +149,7 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
                 <label>Product Name</label>
                 <input
                   type="text"
-                  name="product name"
+                  name="name"
                   placeholder="Enter the product name"
                   className="newp3cb"
                   value={formState.name}
@@ -123,16 +163,16 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
               </div>
               <div className="newp3ba">
                 <label>Unit of Measure</label>
-                <input
-                  type="text"
-                  name="unit of measure"
-                  placeholder="QTY"
-                  className="newp3cb"
-                  value={formState.unt}
-                  onChange={(e) =>
+                <Select
+                  options={unitOptions}
+                  name="unt"
+                  // className="newp3cb"
+                  styles={customStyles}
+                  value={unitOptions.find(option => option.value === formState.unt)}
+                  onChange={(selectedOption) =>
                     setFormState((prev) => ({
                       ...prev,
-                      unt: e.target.value,
+                      unt: selectedOption ? selectedOption.value : "",
                     }))
                   }
                 />
@@ -157,16 +197,16 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
             <div className="newp3c">
               <div className="newp3ca">
                 <label>Category</label>
-                <input
-                  type="text"
+                <Select
+                  options={categoryOptions}
                   name="category"
-                  placeholder="Enter the category"
-                  className="newp3cb"
-                  value={formState.category}
-                  onChange={(e) =>
+                  // className="newp3cb"
+                  styles={customStyles}
+                  value={categoryOptions.find(option => option.value === formState.category)}
+                  onChange={(selectedOption) =>
                     setFormState((prev) => ({
                       ...prev,
-                      category: e.target.value,
+                      category: selectedOption ? selectedOption.value : "",
                     }))
                   }
                 />
@@ -192,17 +232,6 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
               <p style={{ fontSize: "20px" }}>Pricing</p>
             </div>
             <div className="newp3d">
-              <div className="newp3da">
-                <label>Cost Price</label>
-                <input
-                  type="text"
-                  name="cp"
-                  placeholder="₦0000"
-                  className="newp3cb no-spin"
-                  value={formatCurrency(formState.cp)}
-                  onChange={handleChange}
-                />
-              </div>
               <div className="newp3da">
                 <label>Selling Price</label>
                 <input

@@ -131,20 +131,6 @@ export default function ProductDetails({ product, onClose, onSave }) {
                 <p className="prodet4b">{product.sp}</p>
               )}
             </div>
-            <div className="prodet4a">
-              <label>Cost Price</label>
-              {editMode ? (
-                <input
-                  type="text"
-                  name="cp"
-                  value={formState.cp}
-                  onChange={handleChange}
-                  className="editable-input"
-                />
-              ) : (
-                <p className="prodet4b">{product.cp}</p>
-              )}
-            </div>
           </div>
         </div>
       </form>

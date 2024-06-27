@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Purchead from "./Purchead";
 import Purchreq from "./PurchRequest/Purchreq";
 import Rfq from "./Rfq/Rfq";
 import Bg from "../../image/bg.svg";
@@ -11,7 +10,6 @@ export default function Purchase() {
   return (
     <Router>
       <Purcont id="purchase">
-        <Purchead />
         <Switch>
           <Route path="/purchase" component={Purchreq} />
           <Route path="/rfq" component={Rfq} />

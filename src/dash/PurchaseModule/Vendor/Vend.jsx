@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./vendor.css";
-import SearchIcon from "../../image/search.svg";
-import VendorImage from "../../image/vendor.svg";
+import SearchIcon from "../../../image/search.svg";
+import VendorImage from "../../../image/vendor.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import Listview from "./Listview";
