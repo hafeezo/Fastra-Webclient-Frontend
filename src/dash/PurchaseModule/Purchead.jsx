@@ -75,7 +75,7 @@ export default function Purchead() {
             >
               Purchase Orders
             </NavLink>
-            <div className="prodrop">
+            <div className="prodrop" style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
               <NavLink
                 exact
                 to="/vend"
@@ -101,7 +101,7 @@ export default function Purchead() {
                 </div>
               )}
             </div>
-            <div className="prodrop">
+            <div className="prodrop" style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
               <NavLink
                 exact
                 to="/prod"
