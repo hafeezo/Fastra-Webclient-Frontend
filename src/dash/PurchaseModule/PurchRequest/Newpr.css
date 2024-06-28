@@ -1,4 +1,4 @@
-.nvr {
+.npr {
   width: 100%;
   height: 100%;
   font-family: Product Sans;
@@ -22,12 +22,12 @@
   }
 }
 
-.nvr1 {
+.npr1 {
   width: 95%;
   height: 100%;
 }
 
-.nvr2 {
+.npr2 {
   width: 100%;
   height: 10%;
   display: flex;
@@ -36,7 +36,7 @@
   margin-top: 3rem;
 }
 
-.nvr2a {
+.npr2a {
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -44,18 +44,18 @@
   height: 100%;
 }
 
-.nvrhed {
+.nprhed {
   font-size: 1.5rem;
   font-weight: 500;
 }
 
-.nvrauto {
+.nprauto {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.nvr2b {
+.npr2b {
   display: flex;
   gap: 1.5rem;
   height: 100%;
@@ -64,11 +64,11 @@
   justify-content: end;
 }
 
-.nvrbpg {
+.nprbpg {
   color: #a9b3bc;
 }
 
-.nvrbnav {
+.nprbnav {
   border: 1.2px solid #e2e6e9;
   width: 25%;
   height: 40%;
@@ -90,7 +90,7 @@
   border-left: 1px solid #e2e6e9;
 }
 
-.nvr3 {
+.npr3 {
   width: 100%;
   height: 79%;
   padding: 24px 0px 0px 0px;
@@ -101,12 +101,12 @@
   justify-content: center;
 }
 
-.nvrform {
+.nprform {
   width: 95%;
   height: 100%;
 }
 
-.nvr3a {
+.npr3a {
   width: 100%;
   height: 5%;
   display: flex;
@@ -116,13 +116,13 @@
   margin-top: -0.5rem;
 }
 
-.nvr3but {
+.npr3but {
   color: #3b7ced;
   border: none;
   padding: 10px;
   background: transparent;
 }
-.nvr3b {
+.npr3b {
   width: 100%;
   height: 10%;
   display: flex;
@@ -132,27 +132,27 @@
   margin-top: 1rem;
 }
 
-.nvr3ba {
+.npr3ba {
   width: 5%;
   height: 90%;
   line-height: 1.5rem;
   margin-bottom: 1rem;
 }
 
-.nvr3bb {
+.npr3bb {
   width: 10%;
   height: 90%;
   line-height: 1.5rem;
   margin-bottom: 1rem;
 }
-.nvr3bc {
+.npr3bc {
   width: 15%;
   height: 90%;
   line-height: 1.5rem;
   margin-bottom: 1rem;
 }
 
-.nvr3c {
+.npr3c {
   width: 100%;
   height: 16.5%;
   display: flex;
@@ -161,7 +161,7 @@
   margin: 1.5rem 0;
 }
 
-.nvr3ca {
+.npr3ca {
   width: 25%;
   height: 90%;
   display: flex;
@@ -170,7 +170,7 @@
   line-height: 1.5rem;
 }
 
-.nvr3cb {
+.npr3cb {
   width: 95%;
   margin-top: 0.1rem;
   cursor: pointer;
@@ -181,12 +181,12 @@
   margin-bottom: 1rem;
 }
 
-.nvr3d {
+.npr3d {
   width: 100%;
   height: 50%;
 }
 
-.nvr3e {
+.npr3e {
   width: 100%;
   height: 8%;
   margin-top: -0.5rem;
@@ -196,7 +196,7 @@
   gap: 1.5rem;
 }
 
-.nvr3btn {
+.npr3btn {
   background-color: #3b7ced;
   color: white;
   border: none;
@@ -207,7 +207,7 @@
 }
 
 /* New styles for table inputs */
-.nvr3d table input {
+.npr3d table input {
   width: 100%;
   border: none;
   border-bottom: 1px solid #e2e6e9;
@@ -216,7 +216,7 @@
   outline: none;
 }
 
-.nvr3d table input:focus {
+.npr3d table input:focus {
   outline: none;
   border-bottom: 1px solid #e2e6e9;
 }
