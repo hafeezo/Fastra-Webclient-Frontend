@@ -235,14 +235,11 @@
   font-size: 14px;
 }
 .cirmage {
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid #e2e6e9;
-}
-.npr3ca img {
-  margin-top: 1rem;
 }
 .overlay {
   position: fixed;
