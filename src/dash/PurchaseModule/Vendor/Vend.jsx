@@ -10,7 +10,6 @@ import Newvendor from "./Newvendor";
 import Var from "./Var";
 
 export const getVendors = (items) => {
-  // Return the vendors data from the items state or fetch from data source
   return items.map((item) => ({
     id: item.id,
     vendorName: item.vendorName,
@@ -18,14 +17,15 @@ export const getVendors = (items) => {
     phone: item.phone,
     address: item.address,
     category: item.category,
+    image: item.image,
   }));
 };
 
 export const getCategories = (items) => {
-  // Return the unique categories from the items state or fetch from data source
   const categories = new Set(items.map((item) => item.category));
   return Array.from(categories);
 };
+
 export default function Vend() {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
@@ -61,7 +61,6 @@ export default function Vend() {
   const [selectedItem, setSelectedItem] = useState(null);
   const history = useHistory();
 
-  // State for dropdowns
   const [vendors, setVendors] = useState([]);
   const [categories, setCategories] = useState([]);
   const [vendorDropdownVisible, setVendorDropdownVisible] = useState(false);
@@ -75,8 +74,6 @@ export default function Vend() {
   useEffect(() => {
     const storedVendors = JSON.parse(localStorage.getItem("vendors")) || [];
     setVendors(storedVendors);
-
-    // Example categories, replace with your actual category fetching logic
     setCategories(["IT Hardware Sales", "Printing & Branding"]);
   }, []);
 
@@ -87,6 +84,7 @@ export default function Vend() {
       ...data,
       id: (items.length + 1).toString(),
       category: data.vendorCategory,
+      image: data.image,
     };
     setItems([...items, newItem]);
     setIsFormVisible(false);
@@ -132,7 +130,6 @@ export default function Vend() {
     history.push(`/VendorDetails/${item.id}`);
   };
 
-  // Handlers for dropdowns
   const handleVendorSelect = (vendor) => {
     setFormData({
       ...formData,
@@ -207,15 +204,6 @@ export default function Vend() {
                   onSaveAndSubmit={handleSaveAndSubmit}
                   onFormDataChange={handleFormDataChange}
                   onClose={handleFormClose}
-                  formData={formData}
-                  vendors={vendors}
-                  categories={categories}
-                  vendorDropdownVisible={vendorDropdownVisible}
-                  setVendorDropdownVisible={setVendorDropdownVisible}
-                  categoryDropdownVisible={categoryDropdownVisible}
-                  setCategoryDropdownVisible={setCategoryDropdownVisible}
-                  handleVendorSelect={handleVendorSelect}
-                  handleCategorySelect={handleCategorySelect}
                 />
               ) : (
                 <Var formData={formData} />

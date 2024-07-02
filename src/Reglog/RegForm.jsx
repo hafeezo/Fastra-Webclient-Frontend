@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function RegForm() {
   const [data, setData] = useState({
+    userName: "",
     companyName: "",
     companyEmail: "",
     password: "",
@@ -69,6 +70,9 @@ const StepOne = (props) => {
 
   const validateForm = (values) => {
     const errors = {};
+    if (!values.userName) {
+      errors.userName = "Username is Required";
+    }
     if (!values.companyName) {
       errors.companyName = "Company Name is Required";
     }
@@ -92,6 +96,20 @@ const StepOne = (props) => {
         <Form className="fom">
           <p className="reg">Register</p>
           <p className="reg1">Enter your details to register</p>
+          <p className="lbl">Username</p>
+          <Field
+            className={
+              touched.userName && errors.userName
+                ? "inpt is-invalid"
+                : "inpt"
+            }
+            name="userName"
+            type="name"
+            placeholder="Create your username"
+          />
+          {touched.companyName && errors.userName && (
+            <div className="error">{errors.userName}</div>
+          )}
           <p className="lbl">Company name</p>
           <Field
             className={

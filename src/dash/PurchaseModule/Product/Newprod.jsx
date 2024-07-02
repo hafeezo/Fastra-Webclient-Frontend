@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import Select from "react-select";
 import autosave from "../../../image/autosave.svg";
-import './Newprod.css'
+import "./Newprod.css";
 
 export default function Newprod({ onClose, onSaveAndSubmit }) {
   const generateNewID = () => {
@@ -24,28 +24,17 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
     unt: "",
     type: "",
     category: "",
-    company: "", 
+    company: "",
     sp: "",
+    image: null, // New state for image
   });
 
   const [showForm] = useState(true);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFormState((prevState) => ({
-        ...prevState,
-        date: new Date(),
-      }));
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Remove non-numeric characters
-    const numericValue = value.replace(/[^0-9]/g, '');
+    const numericValue = value.replace(/[^0-9]/g, "");
 
     setFormState((prev) => ({
       ...prev,
@@ -53,62 +42,91 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
     }));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setFormState((prev) => ({
+        ...prev,
+        image: reader.result, // Set image to base64 encoded string
+      }));
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   const formatCurrency = (value) => {
-    if (!value) return '';
+    if (!value) return "";
     return `₦${value}`;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const formDataWithFormattedPrices = {
-      ...formState,
-      cp: formatCurrency(formState.cp),
-      sp: formatCurrency(formState.sp),
-      date: formState.date.toString(), // Convert date to string
-    };
-
-    onSaveAndSubmit(formDataWithFormattedPrices);
-    onClose();
+  const handleSaveAndSubmit = (formData) => {
+    try {
+      const existingProducts =
+        JSON.parse(localStorage.getItem("products")) || [];
+      existingProducts.push(formData);
+      localStorage.setItem("products", JSON.stringify(existingProducts));
+      onSaveAndSubmit(formData);
+    } catch (e) {
+      if (e.name === "QuotaExceededError") {
+        setError("Failed to save product. Storage limit exceeded.");
+      } else {
+        setError("An unexpected error occurred.");
+      }
+    }
   };
 
+ const handleSubmit = (e) => {
+   e.preventDefault();
+
+   const formDataWithFormattedPrices = {
+     ...formState,
+     sp: formatCurrency(formState.sp),
+     date: formState.date ? formState.date.toString() : new Date().toString(), 
+   };
+
+   handleSaveAndSubmit(formDataWithFormattedPrices);
+   onClose();
+ };
+
   const unitOptions = [
-    { value: 'QTY', label: 'Quantity' },
-    { value: 'LBS', label: 'Pounds' },
-    { value: 'KG', label: 'Kilograms' },
-    // Add more options as needed
+    { value: "QTY", label: "Quantity" },
+    { value: "LBS", label: "Pounds" },
+    { value: "KG", label: "Kilograms" },
   ];
 
   const categoryOptions = [
-    { value: 'Electronics', label: 'Electronics' },
-    { value: 'Furniture', label: 'Furniture' },
-    { value: 'Clothing', label: 'Clothing' },
-    // Add more options as needed
+    { value: "Electronics", label: "Electronics" },
+    { value: "Furniture", label: "Furniture" },
+    { value: "Clothing", label: "Clothing" },
   ];
 
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      width: '95%',
-      marginTop: '0.1rem',
-      cursor: 'pointer',
-      outline: 'none',
-      border: '2px solid #e2e6e9',
-      borderRadius: '4px',
-      padding: '5px',
-      marginBottom: '1rem',
+      width: "95%",
+      marginTop: "0.1rem",
+      cursor: "pointer",
+      outline: "none",
+      border: "2px solid #e2e6e9",
+      borderRadius: "4px",
+      padding: "5px",
+      marginBottom: "1rem",
     }),
     menu: (provided) => ({
       ...provided,
-      width: '95%',
+      width: "95%",
     }),
     menuList: (provided) => ({
       ...provided,
-      width: '95%',
+      width: "95%",
     }),
     option: (provided) => ({
       ...provided,
-      cursor: 'pointer',
+      cursor: "pointer",
     }),
   };
 
@@ -166,9 +184,10 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
                 <Select
                   options={unitOptions}
                   name="unt"
-                  // className="newp3cb"
                   styles={customStyles}
-                  value={unitOptions.find(option => option.value === formState.unt)}
+                  value={unitOptions.find(
+                    (option) => option.value === formState.unt
+                  )}
                   onChange={(selectedOption) =>
                     setFormState((prev) => ({
                       ...prev,
@@ -200,9 +219,10 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
                 <Select
                   options={categoryOptions}
                   name="category"
-                  // className="newp3cb"
                   styles={customStyles}
-                  value={categoryOptions.find(option => option.value === formState.category)}
+                  value={categoryOptions.find(
+                    (option) => option.value === formState.category
+                  )}
                   onChange={(selectedOption) =>
                     setFormState((prev) => ({
                       ...prev,
@@ -239,12 +259,22 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
                   name="sp"
                   placeholder="₦0000"
                   className="newp3cb no-spin"
-                  value={formatCurrency(formState.sp)}
+                  value={formState.sp}
                   onChange={handleChange}
                 />
               </div>
+              <div className="newp3da">
+                <label>Image</label>
+                <input
+                  type="file"
+                  accept=".png, .jpg, .jpeg"
+                  onChange={handleImageChange}
+                  className="newp3cb"
+                  name="image"
+                  required
+                />
+              </div>
             </div>
-
             <div className="newp3e">
               <button
                 type="submit"
@@ -254,6 +284,7 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
                 Create Product
               </button>
             </div>
+            {error && <p className="error">{error}</p>}
           </form>
         </div>
       </div>
