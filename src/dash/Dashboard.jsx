@@ -4,7 +4,7 @@ import SearchIcon from "../image/search.svg";
 import "./Dashboard.css";
 import admin from "../image/admin.svg";
 import DashCard from "./DashCard";
-import Sidebar from "../sidebar/Sidebar";
+import Sidebar from ".././components/Sidebar";
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");

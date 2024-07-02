@@ -206,6 +206,7 @@ const Button = styled.button`
 :hover{
     color: #fff;
     text-decoration: none;
+    background: #335db2;
 }
 `
 const Loglink = styled.div`

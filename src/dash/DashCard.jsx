@@ -217,12 +217,7 @@ const DashCard = () => {
   return (
     <div className="cardlist">
       {fastra.map((fastra, index) => (
-        <Card
-          key={index}
-          name={fastra.name}
-          description={fastra.description}
-          link={fastra.link}
-        />
+        <Card key={index} name={fastra.name} description={fastra.description} link={fastra.link}/>
       ))}
     </div>
   );
