@@ -24,6 +24,7 @@ export default function Newvendor({ onClose, onSaveAndSubmit }) {
     email: "",
     phone: "",
     address: "",
+    image: "",
     requester: "Firstname Lastname",
     department: "Sales",
     status: "Pending",
@@ -58,6 +59,20 @@ export default function Newvendor({ onClose, onSaveAndSubmit }) {
 
     onSaveAndSubmit(formDataWithStringDate);
     onClose();
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormState((prev) => ({
+          ...prev,
+          image: reader.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -124,6 +139,15 @@ export default function Newvendor({ onClose, onSaveAndSubmit }) {
                       vendorCategory: e.target.value,
                     }))
                   }
+                />
+              </div>
+              <div className="nvr3ca">
+                <label>Image</label>
+                <input
+                  type="file"
+                  name="image"
+                  className="nvr3cb"
+                  onChange={handleImageUpload}
                 />
               </div>
             </div>
