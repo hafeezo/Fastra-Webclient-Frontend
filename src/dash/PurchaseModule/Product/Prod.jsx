@@ -7,15 +7,6 @@ import Newprod from "./Newprod";
 import ProdListview from "./ProdListview";
 import ProductDetails from "./ProductDetails";
 
-// Directly import images
-import gunImage from "../../../image/gun.jpeg";
-
-const productImages = {
-  gun: gunImage,
-  // Add other product mappings here
-  // Example: 'productName': productImagePath
-};
-
 export default function Prod() {
   const [showNewProd, setShowNewProd] = useState(false);
   const [products, setProducts] = useState([]);
@@ -149,31 +140,30 @@ export default function Prod() {
                 onSave={handleSaveProductDetails}
               />
             ) : viewMode === "grid" ? (
-              filteredProducts.map((product) => {
-                const imagePath = productImages[product.name.toLowerCase()];
-                console.log(`Product Name: ${product.name}, Image Path: ${imagePath}`);
-                return (
-                  <div
-                    key={product.id}
-                    className="pro4gv"
-                    onClick={() => handleProductClick(product)}
-                  >
-                    <div className="promage">
-                      <img
-                        src={imagePath}
-                        alt={product.name}
-                        className="cirmage"
-                      />
-                    </div>
-                    <p className="proname">{product.name}</p>
-                    <p className="promount">{product.sp}</p>
-                    <p className="protype">{product.type}</p>
-                    <p className="procat">{product.category}</p>
+              filteredProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="pro4gv"
+                  onClick={() => handleProductClick(product)}
+                >
+                  <div className="promage">
+                    <img
+                      src={product.image || "default-image-url"} // Replace with a default image URL if product.image is null
+                      alt={product.name}
+                      className="cirmage"
+                    />
                   </div>
-                );
-              })
+                  <p className="proname">{product.name}</p>
+                  <p className="promount">{product.sp}</p>
+                  <p className="protype">{product.type}</p>
+                  <p className="procat">{product.category}</p>
+                </div>
+              ))
             ) : (
-              <ProdListview items={filteredProducts} onItemClick={handleProductClick} />
+              <ProdListview
+                items={filteredProducts}
+                onItemClick={handleProductClick}
+              />
             )}
           </div>
         </div>

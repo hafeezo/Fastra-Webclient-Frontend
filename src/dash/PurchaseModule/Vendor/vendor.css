@@ -286,12 +286,17 @@
   height: 90%;
 }
 .vr4gv {
+  width: 250px; /* Set the desired width for all cards */
+  height: 280px; /* Set the desired height for all cards */
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
   margin-bottom: 20px;
   text-align: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(65, 62, 62, 0.19);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .vr4gv .vendor-image {
@@ -312,4 +317,5 @@
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
+  margin: auto;
 }
