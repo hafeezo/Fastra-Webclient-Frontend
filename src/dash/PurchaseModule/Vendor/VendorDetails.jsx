@@ -12,7 +12,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "./VendorDetails.css";
 
-const VendorDetails = ({ onClose, showForm, handleSubmit, onSave }) => {
+const VendorDetails = ({ onClose, showForm, onSave }) => {
   const { id } = useParams();
   const [vendor, setVendor] = useState(null);
   const [filteredRfqs, setFilteredRfqs] = useState([]);
@@ -278,17 +278,38 @@ const VendorDetails = ({ onClose, showForm, handleSubmit, onSave }) => {
     }
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleSave();
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState((prevState) => ({ ...prevState, [name]: value }));
+  };
+
   const handleSave = () => {
-    onSave(formState);
+    const vendors = JSON.parse(localStorage.getItem("vendors")) || [];
+    const updatedVendors = vendors.map((v) => (v.id === id ? formState : v));
+    localStorage.setItem("vendors", JSON.stringify(updatedVendors));
+    if (onSave) onSave(formState); // Ensure onSave is a function before calling
     setEditMode(false);
   };
 
   return (
-    <div id="VendorDetails" className={`nvr ${showForm ? "fade-in" : "fade-out"}`}>
-      <div className="nvr1">
-        <div className="nvr2" style={{ marginBottom: "35px" }}>
-          <div className="nvr2b">
-            <p className="p3bpage">1-2 of 2</p>
+    <div className={`nvmodal ${showForm ? "show" : ""}`}>
+      <div className="vdetmain">
+        <div className="vdet1">
+          <div className="vdet1a">Vendor Information</div>
+          <div className="vdet1b">
+            <div className="vendbt1">ID: {vendor.id}</div>
+            <div className="vendbt2">Code: {vendor.vendorCode}</div>
+          </div>
+        </div>
+        <div className="vendet2">
+          <div className="vendet2a">Status: {vendor.status}</div>
+          <div className="vendet2b">
+            <p className="p3bpage">1-2 of 2 items.</p>
             <div className="nvrbnav">
               <FaCaretLeft className="nr" />
               <div className="sep"></div>
@@ -296,69 +317,116 @@ const VendorDetails = ({ onClose, showForm, handleSubmit, onSave }) => {
             </div>
           </div>
         </div>
-        <div className="nvr3">
-          <form className="nvrform" onSubmit={handleSubmit}>
-            <div className="prodet2a">
+        <div className="vendet3">
+          <form className="vendetform" onSubmit={handleSubmit}>
+            <div className="vendet3a">
               <p style={{ fontSize: "20px" }}>Basic Information</p>
-              <button
-                type="button"
-                className="nvr3but"
-                onClick={onClose}
-                style={{ marginTop: "1rem" }}
-              >
-                Cancel
-              </button>
-              {editMode ? (
-                <button
-                  type="button"
-                  className="prodet2btn"
-                  onClick={handleSave}
-                >
-                  Save
+              <div className="vendet3b">
+                <button type="button" className="vendet3but" onClick={onClose}>
+                  Cancel
                 </button>
-              ) : (
-                <button
-                  type="button"
-                  className="prodet2btn"
-                  onClick={() => setEditMode(true)}
-                >
-                  Edit
-                </button>
-              )}
+                {editMode ? (
+                  <button
+                    type="button"
+                    className="vendet3btn"
+                    onClick={handleSave}
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="vendet3btn"
+                    onClick={() => setEditMode(true)}
+                  >
+                    Edit
+                  </button>
+                )}
+              </div>
             </div>
-            <div className="nvr3c">
-              <div className="nvr3ca">
+            <div className="vendet3c">
+              <div className="vendet3ca">
                 <label>Vendor Name</label>
-                <p>{vendor.vendorName}</p>
+                {editMode ? (
+                  <input
+                    type="text"
+                    name="vendorName"
+                    className="vendet3ba"
+                    value={formState.vendorName}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <p className="vendet3ba">{vendor.vendorName}</p>
+                )}
               </div>
-              <div className="nvr3ca">
+              <div className="vendet3ca">
                 <label>Category</label>
-                <p>{vendor.category}</p>
+                {editMode ? (
+                  <input
+                    type="text"
+                    name="vendorCategory"
+                    className="vendet3ba"
+                    value={formState.vendorCategory}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <p className="vendet3ba">{vendor.category}</p>
+                )}
               </div>
-              <div className="nvr3ca">
+              <div className="vendet3ca">
                 <label>Email Address</label>
-                <p>{vendor.email}</p>
+                {editMode ? (
+                  <input
+                    type="email"
+                    name="email"
+                    className="vendet3ba"
+                    value={formState.email}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <p className="vendet3ba">{vendor.email}</p>
+                )}
               </div>
-              <div className="nvr3ca">
+              <div className="vendet3ca">
                 <label>Phone Number</label>
-                <p>{vendor.phone}</p>
+                {editMode ? (
+                  <input
+                    type="text"
+                    name="phone"
+                    className="vendet3ba"
+                    value={formState.phone}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <p className="vendet3ba">{vendor.phone}</p>
+                )}
               </div>
-              <div className="nvr3ca">
+              <div className="vendet3ca">
                 <label>Address</label>
-                <p>{vendor.address}</p>
+                {editMode ? (
+                  <input
+                    type="text"
+                    name="address"
+                    className="vendet3ba"
+                    value={formState.address}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <p className="vendet3ba">{vendor.address}</p>
+                )}
               </div>
             </div>
-            <div className="nvr3c">
+            <div className="vendet3c">
               <div style={{ height: 400, width: "100%" }}>
                 <DataGrid
                   rows={filteredRfqs}
                   columns={rfqColumns}
                   pageSize={5}
-                  disableColumnFilter={!editMode} // Disable column filter when not in edit mode
+                  disableColumnFilter={!editMode}
                 />
               </div>
             </div>
-            <div className="nvr3c">
+            <div className="vendet3c">
               <div style={{ height: 400, width: "100%" }}>
                 <DataGrid
                   rows={filteredOrders}
