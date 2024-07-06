@@ -93,7 +93,7 @@ export default function Purchead() {
                 <div className="prolst">
                   <NavLink
                     to="/varcat"
-                    className="dropdown-link"
+                    className="dropdownlink"
                     onClick={handleLinkClick}
                   >
                     Vendor Category
@@ -119,7 +119,7 @@ export default function Purchead() {
                 <div className="prolst">
                   <NavLink
                     to="/procat"
-                    className="dropdown-link"
+                    className="dropdownlink"
                     onClick={handleLinkClick}
                   >
                     Product Category

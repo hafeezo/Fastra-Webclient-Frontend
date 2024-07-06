@@ -24,7 +24,7 @@ export default function Navbar() {
         </MobileIcon>
         <div className="lst" click={click}>
           <div className="lst2">
-            <a href="#home" className="mdnav" onClick={handleLinkClick}>
+            <a href="/" className="mdnav" onClick={handleLinkClick}>
               Home
             </a>
             <div className="prodrop">
@@ -33,19 +33,19 @@ export default function Navbar() {
                 <IoIosArrowDown className="ardan" />
               </p>
               <div className="prolst">
-                <a href="#product" onClick={handleLinkClick}>
+                <a href="/prod" onClick={handleLinkClick}>
                   Product
                 </a>
-                <a href="#categories" onClick={handleLinkClick}>
+                <a href="/procat" onClick={handleLinkClick}>
                   Categories
                 </a>
               </div>
             </div>
-            <a href="#help" className="mdnav" onClick={handleLinkClick}>
+            <a href="/help" className="mdnav" onClick={handleLinkClick}>
               Help
             </a>
           </div>
-          <a href="#reach" className="but" onClick={handleLinkClick}>
+          <a href="/reach" className="but" onClick={handleLinkClick}>
             Contact Us
           </a>
         </div>

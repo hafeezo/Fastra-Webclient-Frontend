@@ -18,12 +18,12 @@ export default function Ft1() {
             <p className="qk">Quick Links</p>
             <D12a>
               <D12b>
-                <a  className='fn' href="#product">Product</a>
-                <a  className='fn' href="#company">Company</a>
+                <a  className='fn' href="/prod">Product</a>
+                <a  className='fn' href="/company">Company</a>
               </D12b>
               <D12b>
-                <a  className='fn' href="#info">Information</a>
-                <a  className='fn' href="#fastrasuites">FastraSuite</a>
+                <a  className='fn' href="/info">Information</a>
+                <a  className='fn' href="/fastrasuites">FastraSuite</a>
               </D12b>
             </D12a>
           </D12>

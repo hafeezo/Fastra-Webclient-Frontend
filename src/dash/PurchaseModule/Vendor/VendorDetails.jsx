@@ -322,7 +322,11 @@ const VendorDetails = ({ onClose, showForm, onSave }) => {
             <div className="vendet3a">
               <p style={{ fontSize: "20px" }}>Basic Information</p>
               <div className="vendet3b">
-                <button type="button" className="vendet3but" onClick={onClose}>
+                <button
+                  type="button"
+                  className="vendet3but"
+                  onClick={onClose}
+                >
                   Cancel
                 </button>
                 {editMode ? (
@@ -428,11 +432,7 @@ const VendorDetails = ({ onClose, showForm, onSave }) => {
             </div>
             <div className="vendet3c">
               <div style={{ height: 400, width: "100%" }}>
-                <DataGrid
-                  rows={filteredOrders}
-                  columns={orderColumns}
-                  pageSize={5}
-                />
+                <DataGrid rows={filteredOrders} columns={orderColumns} pageSize={5} />
               </div>
             </div>
           </form>

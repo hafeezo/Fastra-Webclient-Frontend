@@ -10,6 +10,8 @@ import Paper from "@mui/material/Paper";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import autosave from "../../../image/autosave.svg";
 import "./Newpr.css";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,7 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function Newpr({ onClose, onSaveAndSubmit }) {
+export default function Newpr({ onClose, onSaveAndSubmit, vendors }) {
   const [rows, setRows] = useState([
     {
       productName: "",
@@ -69,6 +71,24 @@ export default function Newpr({ onClose, onSaveAndSubmit }) {
   const [page, setPage] = useState(0);
   const rowsPerPage = 2;
   const [showForm] = useState(true);
+
+  const [vendorInputValue, setVendorInputValue] = useState("");
+  const [selectedVendor, setSelectedVendor] = useState(null);
+  const savedVendors = JSON.parse(localStorage.getItem("vendors")) || [];
+  const handleVendorSelect = (event, newValue) => {
+    setSelectedVendor(newValue);
+    if (newValue) {
+      setFormState((prev) => ({
+        ...prev,
+        vendor: newValue.vendorName,
+      }));
+    } else {
+      setFormState((prev) => ({
+        ...prev,
+        vendor: "",
+      }));
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -252,18 +272,28 @@ export default function Newpr({ onClose, onSaveAndSubmit }) {
                 />
               </div>
               <div className="npr3ca">
-                <label>Suggested Vendor</label>
-                <input
-                  type="text"
-                  name="vendor"
-                  placeholder="Enter a vendor"
-                  className="npr3cb"
-                  onChange={(e) =>
-                    setFormState((prev) => ({
-                      ...prev,
-                      vendor: e.target.value,
-                    }))
-                  }
+                <label>Suggested Vendors</label>
+                <Autocomplete
+                  value={selectedVendor}
+                  onChange={handleVendorSelect}
+                  inputValue={vendorInputValue}
+                  onInputChange={(event, newInputValue) => {
+                    setVendorInputValue(newInputValue);
+                  }}
+                  options={savedVendors}
+                  getOptionLabel={(option) => option.vendorName}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Select vendor"  />
+                  )}
+                  style={{
+                    // width: "95%",
+                    marginTop: "0.1rem",
+                    cursor: "pointer",
+                    outline: "none",
+                    border: "2px solid #e2e6e9",
+                    borderRadius: "4px",
+                    marginBottom: "1rem",
+                  }}
                 />
               </div>
               <button type="button" className="npr3but" onClick={addRow}>

@@ -4,26 +4,33 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
 export default function LoginForm() {
-const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
+  const [userNameTouched, setUserNameTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleUserNameChange = (e) => {
+    setUserName(e.target.value);
+    console.log("Email:", e.target.value);
+  };
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
     console.log("Email:", e.target.value);
   };
-  
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     console.log("Password:", e.target.value);
   };
 
+  const isUserNameValid = userName.trim() !== ""; // Check if email is valid
   const isEmailValid = email.trim() !== ""; // Check if email is valid
   const isPasswordValid = password.trim() !== ""; // Check if password is valid
   const isFormValid = isEmailValid && isPasswordValid; // Check if the entire form is valid
@@ -34,6 +41,17 @@ const [email, setEmail] = useState("");
         <Title>Login</Title>
         <Paragraph>Enter your log in details below</Paragraph>
         <Cont>
+          <Inputcont>
+            <StyledLabel htmlFor="username">Username</StyledLabel>
+            <Input
+              id="username"
+              placeholder="Enter your username here"
+              value={userName}
+              onChange={handleUserNameChange}
+              onBlur={() => setUserNameTouched(true)} /* Mark field as touched when blurred */
+            />
+            {userNameTouched && !isUserNameValid && <ErrorText>Username is required</ErrorText>} {/* Show error message if username is touched and not valid */}
+          </Inputcont>
           <Inputcont>
             <StyledLabel htmlFor="email">Email</StyledLabel>
             <Input
@@ -62,10 +80,10 @@ const [email, setEmail] = useState("");
             {passwordTouched && !isPasswordValid && <ErrorText>Password is required</ErrorText>} {/* Show error message if password is not provided */}
           </Inputcont>
           {isFormValid ? (
-          <Button><Link to="/dashboard">Login</Link></Button>
-        ) : (
-          <Button disabled>Login</Button>
-        )}
+            <Link to="/dashboard"><Button>Login</Button></Link>
+          ) : (
+            <Button disabled>Login</Button>
+          )}
           <Loglink>
             <p>
               <Link to="/">Don't have an account</Link>
@@ -136,12 +154,12 @@ const Title = styled.h2`
   font-size: 18px;
   font-weight: 700;
   text-align: left;
-  margin-left: -14rem;
+  margin-left: -12.5rem;
 `
 const Paragraph = styled.p`
   font-size: 14px;
   margin-left: -4.3rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   opacity: 60%;
 `
 const Cont = styled.div`
@@ -149,7 +167,7 @@ const Cont = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 25px;
+  gap: 20px;
 `
 const Inputcont = styled.div`
   width: 100%;
@@ -187,14 +205,17 @@ const Togbut = styled.button`
 const Button = styled.button`
   background: #3b7ced;
   color: #fff;
-  padding: 12px;
+  padding: 12px 120px;
   width: 87%;
   border: none;
   border-radius: 0.5rem;
   text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  margin-left: -0.5rem;
-  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
 :link{
     color: #fff;
     text-decoration: none;
@@ -208,6 +229,10 @@ const Button = styled.button`
     text-decoration: none;
     background: #335db2;
 }
+:active{
+    color: #fff;
+    text-decoration: none;
+    background: #335db2;}
 `
 const Loglink = styled.div`
   display: flex;
