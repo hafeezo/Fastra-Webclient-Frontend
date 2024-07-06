@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import "./Rfq.css";
 import SearchIcon from "../../../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
@@ -13,31 +13,32 @@ import { getVendors, getCategories } from "../Vendor/Vend";
 
 export default function Rfq() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [approvedCount, setApprovedCount] = useState(0);
-  const [pendingCount, setPendingCount] = useState(0);
-  const [rejectedCount, setRejectedCount] = useState(0);
+  const [vendorSelectedCount, setVendorSelectedCount] = useState(0);
+  const [awaitingVendorSelectionCount, setAwaitingVendorSelectionCount] =
+    useState(0);
+  const [cancelledCount, setCancelledCount] = useState(0);
   const [viewMode, setViewMode] = useState("grid");
   const [items, setItems] = useState(() => {
     const storedItems = JSON.parse(localStorage.getItem("rfqs")) || [];
     return storedItems;
   });
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [filteredItems, setFilteredItems] = useState(items);
+  const [filteredItems, setFilteredItems] = useState(items); // Initialize with items
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [currentFormData, setCurrentFormData] = useState(null); // Renamed state
-  const [selectedItem, setSelectedItem] = useState(null); // Add state for selected item
+  const [currentFormData, setCurrentFormData] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
   const [initialFormData, setInitialFormData] = useState(null);
   const [vendors, setVendors] = useState([]);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      // Check if items is not undefined before calling getVendors and getCategories
       if (items) {
         const vendorsData = getVendors(items);
         const categoriesData = getCategories(items);
         setVendors(vendorsData);
         setCategories(categoriesData);
+        updateCounts(items); // Update counts after fetching data
       }
     };
     fetchData();
@@ -48,9 +49,8 @@ export default function Rfq() {
 
   useEffect(() => {
     if (locationFormData) {
-      // Logic to autofill form
       setInitialFormData(locationFormData);
-      setIsFormVisible(true); // Open the form with the initial data
+      setIsFormVisible(true);
     }
   }, [locationFormData]);
 
@@ -61,6 +61,7 @@ export default function Rfq() {
     setItems(updatedItems);
     localStorage.setItem("rfqs", JSON.stringify(updatedItems));
     setIsFormVisible(false);
+    updateCounts(updatedItems); // Update counts after adding new item
   };
 
   const handleFormDataChange = (data) => {
@@ -88,12 +89,13 @@ export default function Rfq() {
     localStorage.setItem("rfqs", JSON.stringify(updatedItems));
     setIsSubmitted(false);
     setIsFormVisible(false);
-    setSelectedItem(null); // Hide Rapr after status update
+    setSelectedItem(null);
+    updateCounts(updatedItems); // Update counts after status change
   };
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "vendor selected":
+      case "Vendor selected":
         return "#2ba24c";
       case "Awaiting vendor selection":
         return "#f0b501";
@@ -105,24 +107,23 @@ export default function Rfq() {
   };
 
   const updateCounts = (items) => {
-    const approvedCount = items.filter(
-      (item) => item.status === "Approved"
+    const vendorSelectedCount = items.filter(
+      (item) => item.status === "Vendor selected"
     ).length;
-    const pendingCount = items.filter(
-      (item) => item.status === "Pending"
+    const awaitingVendorSelectionCount = items.filter(
+      (item) => item.status === "Awaiting vendor selection"
     ).length;
-    const rejectedCount = items.filter(
-      (item) => item.status === "Rejected"
+    const cancelledCount = items.filter(
+      (item) => item.status === "Cancelled"
     ).length;
-    setApprovedCount(approvedCount);
-    setPendingCount(pendingCount);
-    setRejectedCount(rejectedCount);
+    setVendorSelectedCount(vendorSelectedCount);
+    setAwaitingVendorSelectionCount(awaitingVendorSelectionCount);
+    setCancelledCount(cancelledCount);
   };
 
   useEffect(() => {
-    updateCounts(items);
-    setFilteredItems(items);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    updateCounts(items); // Initial count update on component mount
+    setFilteredItems(items); // Ensure filteredItems is updated initially
   }, [items]);
 
   const handleSearch = () => {
@@ -160,20 +161,24 @@ export default function Rfq() {
           <div className="rfqlist">
             <div className="rfql1">
               <p style={{ lineHeight: "1rem" }}>Vendor Selected</p>
-              <p className={`plnum ${approvedCount === 0 ? "zero" : ""}`}>
-                {approvedCount}
+              <p className={`plnum ${vendorSelectedCount === 0 ? "zero" : ""}`}>
+                {vendorSelectedCount}
               </p>
             </div>
             <div className="rfql2">
               <p style={{ lineHeight: "1rem" }}>Awaiting Vendor Selection</p>
-              <p className={`plnum ${pendingCount === 0 ? "zero" : ""}`}>
-                {pendingCount}
+              <p
+                className={`plnum ${
+                  awaitingVendorSelectionCount === 0 ? "zero" : ""
+                }`}
+              >
+                {awaitingVendorSelectionCount}
               </p>
             </div>
             <div className="rfql3">
               <p>Cancelled</p>
-              <p className={`plnum ${rejectedCount === 0 ? "zero" : ""}`}>
-                {rejectedCount}
+              <p className={`plnum ${cancelledCount === 0 ? "zero" : ""}`}>
+                {cancelledCount}
               </p>
             </div>
           </div>
@@ -226,7 +231,7 @@ export default function Rfq() {
                 onSaveAndSubmit={handleSaveAndSubmit}
                 onFormDataChange={handleFormDataChange}
                 onClose={handleFormClose}
-                initialData={initialFormData} // Pass the initial data here
+                initialData={initialFormData}
               />
             </div>
           ) : selectedItem ? (
@@ -265,29 +270,30 @@ export default function Rfq() {
                     )}
                   </div>
                   <p className="cardate">{formatDate(item.date)}</p>
-                                    <p
-                    className="status"
+                  <p
+                    className="carstatus"
                     style={{ color: getStatusColor(item.status) }}
                   >
-                    <strong
-                      style={{
-                        fontSize: "20px",
-                        color: getStatusColor(item.status),
-                      }}
-                    >
-                      &#x2022;
-                    </strong>{" "}
                     {item.status}
                   </p>
                 </div>
               ))}
             </div>
           ) : (
-            <RListview items={filteredItems} />
+            <div className="rfq5">
+              {filteredItems.map((item) => (
+                <RListview
+                  key={item.id}
+                  data={item}
+                  onCardClick={() => handleCardClick(item)}
+                  getStatusColor={getStatusColor}
+                  formatDate={formatDate}
+                />
+              ))}
+            </div>
           )}
         </div>
       </div>
     </div>
   );
 }
-
