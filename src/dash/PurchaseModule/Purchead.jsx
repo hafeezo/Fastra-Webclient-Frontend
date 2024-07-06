@@ -6,7 +6,6 @@ import admin from "../../image/admin.svg";
 import { NavLink } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 
-
 export default function Purchead() {
   const [notifications, setNotifications] = useState(0);
   const [showMenu, setShowMenu] = useState(false);

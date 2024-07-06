@@ -274,27 +274,39 @@ export default function Newpr({ onClose, onSaveAndSubmit, vendors }) {
               <div className="npr3ca">
                 <label>Suggested Vendors</label>
                 <Autocomplete
-                  value={selectedVendor}
-                  onChange={handleVendorSelect}
-                  inputValue={vendorInputValue}
-                  onInputChange={(event, newInputValue) => {
-                    setVendorInputValue(newInputValue);
-                  }}
-                  options={savedVendors}
-                  getOptionLabel={(option) => option.vendorName}
-                  renderInput={(params) => (
-                    <TextField {...params} label="Select vendor"  />
-                  )}
-                  style={{
-                    // width: "95%",
-                    marginTop: "0.1rem",
-                    cursor: "pointer",
-                    outline: "none",
-                    border: "2px solid #e2e6e9",
-                    borderRadius: "4px",
-                    marginBottom: "1rem",
-                  }}
-                />
+  value={selectedVendor}
+  onChange={handleVendorSelect}
+  inputValue={vendorInputValue}
+  onInputChange={(event, newInputValue) => {
+    setVendorInputValue(newInputValue);
+  }}
+  id="vendor-autocomplete"
+  options={savedVendors}
+  getOptionLabel={(option) => option.vendorName}
+  renderInput={(params) => (
+    <TextField
+      {...params}
+      label="Select vendor"
+      style={{
+        width: "95%",
+        marginTop: "0.1rem",
+        cursor: "pointer",
+        outline: "none",  // Remove default outline
+        border: "2px solid #e2e6e9",
+        borderRadius: "4px",
+        // padding: "15px",
+        marginBottom: "1rem",
+      }}
+      InputProps={{
+        ...params.InputProps,
+        style: {
+          outline: "none",  // Remove default outline
+        },
+      }}
+    />
+  )}
+/>
+
               </div>
               <button type="button" className="npr3but" onClick={addRow}>
                 Add Row
