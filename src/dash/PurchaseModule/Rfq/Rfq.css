@@ -308,7 +308,7 @@
   text-align: center;
   gap: 0.2rem;
 }
-.status {
+.cardstatus {
   font-size: 12px;
   display: flex;
   align-items: center;

@@ -212,6 +212,58 @@ export default function POrderform({
       vendorCategory: newValue,
     }));
   };
+  const handlePrint = () => {
+    const printWindow = window.open("", "", "width=800,height=600");
+    printWindow.document.write("<html><head><title>Print Order</title>");
+    printWindow.document.write("<style>");
+    printWindow.document.write(`
+      body { font-family: PT Sans, sans-serif; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
+      th { background-color: #f2f2f2; }
+    `);
+    printWindow.document.write("</style></head><body>");
+    printWindow.document.write(`
+      <h1>Purchase Order</h1>
+      <h2>Basic Information</h2>
+      <p><strong>ID:</strong> ${formState.id}</p>
+      <p><strong>Date Created:</strong> ${formatDate(formState.date)}</p>
+      <p><strong>Vendor:</strong> ${formState.vendor}</p>
+      <p><strong>Vendor Category:</strong> ${formState.vendorCategory}</p>
+      <h2>Product Information</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Estimated Unit Price</th>
+            <th>Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows
+            .map(
+              (row) => `
+              <tr>
+                <td>${row.productName}</td>
+                <td>${row.description}</td>
+                <td>${row.qty}</td>
+                <td>${row.unitPrice}</td>
+                <td>${row.totalPrice}</td>
+              </tr>`
+            )
+            .join("")}
+        </tbody>
+      </table>
+      <h2>Total Amount</h2>
+      <p><strong>Total:</strong> $${calculateTotalAmount()}</p>
+    `);
+    printWindow.document.write("</body></html>");
+    printWindow.document.close();
+    printWindow.print();
+    printWindow.addEventListener('afterprint', onClose);
+  };
 
   return (
     <div
@@ -245,6 +297,9 @@ export default function POrderform({
               <div className="newpod3e">
                 <button type="button" className="new3but" onClick={onClose}>
                   Cancel
+                </button>
+                <button type="button" className="new3btn" onClick={handlePrint}>
+                  Print Order
                 </button>
                 <button type="button" className="new3btn" onClick={handleSave}>
                   Save

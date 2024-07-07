@@ -168,9 +168,8 @@ export default function Rfq() {
             <div className="rfql2">
               <p style={{ lineHeight: "1rem" }}>Awaiting Vendor Selection</p>
               <p
-                className={`plnum ${
-                  awaitingVendorSelectionCount === 0 ? "zero" : ""
-                }`}
+                className={`plnum ${awaitingVendorSelectionCount === 0 ? "zero" : ""
+                  }`}
               >
                 {awaitingVendorSelectionCount}
               </p>
@@ -250,28 +249,12 @@ export default function Rfq() {
                   onClick={() => handleCardClick(item)}
                 >
                   <p className="cardid">{item.id}</p>
-                  <div className="vendname">
-                    {item.status === "Awaiting vendor selection" ? (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: "blue",
-                        }}
-                      >
-                        <span style={{ color: "blue" }}>Select Vendor</span>
-                        <IconButton style={{ color: "blue" }}>
-                          <ArrowDropDownIcon />
-                        </IconButton>
-                      </div>
-                    ) : (
-                      item.vendor
-                    )}
-                  </div>
+                  <p className="vendname">
+                    {item.vendor}
+                  </p>
                   <p className="cardate">{formatDate(item.date)}</p>
                   <p
-                    className="carstatus"
+                    className="cardstatus"
                     style={{ color: getStatusColor(item.status) }}
                   >
                     {item.status}
