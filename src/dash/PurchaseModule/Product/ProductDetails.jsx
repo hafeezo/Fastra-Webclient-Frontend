@@ -14,6 +14,20 @@ export default function ProductDetails({ product, onClose, onSave }) {
       [name]: value,
     }));
   };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setFormState((prev) => ({
+          ...prev,
+          image: e.target.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
 
   const handleSave = () => {
     onSave(formState);
@@ -98,20 +112,18 @@ export default function ProductDetails({ product, onClose, onSave }) {
             )}
           </div>
           <div className="prodet3a">
-            <label>Company</label>
+            <label>Image</label>
             {editMode ? (
               <input
-                type="text"
-                name="company"
-                value={formState.company}
-                onChange={handleChange}
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
                 className="editable-input"
               />
             ) : (
-              <p className="prodet3b">{product.company}</p>
+              <img src={product.image} alt={product.name} className="prodet3b" />
             )}
-          </div>
-        </div>
+          </div>        </div>
         <div>
           <div className="prodet1a2">
             <p style={{ fontSize: "20px" }}>Pricing</p>
@@ -129,6 +141,20 @@ export default function ProductDetails({ product, onClose, onSave }) {
                 />
               ) : (
                 <p className="prodet4b">{product.sp}</p>
+              )}
+            </div>
+            <div className="prodet4a">
+              <label>Cost Price</label>
+              {editMode ? (
+                <input
+                  type="text"
+                  name="cp"
+                  value={formState.cp}
+                  onChange={handleChange}
+                  className="editable-input"
+                />
+              ) : (
+                <p className="prodet4b">{product.cp}</p>
               )}
             </div>
           </div>

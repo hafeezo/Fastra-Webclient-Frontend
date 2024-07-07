@@ -24,8 +24,8 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
     unt: "",
     type: "",
     category: "",
-    company: "",
     sp: "",
+    cp: "",
     image: null, // New state for image
   });
 
@@ -232,19 +232,14 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
                 />
               </div>
               <div className="newp3ca">
-                <label>Company</label>
+                <label>Image</label>
                 <input
-                  type="text"
-                  name="company"
-                  placeholder="Company 1"
+                  type="file"
+                  accept=".png, .jpg, .jpeg"
+                  onChange={handleImageChange}
                   className="newp3cb"
-                  value={formState.company}
-                  onChange={(e) =>
-                    setFormState((prev) => ({
-                      ...prev,
-                      company: e.target.value,
-                    }))
-                  }
+                  name="image"
+                  required
                 />
               </div>
             </div>
@@ -252,6 +247,17 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
               <p style={{ fontSize: "20px" }}>Pricing</p>
             </div>
             <div className="newp3d">
+              <div className="newp3da">
+                <label>Cost Price</label>
+                <input
+                  type="text"
+                  name="cp"
+                  placeholder="₦0000"
+                  className="newp3cb no-spin"
+                  value={formState.cp}
+                  onChange={handleChange}
+                />
+              </div>
               <div className="newp3da">
                 <label>Selling Price</label>
                 <input
@@ -261,17 +267,6 @@ export default function Newprod({ onClose, onSaveAndSubmit }) {
                   className="newp3cb no-spin"
                   value={formState.sp}
                   onChange={handleChange}
-                />
-              </div>
-              <div className="newp3da">
-                <label>Image</label>
-                <input
-                  type="file"
-                  accept=".png, .jpg, .jpeg"
-                  onChange={handleImageChange}
-                  className="newp3cb"
-                  name="image"
-                  required
                 />
               </div>
             </div>
