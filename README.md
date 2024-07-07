@@ -6,15 +6,26 @@ Fastra Suite is a comprehensive business management application designed to stre
 
 **Features**
 
-User-friendly Interface: Built with Chakra UI and Emotion for a modern and responsive design.
-Data Grid: Utilizes Material-UI Data Grid for displaying and managing tabular data.
-State Management: Powered by Redux Toolkit for robust state management capabilities.
-Form Handling: Uses Formik and Yup for form validation and handling.
-Routing: Implemented with React Router for seamless navigation within the application.
-Component Styling: Integrates Styled Components for flexible and styled components.
-Animation: Enhanced with animations using Framer Motion.
-Testing: Includes Jest and Testing Library for unit and integration testing.
-Getting Started
+* **User-friendly Interface:** Built with Chakra UI and Emotion for a modern and responsive design.
+
+* **Data Grid:** Utilizes Material-UI Data Grid for displaying and managing tabular data.
+
+* **State Management:** Powered by Redux Toolkit for robust state management capabilities.
+
+* **Form Handling:** Uses Formik and Yup for form validation and handling.
+
+* **Routing:** Implemented with React Router for seamless navigation within the application.
+
+* **Component Styling:** Integrates Styled Components for flexible and styled components.
+
+* **Animation:** Enhanced with animations using Framer Motion.
+
+* **Testing:** Includes Jest and Testing Library for unit and integration testing.
+#
+
+
+**Getting Started**
+
 To get a local copy up and running, follow these simple steps:
 #
 
