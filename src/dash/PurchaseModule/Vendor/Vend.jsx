@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import "./vendor.css";
 import SearchIcon from "../../../image/search.svg";
 import VendorImage from "../../../image/vendor.svg";
@@ -7,7 +6,7 @@ import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import Listview from "./Listview";
 import Newvendor from "./Newvendor";
-import Var from "./Var";
+import VendorDetails from "./VendorDetails";
 
 export const getVendors = (items) => {
   return items.map((item) => ({
@@ -30,36 +29,13 @@ export default function Vend() {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
   const [items, setItems] = useState(() => {
-    const storedVendors = JSON.parse(localStorage.getItem("vendors")) || [];
-    return storedVendors.length > 0
-      ? storedVendors
-      : [
-          {
-            id: "1",
-            vendorName: "Vendor A",
-            email: "vendorA@example.com",
-            phone: "123-456-7890",
-            address: "123 Vendor St, Vendor City, VC 12345",
-            category: "IT Hardware Sales",
-            image: VendorImage,
-          },
-          {
-            id: "2",
-            vendorName: "Vendor B",
-            email: "vendorB@example.com",
-            phone: "098-765-4321",
-            address: "456 Supplier Rd, Supplier City, SC 67890",
-            category: "IT Hardware Sales",
-            image: VendorImage,
-          },
-        ];
+    return JSON.parse(localStorage.getItem("vendors")) || [];
   });
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [filteredItems, setFilteredItems] = useState(items);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
-  const history = useHistory();
 
   const [vendors, setVendors] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -84,7 +60,7 @@ export default function Vend() {
       ...data,
       id: (items.length + 1).toString(),
       category: data.vendorCategory,
-      image: data.image,
+      image: data.image || VendorImage,
     };
     setItems([...items, newItem]);
     setIsFormVisible(false);
@@ -125,9 +101,26 @@ export default function Vend() {
     }
   };
 
+  useEffect(() => {
+    handleSearch();
+  }, [searchQuery, items]);
+
   const handleCardClick = (item) => {
     setSelectedItem(item);
-    history.push(`/VendorDetails/${item.id}`);
+  };
+
+  const handleCloseVendorDetails = () => {
+    setSelectedItem(null);
+  };
+
+  const handleSaveVendorDetails = (updatedVendor) => {
+    const updatedItems = items.map((item) =>
+      item.id === updatedVendor.id ? updatedVendor : item
+    );
+    setItems(updatedItems);
+    setFilteredItems(updatedItems);
+    localStorage.setItem("vendors", JSON.stringify(updatedItems));
+    setSelectedItem(updatedVendor);
   };
 
   const handleVendorSelect = (vendor) => {
@@ -177,43 +170,37 @@ export default function Vend() {
                 </label>
               </div>
             </div>
-            <div className="p3b">
-              <p className="p3bpage">1-2 of 2</p>
-              <div className="p3bnav">
-                <FaCaretLeft className="lr" />
-                <div className="stroke"></div>
-                <FaCaretRight className="lr" />
+            {!selectedItem && (
+              <div className="p3b">
+                <p className="p3bpage">1-2 of 2</p>
+                <div className="p3bnav">
+                  <FaCaretLeft className="lr" />
+                  <div className="stroke"></div>
+                  <FaCaretRight className="lr" />
+                </div>
+                <div className="p3bview">
+                  <IoGrid
+                    className={`grid ${viewMode === "grid" ? "active" : ""}`}
+                    onClick={() => toggleViewMode("grid")}
+                  />
+                  <div className="stroke"></div>
+                  <FaBars
+                    className={`grid ${viewMode === "list" ? "active" : ""}`}
+                    onClick={() => toggleViewMode("list")}
+                  />
+                </div>
               </div>
-              <div className="p3bview">
-                <IoGrid
-                  className={`grid ${viewMode === "grid" ? "active" : ""}`}
-                  onClick={() => toggleViewMode("grid")}
-                />
-                <div className="stroke"></div>
-                <FaBars
-                  className={`grid ${viewMode === "list" ? "active" : ""}`}
-                  onClick={() => toggleViewMode("list")}
-                />
-              </div>
-            </div>
+            )}
           </div>
-          {isFormVisible ? (
-            <div className="overlay">
-              {!isSubmitted ? (
-                <Newvendor
-                  onSaveAndSubmit={handleSaveAndSubmit}
-                  onFormDataChange={handleFormDataChange}
-                  onClose={handleFormClose}
-                />
-              ) : (
-                <Var formData={formData} />
-              )}
-            </div>
-          ) : selectedItem ? (
-            <Var formData={selectedItem} />
-          ) : viewMode === "grid" ? (
-            <div className="prq4">
-              {filteredItems.map((item) => (
+          <div className="prq4">
+            {selectedItem ? (
+              <VendorDetails
+                vendor={selectedItem}
+                onClose={handleCloseVendorDetails}
+                onSave={handleSaveVendorDetails}
+              />
+            ) : viewMode === "grid" ? (
+              filteredItems.map((item) => (
                 <div
                   className="vr4gv"
                   key={item.id}
@@ -232,13 +219,21 @@ export default function Vend() {
                   <p className="vendor-address">{item.address}</p>
                   <p className="vendor-category">{item.category}</p>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <Listview items={filteredItems} />
-          )}
+              ))
+            ) : (
+              <Listview items={filteredItems} onItemClick={handleCardClick} />
+            )}
+          </div>
         </div>
       </div>
+      {isFormVisible && (
+        <div className="overlay">
+          <Newvendor
+            onClose={handleFormClose}
+            onSaveAndSubmit={handleSaveAndSubmit}
+          />
+        </div>
+      )}
     </div>
   );
 }

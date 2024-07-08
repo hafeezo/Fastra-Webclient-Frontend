@@ -58,12 +58,12 @@ function App() {
         <Route path="/newPurchaseOrder" component={POrderform} /> 
         <Route path="/orapr" component={Orapr} />
         <Route path="/vend" component={Vend} />
-        <Route path="/VendorDetails/:id" component={VendorDetails} />
+        <Route path="/vendetails" component={VendorDetails} />
         <Route path="/Newvendor" component={Newvendor} />
         <Route path="/varcat" component={Varcat} />
         <Route path="/edit" component={Edit} />
         <Route path="/prod" component={Prod} />
-        <Route path="/Prodetails" component={ProductDetails} />
+        <Route path="/prodetails" component={ProductDetails} />
         <Route path="/Newprod" component={Newprod} />
         <Route path="/procat" component={Procat} />
         <Route path="/pedit" component={Pedit} />

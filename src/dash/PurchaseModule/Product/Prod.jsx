@@ -148,7 +148,7 @@ export default function Prod() {
                 >
                   <div className="promage">
                     <img
-                      src={product.image || "default-image-url"} // Replace with a default image URL if product.image is null
+                      src={product.image || "default-image-url"}
                       alt={product.name}
                       className="cirmage"
                     />

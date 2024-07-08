@@ -121,7 +121,7 @@ export default function ProductDetails({ product, onClose, onSave }) {
                 className="editable-input"
               />
             ) : (
-              <img src={product.image} alt={product.name} className="prodet3b" />
+              <img src={product.image} alt={product.name} className="prodet3b" style={{width: '50px', height: '50px'}}/>
             )}
           </div>        </div>
         <div>
