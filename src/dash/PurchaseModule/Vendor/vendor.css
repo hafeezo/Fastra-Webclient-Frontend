@@ -302,9 +302,9 @@
 .vr4gv .vendor-image {
   margin-bottom: 15px;
 }
-.vrc4gv{
-   width: 250px; 
-  height: 100px; 
+.vr4gv{
+   width: 17%; 
+  height: 65%; 
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -314,14 +314,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
-.vr4gv .vendor-name,
 .vr4gv .vendor-email,
 .vr4gv .vendor-phone,
 .vr4gv .vendor-address,
 .vr4gv .vendor-category {
   margin-bottom: 10px;
   line-height: 1.5;
+  color: #7a8a98;
+  font-size: 14px;
 }
 
 .circular-image {
