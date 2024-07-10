@@ -10,7 +10,7 @@ import Login from "./Reglog/Login";
 import Dashboard from "./dash/Dashboard";
 import GlobalStyle from "./GlobalStyle";
 import Contact from "./dash/Contact";
-import Settings from "./dash/Settings";
+import Settings from "./dash/PurchaseModule/Settings/Setting";
 import Purchead from "./dash/PurchaseModule/Purchead";
 import Purchase from "./dash/PurchaseModule/Purchase";
 import Newpr from "./dash/PurchaseModule/PurchRequest/Newpr";
@@ -36,7 +36,7 @@ import Pedit from "./dash/PurchaseModule/Product/Prodcat/Pedit";
 
 function App() {
   const location = useLocation();
-  const noHeaderRoutes = ["/", "/login", "/dashboard", "/contact", "/setting"];
+  const noHeaderRoutes = ["/", "/login", "/dashboard", "/contact", "/settings"];
   return (
     <div className="App">
       {!noHeaderRoutes.includes(location.pathname) && <Purchead />}

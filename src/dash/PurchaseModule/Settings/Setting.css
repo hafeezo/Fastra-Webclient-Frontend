@@ -1,0 +1,24 @@
+.settings-page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.title {
+  flex-grow: 1;
+}
+
+.nav-items {
+  margin-right: 20px;
+}
+
+.user-avatar {
+  background-color: #ff9800;
+}
+
+.main-content {
+  padding-top: 20px;
+}
+
+.company-grid {
+  margin-top: 20px;
+}
