@@ -56,13 +56,13 @@
 
 .purst {
   text-decoration: none;
-  color: black;
+  color: grey;
 }
 
 .purst:link,
 .purst:visited {
   text-decoration: none;
-  color: black;
+  color: grey;
 }
 
 .purst:hover {
