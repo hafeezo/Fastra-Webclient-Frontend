@@ -10,7 +10,7 @@ import Login from "./Reglog/Login";
 import Dashboard from "./dash/Dashboard";
 import GlobalStyle from "./GlobalStyle";
 import Contact from "./dash/Contact";
-import Settings from "./dash/PurchaseModule/Settings/Setting";
+import Settings from "./dash/Settings/Setting";
 import Purchead from "./dash/PurchaseModule/Purchead";
 import Purchase from "./dash/PurchaseModule/Purchase";
 import Newpr from "./dash/PurchaseModule/PurchRequest/Newpr";
