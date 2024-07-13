@@ -203,7 +203,7 @@ const fastra = [
     name: "App",
     description:
       "Explore additional applications and integrations to extend the functionality of the Fastra suite and address specific business needs and requirements.",
-    link: "/app",
+    link: "/apk",
   },
   {
     name: "Settings",

@@ -28,6 +28,11 @@ export default function PurchaseOrder() {
   const locationFormData = location.state?.formData;
 
   useEffect(() => {
+    setFilteredItems(items);
+    localStorage.setItem("purchaseOrders", JSON.stringify(items));
+  }, [items]);
+  
+  useEffect(() => {
     if (locationFormData) {
       setInitialFormData(locationFormData);
       setIsFormVisible(true);
@@ -37,6 +42,10 @@ export default function PurchaseOrder() {
   useEffect(() => {
     setFilteredItems(items);
   }, [items]);
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchQuery]);
 
   const handleSaveAndSubmit = (data) => {
     const updatedItems = [...items, data];

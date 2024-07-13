@@ -11,6 +11,10 @@ import Dashboard from "./dash/Dashboard";
 import GlobalStyle from "./GlobalStyle";
 import Contact from "./dash/Contact";
 import Settings from "./dash/Settings/Setting";
+import Sethead from "./dash/Settings/Sethead";
+import Apk from "./dash/App/Apk";
+import Company from "./dash/Settings/company/Company";
+import User from "./dash/Settings/user/User";
 import Purchead from "./dash/PurchaseModule/Purchead";
 import Purchase from "./dash/PurchaseModule/Purchase";
 import Newpr from "./dash/PurchaseModule/PurchRequest/Newpr";
@@ -36,10 +40,15 @@ import Pedit from "./dash/PurchaseModule/Product/Prodcat/Pedit";
 
 function App() {
   const location = useLocation();
-  const noHeaderRoutes = ["/", "/login", "/dashboard", "/contact", "/settings"];
+  const noHeaderRoutes = ["/", "/login", "/dashboard", "/contact", "/settings", "/company", "/apk", "/user"];
+  const noHeadRoutes = ["/", "/login", "/dashboard", "/contact", "/purchase", "/npr", "/papr", "/crfq", "/rfq"
+    , "/newrfq", "/rapr", "/pod", "/newPurchaseOrder", "/orapr", "/vend", "/vendetails", "/Newvendor", "/varcat", "/edit", "/prod", "/prodetails"
+    , "/Newprod", "/procat","/pedit"
+  ];
   return (
     <div className="App">
       {!noHeaderRoutes.includes(location.pathname) && <Purchead />}
+      {!noHeadRoutes.includes(location.pathname) && <Sethead />}
       <GlobalStyle />
       <Switch>
         <Route exact path="/" component={Register} />
@@ -47,6 +56,9 @@ function App() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/contact" component={Contact} />
         <Route path="/settings" component={Settings} />
+        <Route path="/apk" component={Apk} />
+        <Route path="/company" component={Company} />
+        <Route path="/user" component={User} />
         <Route path="/purchase" component={Purchase} />
         <Route path="/npr" component={Newpr} />
         <Route path="/papr" component={Papr} />

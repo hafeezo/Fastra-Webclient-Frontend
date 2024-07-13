@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import "./NewSettingForm.css";
+import "./NewCompanyForm.css";
 
 const NewCompanyForm = ({ onSave, onCancel }) => {
   const [formData, setFormData] = useState({

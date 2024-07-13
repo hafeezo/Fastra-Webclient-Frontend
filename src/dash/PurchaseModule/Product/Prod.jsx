@@ -10,7 +10,7 @@ import ProductDetails from "./ProductDetails";
 export default function Prod() {
   const [showNewProd, setShowNewProd] = useState(false);
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(products);
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -23,7 +23,11 @@ export default function Prod() {
       setFilteredProducts(parsedProducts);
     }
   }, []);
-
+  useEffect(() => {
+    setFilteredProducts(products);
+    localStorage.setItem("products", JSON.stringify(products));
+  }, [products]);
+  
   const handleNewProduct = () => {
     setShowNewProd(true);
   };
