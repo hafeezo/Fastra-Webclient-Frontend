@@ -36,7 +36,9 @@ export default function User() {
     const handleNewUser = () => {
         setShowNewUser(true); // Show the NewUser component when the button is clicked
     };
-
+    const handleCloseNewUser = () => {
+        setShowNewUser(false);
+      };
     const toggleViewMode = (mode) => {
         setViewMode(mode);
     };
@@ -44,7 +46,11 @@ export default function User() {
     return (
         <div className='user-page' id='user'>
             {showNewUser ? (
-                <NewUser /> // Render the NewUser component if showNewUser is true
+                <div className="overlay">
+                    <NewUser onClose={handleCloseNewUser}
+            // onSaveAndSubmit={handleSaveAndSubmit}
+            />
+                </div>
             ) : (
                 <div className='user1'>
                     <div className="user2">
