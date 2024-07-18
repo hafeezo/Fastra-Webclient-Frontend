@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import Select from "react-select";
 import autosave from "../../../image/autosave.svg";
@@ -8,9 +8,9 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
   const [formState, setFormState] = useState({
     name: "",
     role: "",
-    sp: "",
-    cp: "",
-    image: null, // New state for image
+    mail: "",
+    number: "",
+    image: null,
   });
 
   const [showForm] = useState(true);
@@ -18,11 +18,9 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const numericValue = value.replace(/[^0-9]/g, "");
-
     setFormState((prev) => ({
       ...prev,
-      [name]: numericValue,
+      [name]: value,
     }));
   };
 
@@ -33,7 +31,7 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
     reader.onloadend = () => {
       setFormState((prev) => ({
         ...prev,
-        image: reader.result, // Set image to base64 encoded string
+        image: reader.result,
       }));
     };
 
@@ -42,21 +40,15 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
     }
   };
 
-  const formatCurrency = (value) => {
-    if (!value) return "";
-    return `₦${value}`;
-  };
-
   const handleSaveAndSubmit = (formData) => {
     try {
-      const existingProducts =
-        JSON.parse(localStorage.getItem("products")) || [];
-      existingProducts.push(formData);
-      localStorage.setItem("products", JSON.stringify(existingProducts));
+      const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+      existingUsers.push(formData);
+      localStorage.setItem("users", JSON.stringify(existingUsers));
       onSaveAndSubmit(formData);
     } catch (e) {
       if (e.name === "QuotaExceededError") {
-        setError("Failed to save product. Storage limit exceeded.");
+        setError("Failed to save user. Storage limit exceeded.");
       } else {
         setError("An unexpected error occurred.");
       }
@@ -65,14 +57,7 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const formDataWithFormattedPrices = {
-      ...formState,
-      sp: formatCurrency(formState.sp),
-      date: formState.date ? formState.date.toString() : new Date().toString(),
-    };
-
-    handleSaveAndSubmit(formDataWithFormattedPrices);
+    handleSaveAndSubmit(formState);
     onClose();
   };
 
@@ -134,36 +119,40 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
 
         <div className="newuser3">
           <form className="newuserform" onSubmit={handleSubmit}>
-            <div className="newp3a">
+            <div className="newuser3a">
               <p style={{ fontSize: "20px" }}>Basic Information</p>
-              <button
-                type="button"
-                className="newp3but"
-                onClick={onClose}
-                style={{ marginTop: "1rem" }}
-              >
-                Cancel
-              </button>
+              <div className="newuser3e">
+                <button type="button" className="newuser3but" onClick={onClose}>
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="newuser3btn"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  Save
+                </button>
+              </div>
             </div>
-            <div className="newp3b">
-              <div className="newp3ca">
+            <div className="newuser3b">
+              <div className="newuser3ba">
                 <label>Image</label>
                 <input
                   type="file"
                   accept=".png, .jpg, .jpeg"
                   onChange={handleImageChange}
-                  className="newp3cb"
+                  className="newuser3cb"
                   name="image"
                   required
                 />
               </div>
-              <div className="newp3ba">
+              <div className="newuser3ba">
                 <label>Name</label>
                 <input
                   type="text"
                   name="name"
                   placeholder="FirstName LastName"
-                  className="newp3cb"
+                  className="newuser3cb"
                   value={formState.name}
                   onChange={(e) =>
                     setFormState((prev) => ({
@@ -173,11 +162,11 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
                   }
                 />
               </div>
-              <div className="newp3ba">
+              <div className="newuser3ba">
                 <label>Role</label>
                 <Select
                   options={roleOptions}
-                  name="unt"
+                  name="role"
                   styles={customStyles}
                   value={roleOptions.find(
                     (option) => option.value === formState.role
@@ -185,49 +174,54 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
                   onChange={(selectedOption) =>
                     setFormState((prev) => ({
                       ...prev,
-                      unt: selectedOption ? selectedOption.value : "",
+                      role: selectedOption ? selectedOption.value : "",
                     }))
                   }
                 />
               </div>
             </div>
 
-            <div className="newp3a2">
-              <p style={{ fontSize: "20px" }}>Pricing</p>
+            <div className="newuser3a2">
+              <p style={{ fontSize: "20px" }}>Contact Information</p>
             </div>
-            <div className="newp3d">
-              <div className="newp3da">
-                <label>Cost Price</label>
+            <div className="newuser3d">
+              <div className="newuser3da">
+                <label>Email</label>
                 <input
                   type="text"
-                  name="cp"
-                  placeholder="₦0000"
-                  className="newp3cb no-spin"
-                  value={formState.cp}
+                  name="mail"
+                  placeholder="Enter your company email address"
+                  className="newuser3cb"
+                  value={formState.mail}
                   onChange={handleChange}
                 />
               </div>
-              <div className="newp3da">
-                <label>Selling Price</label>
+              <div className="newuser3da">
+                <label>Phone Number</label>
                 <input
                   type="text"
-                  name="sp"
-                  placeholder="₦0000"
-                  className="newp3cb no-spin"
-                  value={formState.sp}
+                  name="number"
+                  placeholder="Enter your company phone number"
+                  className="newuser3cb"
+                  value={formState.number}
                   onChange={handleChange}
                 />
               </div>
             </div>
-            <div className="newp3e">
+
+            <div className="newuser3a2">
+              <p style={{ fontSize: "20px" }}>Companies</p>
+            </div>
+            <div className="newuser3f">
+              <p>Company name</p>
               <button
-                type="submit"
-                className="newp3btn"
+                className="newuser3btn"
                 style={{ display: "flex", justifyContent: "center" }}
               >
-                Create Product
+                Add Company
               </button>
             </div>
+
             {error && <p className="error">{error}</p>}
           </form>
         </div>
