@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./company.css";
-import SearchIcon from "../../../../image/search.svg";
+import SearchIcon from "../../../image/search.svg";
 import { FaCaretLeft, FaCaretRight, FaBars } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import NewCompany from "./NewCompanyForm";

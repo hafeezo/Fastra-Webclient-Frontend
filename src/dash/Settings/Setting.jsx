@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./Setting.css";
 import Apk from "../App/Apk";
 import Sethead from "./Sethead";
-import Company from "./company/Company";
 import User from "./user/User";
+import Company from "./company/Company";
 
 const Settings = () => {
   return (
