@@ -1,8 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import Select from "react-select";
 import autosave from "../../../image/autosave.svg";
+import uploadIcon from "../../../image/uploadIcon.svg"; // Ensure to have this icon in your project
 import "./newuser.css";
+
+const fetchLanguages = async () => {
+  const apiKey = "YOUR_GOOGLE_CLOUD_API_KEY"; // Replace with your API key
+  const url = `https://translation.googleapis.com/language/translate/v2/languages?key=${apiKey}&target=en`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.data.languages.map((lang) => ({
+      value: lang.language,
+      label: lang.language,
+    }));
+  } catch (error) {
+    console.error("Error fetching languages:", error);
+    return [];
+  }
+};
+
+const fetchTimezones = async () => {
+  const url = `http://worldtimeapi.org/api/timezone`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.map((tz) => ({
+      value: tz,
+      label: tz,
+    }));
+  } catch (error) {
+    console.error("Error fetching timezones:", error);
+    return [];
+  }
+};
 
 export default function NewUser({ onClose, onSaveAndSubmit }) {
   const [formState, setFormState] = useState({
@@ -10,17 +44,36 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
     role: "",
     mail: "",
     number: "",
+    language: "",
+    timezone: "",
     image: null,
+    inAppNotification: false,
+    emailNotification: false,
   });
 
   const [showForm] = useState(true);
   const [error, setError] = useState(null);
+  const [languageOptions, setLanguageOptions] = useState([]);
+  const [timezoneOptions, setTimezoneOptions] = useState([]);
+
+  useEffect(() => {
+    const loadOptions = async () => {
+      const [languages, timezones] = await Promise.all([
+        fetchLanguages(),
+        fetchTimezones(),
+      ]);
+      setLanguageOptions(languages);
+      setTimezoneOptions(timezones);
+    };
+
+    loadOptions();
+  }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormState((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -42,11 +95,13 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
 
   const handleSaveAndSubmit = (formData) => {
     try {
+      console.log("Saving form data:", formData); // Debugging statement
       const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
       existingUsers.push(formData);
       localStorage.setItem("users", JSON.stringify(existingUsers));
       onSaveAndSubmit(formData);
     } catch (e) {
+      console.error("Save error:", e); // Debugging statement
       if (e.name === "QuotaExceededError") {
         setError("Failed to save user. Storage limit exceeded.");
       } else {
@@ -57,6 +112,7 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Form submitted", formState); // Debugging statement
     handleSaveAndSubmit(formState);
     onClose();
   };
@@ -94,7 +150,10 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
   };
 
   return (
-    <div id="newuser" className={`newuser ${showForm ? "fade-in" : "fade-out"}`}>
+    <div
+      id="newuser"
+      className={`newuser ${showForm ? "fade-in" : "fade-out"}`}
+    >
       <div className="newuser1">
         <div className="newuser2">
           <div className="newuser2a">
@@ -136,15 +195,33 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
             </div>
             <div className="newuser3b">
               <div className="newuser3ba">
-                <label>Image</label>
-                <input
-                  type="file"
-                  accept=".png, .jpg, .jpeg"
-                  onChange={handleImageChange}
-                  className="newuser3cb"
-                  name="image"
-                  required
-                />
+                <div
+                  className="image-upload"
+                  onClick={() => document.getElementById("imageInput").click()}
+                >
+                  <input
+                    type="file"
+                    accept=".png, .jpg, .jpeg"
+                    onChange={handleImageChange}
+                    className="newuser3cb"
+                    id="imageInput"
+                    name="image"
+                    style={{ display: "none" }}
+                    required
+                  />
+                  {formState.image ? (
+                    <img
+                      src={formState.image}
+                      alt="Preview"
+                      className="image-preview"
+                    />
+                  ) : (
+                    <div className="image-upload-text">
+                      <img src={uploadIcon} alt="Upload" />
+                      <span style={{ fontSize: "10px" }}>Click to upload</span>
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="newuser3ba">
                 <label>Name</label>
@@ -222,7 +299,70 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
               </button>
             </div>
 
-            {error && <p className="error">{error}</p>}
+            <div className="newuser3a2">
+              <p style={{ fontSize: "20px" }}>Preference</p>
+            </div>
+            <div className="newuser3d2">
+              <div className="newuser3da">
+                <label>Language</label>
+                <Select
+                  options={languageOptions}
+                  name="language"
+                  styles={customStyles}
+                  value={languageOptions.find(
+                    (option) => option.value === formState.language
+                  )}
+                  onChange={(selectedOption) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      language: selectedOption ? selectedOption.value : "",
+                    }))
+                  }
+                />
+              </div>
+              <div className="newuser3da">
+                <label>Timezone</label>
+                <Select
+                  options={timezoneOptions}
+                  name="timezone"
+                  styles={customStyles}
+                  value={timezoneOptions.find(
+                    (option) => option.value === formState.timezone
+                  )}
+                  onChange={(selectedOption) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      timezone: selectedOption ? selectedOption.value : "",
+                    }))
+                  }
+                  menuPlacement="auto"
+                />
+              </div>
+              
+              </div>
+              <div className="newuser3g">
+                <p style={{fontWeight: 'bold'}}>Notification</p>
+                <div className="checkbox-group" style={{lineHeight: '2rem'}}>
+                  <div className="checkbox">
+                    <label>In-app notification</label>
+                    <input
+                      type="checkbox"
+                      name="inAppNotification"
+                      checked={formState.inAppNotification}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="checkbox">
+                    <label>Email notification</label>
+                    <input
+                      type="checkbox"
+                      name="emailNotification"
+                      checked={formState.emailNotification}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+            </div>
           </form>
         </div>
       </div>
