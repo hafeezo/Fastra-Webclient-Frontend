@@ -171,9 +171,9 @@ export default function NewUser({ onClose, onSaveAndSubmit }) {
             </div>
           </div>
         </div>
-        <div className="raprclk">
-          <p className="togclk">Basic Setting</p>
-          <p className="togclk">Access Right</p>
+        <div className="newuserclk">
+          <p className="nutogclk">Basic Setting</p>
+          <p className="nutogclk">Access Right</p>
         </div>
 
         <div className="newuser3">
