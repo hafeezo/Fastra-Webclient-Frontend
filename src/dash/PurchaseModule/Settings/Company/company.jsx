@@ -4,36 +4,36 @@ import SearchIcon from "../../../../image/search.svg";
 import { FaCaretLeft, FaCaretRight, FaBars } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import NewCompany from "./NewCompanyForm";
+import ListView from "./CompanyLview"; 
 
 export default function Company() {
-  const [Companys, setCompanys] = useState([]);
-  const [filteredCompanys, setFilteredCompanys] = useState(Companys);
+  const [companies, setCompanies] = useState([]);
+  const [filteredCompanies, setFilteredCompanies] = useState(companies);
   const [searchQuery, setSearchQuery] = useState("");
   const [showNewCompany, setShowNewCompany] = useState(false);
   const [viewMode, setViewMode] = useState("grid");
 
   useEffect(() => {
-    const storedCompanys = JSON.parse(localStorage.getItem("Companys")) || [];
-    setCompanys(storedCompanys);
+    const storedCompanies = JSON.parse(localStorage.getItem("companies")) || [];
+    setCompanies(storedCompanies);
   }, []);
 
   useEffect(() => {
     handleSearch();
-  }, [searchQuery, Companys]);
+  }, [searchQuery, companies]);
 
   const handleSearch = () => {
     if (searchQuery === "") {
-      setFilteredCompanys(Companys);
+      setFilteredCompanies(companies);
     } else {
       const lowercasedQuery = searchQuery.toLowerCase();
-      const filtered = Companys.filter(
+      const filtered = companies.filter(
         (item) =>
-          item.name.toLowerCase().includes(lowercasedQuery) ||
-          item.mail.toLowerCase().includes(lowercasedQuery) ||
-          item.number.toLowerCase().includes(lowercasedQuery) ||
-          item.role.toLowerCase().includes(lowercasedQuery)
+          item.companyName.toLowerCase().includes(lowercasedQuery) ||
+          item.email.toLowerCase().includes(lowercasedQuery) ||
+          item.phoneNumber.toLowerCase().includes(lowercasedQuery)
       );
-      setFilteredCompanys(filtered);
+      setFilteredCompanies(filtered);
     }
   };
 
@@ -45,11 +45,12 @@ export default function Company() {
     setShowNewCompany(false);
   };
 
-  const handleSaveAndSubmit = (NewCompany) => {
-    const updatedCompanys = [...Companys, NewCompany];
-    setCompanys(updatedCompanys);
-    localStorage.setItem("Companys", JSON.stringify(updatedCompanys));
-  }
+  const handleSaveAndSubmit = (newCompany) => {
+    const updatedCompanies = [...companies, newCompany];
+    setCompanies(updatedCompanies);
+    localStorage.setItem("companies", JSON.stringify(updatedCompanies));
+    setShowNewCompany(false);
+  };
 
   const toggleViewMode = (mode) => {
     setViewMode(mode);
@@ -92,7 +93,7 @@ export default function Company() {
               </div>
               <div className="Company3b">
                 <p className="Company3bpage">
-                  1-2 of {filteredCompanys.length}
+                  1-{filteredCompanies.length} of {filteredCompanies.length}
                 </p>
                 <div className="Company3bnav">
                   <FaCaretLeft className="lr" />
@@ -113,22 +114,27 @@ export default function Company() {
               </div>
             </div>
 
-            <div className="Company4">
-              {filteredCompanys.map((Company, index) => (
-                <div className="Company4gv" key={index}>
-                  <div className="Companymage">
-                    <img
-                      src={Company.image || "default-image-url"}
-                      alt={Company.name}
-                      className="cirmage"
-                    />
+            <div className={`Company4 ${viewMode}`}>
+              {viewMode === "grid" ? (
+                filteredCompanies.map((company, index) => (
+                  <div className="Company4gv" key={index}>
+                    <div className="Companymage">
+                      <img
+                        src={company.image || "default-image-url"}
+                        alt={company.companyName}
+                        className="cirmage"
+                      />
+                    </div>
+                    <div className="Companydetails">
+                      <p className="Companyname">{company.companyName}</p>
+                      <p className="Companymail">{company.email}</p>
+                      <p className="Companynum">{company.phoneNumber}</p>
+                    </div>
                   </div>
-                  <p className="Companyname">{Company.name}</p>
-                  <p className="Companyole">{Company.role}</p>
-                  <p className="Companymail">{Company.mail}</p>
-                  <p className="Companynum">{Company.number}</p>
-                </div>
-              ))}
+                ))
+              ) : (
+                <ListView companies={filteredCompanies} />
+              )}
             </div>
           </div>
         </div>
