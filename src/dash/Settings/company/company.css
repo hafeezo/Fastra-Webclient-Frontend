@@ -209,13 +209,15 @@
   }
 }
 .Company4gv {
-  width: 17%;
+  width: 35%;
   height: 70%;
   background-color: white;
   border: 1px solid #e2e6e9;
   border-radius: 4px;
   display: flex;
   align-items: center;
+  text-align: center;
+  line-height: 16px;
   justify-content: center;
   flex-direction: column;
   gap: 0.7rem;
@@ -263,7 +265,7 @@
 .Companyrole,
 .Companymail,
 .Companynum {
-  color: #7a8a98;
+  color: #080809;
   font-size: 14px;
 }
 .cirmage {
