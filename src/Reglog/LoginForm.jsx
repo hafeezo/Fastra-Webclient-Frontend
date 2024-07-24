@@ -89,7 +89,7 @@ export default function LoginForm() {
               <Link to="/">Don't have an account</Link>
             </p>
             <p>
-              <Link to="">Forget password</Link>
+              <Link to="/fogpas">Forget password</Link>
             </p>
           </Loglink>
         </Cont>

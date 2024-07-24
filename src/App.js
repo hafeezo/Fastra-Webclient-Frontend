@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Register from "./Reglog/Register";
 import Login from "./Reglog/Login";
+import ForgetPassword from "./Reglog/ForgetPassword";
 import Dashboard from "./dash/Dashboard";
 import GlobalStyle from "./GlobalStyle";
 import Contact from "./dash/Contact";
@@ -40,8 +41,8 @@ import Pedit from "./dash/PurchaseModule/Product/Prodcat/Pedit";
 
 function App() {
   const location = useLocation();
-  const noHeaderRoutes = ["/", "/login", "/dashboard", "/contact", "/settings", "/company", "/apk", "/user"];
-  const noHeadRoutes = ["/", "/login", "/dashboard", "/contact", "/purchase", "/npr", "/papr", "/crfq", "/rfq"
+  const noHeaderRoutes = ["/", "/login", "/dashboard", "/fogpas", "/contact", "/settings", "/company", "/apk", "/user"];
+  const noHeadRoutes = ["/", "/login", "/dashboard", "/fogpas", "/contact", "/purchase", "/npr", "/papr", "/crfq", "/rfq"
     , "/newrfq", "/rapr", "/pod", "/newPurchaseOrder", "/orapr", "/vend", "/vendetails", "/Newvendor", "/varcat", "/edit", "/prod", "/prodetails"
     , "/Newprod", "/procat","/pedit"
   ];
@@ -53,6 +54,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Register} />
         <Route path="/login" component={Login} />
+        <Route path="/fogpas" component={ForgetPassword} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/contact" component={Contact} />
         <Route path="/settings" component={Settings} />
