@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import Select from "react-select";
-import autosave from "../../../../image/autosave.svg";
-import uploadIcon from "../../../../image/uploadIcon.svg";
+import autosave from "../../../image/autosave.svg";
+import uploadIcon from "../../../image/uploadIcon.svg";
 import "./NewCompanyForm.css";
 
 export default function NewCompany({ onClose, onSaveAndSubmit }) {
