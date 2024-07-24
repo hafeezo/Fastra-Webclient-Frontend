@@ -7,8 +7,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Receipt from "./Receipt"; 
 import autosave from "../../../image/autosave.svg";
-import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
+import { FaCaretLeft, FaCaretRight, FaReceipt } from "react-icons/fa";
 import "./Orapr.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -52,6 +53,7 @@ const DeselectButton = styled("button")(({ theme }) => ({
 }));
 
 export default function Orapr({ onUpdateStatus, formData, onClose }) {
+  const [showReceipt, setShowReceipt] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [currentView, setCurrentView] = useState("orfq");
   const [currentFormData, setCurrentFormData] = useState(formData);
@@ -91,6 +93,14 @@ export default function Orapr({ onUpdateStatus, formData, onClose }) {
     return `${formattedHours}:${formattedMinutes}${ampm}`;
   };
 
+ const toggleReceipt = () => {
+    setShowReceipt(!showReceipt);
+  };
+
+  if (showReceipt) {
+    return <Receipt formData={formData} onClose={() => setShowReceipt(false)} />;
+  }
+
   return (
     <div id="orapr" className="orapr fade-in">
       <div className="orapr1">
@@ -104,20 +114,33 @@ export default function Orapr({ onUpdateStatus, formData, onClose }) {
           </div>
         </div>
         <div className="oraprclk">
-          <p
-            className={`togclk ${currentView === "orfq" ? "active" : ""}`}
-            onClick={() => setCurrentView("orfq")}
-          >
-            Purchase Order
+          <div className="oraprclka">
+            <p
+              className={`togclk ${currentView === "orfq" ? "active" : ""}`}
+              onClick={() => setCurrentView("orfq")}
+            >
+              Purchase Order
+            </p>
+            <p
+              className={`togclk ${
+                currentView === "vendorQuote" ? "active" : ""
+              }`}
+              onClick={() => setCurrentView("vendorQuote")}
+              style={{ marginRight: "20px" }}
+            >
+              Vendor Quotes
+            </p>
+          </div>
+          <p className="receipt" onClick={toggleReceipt}>
+            <FaReceipt style={{ marginRight: "5px" }} /> Receipt
           </p>
-          <p
-            className={`togclk ${
-              currentView === "vendorQuote" ? "active" : ""
-            }`}
-            onClick={() => setCurrentView("vendorQuote")}
-          >
-            Vendor Quotes
-          </p>
+
+          {showReceipt && (
+            <Receipt
+              formData={formData}
+              onClose={() => setShowReceipt(false)}
+            />
+          )}
         </div>
         {currentView === "orfq" ? (
           <div className="orapr3" style={{ height: "auto" }}>
