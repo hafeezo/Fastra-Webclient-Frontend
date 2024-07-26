@@ -23,13 +23,16 @@ export default function Rfq() {
     return storedItems;
   });
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [filteredItems, setFilteredItems] = useState(items); // Initialize with items
+  const [filteredItems, setFilteredItems] = useState(items);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [currentFormData, setCurrentFormData] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [initialFormData, setInitialFormData] = useState(null);
   const [vendors, setVendors] = useState([]);
   const [categories, setCategories] = useState([]);
+
+  const location = useLocation();
+  const locationFormData = location.state?.formData;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,14 +41,11 @@ export default function Rfq() {
         const categoriesData = getCategories(items);
         setVendors(vendorsData);
         setCategories(categoriesData);
-        updateCounts(items); // Update counts after fetching data
+        updateCounts(items);
       }
     };
     fetchData();
   }, [items]);
-
-  const location = useLocation();
-  const locationFormData = location.state?.formData;
 
   useEffect(() => {
     if (locationFormData) {
@@ -54,6 +54,22 @@ export default function Rfq() {
     }
   }, [locationFormData]);
 
+  const updateCounts = (items) => {
+    const vendorSelectedCount = items.filter(
+      (item) => item.status === "Vendor selected"
+    ).length;
+    const awaitingVendorSelectionCount = items.filter(
+      (item) => item.status === "Awaiting vendor selection"
+    ).length;
+    const cancelledCount = items.filter(
+      (item) => item.status === "Cancelled"
+    ).length;
+    setVendorSelectedCount(vendorSelectedCount);
+    setAwaitingVendorSelectionCount(awaitingVendorSelectionCount);
+    setCancelledCount(cancelledCount);
+    setFilteredItems(items);
+  };
+
   const handleSaveAndSubmit = (data) => {
     const updatedItems = [...items, data];
     setCurrentFormData(data);
@@ -61,7 +77,7 @@ export default function Rfq() {
     setItems(updatedItems);
     localStorage.setItem("rfqs", JSON.stringify(updatedItems));
     setIsFormVisible(false);
-    updateCounts(updatedItems); // Update counts after adding new item
+    updateCounts(updatedItems);
   };
 
   const handleFormDataChange = (data) => {
@@ -90,7 +106,7 @@ export default function Rfq() {
     setIsSubmitted(false);
     setIsFormVisible(false);
     setSelectedItem(null);
-    updateCounts(updatedItems); // Update counts after status change
+    updateCounts(updatedItems);
   };
 
   const getStatusColor = (status) => {
@@ -105,26 +121,6 @@ export default function Rfq() {
         return "#7a8a98";
     }
   };
-
-  const updateCounts = (items) => {
-    const vendorSelectedCount = items.filter(
-      (item) => item.status === "Vendor selected"
-    ).length;
-    const awaitingVendorSelectionCount = items.filter(
-      (item) => item.status === "Awaiting vendor selection"
-    ).length;
-    const cancelledCount = items.filter(
-      (item) => item.status === "Cancelled"
-    ).length;
-    setVendorSelectedCount(vendorSelectedCount);
-    setAwaitingVendorSelectionCount(awaitingVendorSelectionCount);
-    setCancelledCount(cancelledCount);
-  };
-
-  useEffect(() => {
-    updateCounts(items); // Initial count update on component mount
-    setFilteredItems(items); // Ensure filteredItems is updated initially
-  }, [items]);
 
   const handleSearch = () => {
     if (searchQuery === "") {
