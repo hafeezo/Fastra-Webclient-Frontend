@@ -167,7 +167,7 @@ export default function Procat() {
             <div className="prq4">
               {filteredItems.map((item) => (
                 <div
-                  className="vr4gv"
+                  className="prq4gv"
                   key={item.id}
                   onClick={() => handleCardClick(item)}
                 >

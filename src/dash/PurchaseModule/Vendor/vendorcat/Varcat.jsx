@@ -167,9 +167,10 @@ export default function Varcat() {
             <div className="prq4">
               {filteredItems.map((item) => (
                 <div
-                  className="vrc4gv"
+                  className="prq4gv"
                   key={item.id}
                   onClick={() => handleCardClick(item)}
+                  // style={{gap: ''}}
                 >
                   <p className="vendor-category">{item.category}</p>
                   <p className="vendor-description">{item.description}</p>

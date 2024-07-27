@@ -144,7 +144,7 @@ export default function Vend() {
   };
 
   return (
-    <div className="prq" id="vend">
+    <div className="vend" id="vend">
       <div className="prq1">
         <div className="prq2">
           <div className="prq3">

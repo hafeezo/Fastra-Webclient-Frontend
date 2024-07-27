@@ -16,7 +16,7 @@ export default function Edit({ onClose, initialData, onSave }) {
 
   return (
     <div className="nvr">
-      <div className="nvr1">
+      <div className="nvr1" style={{position: 'absolute', top: '0'}}>
         <div className="nvr2">
           <div className="p3a">
             <button className="p3abtn" onClick={onClose}>
