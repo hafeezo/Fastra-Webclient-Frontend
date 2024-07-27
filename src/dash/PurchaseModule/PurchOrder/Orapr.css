@@ -140,11 +140,21 @@
   font-size: 12px;
   outline: none;
 }
+
 .oraprclk {
-  width: 30%;
+  width: 50%;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 0.5rem;
 }
+.oraprclka {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .togclk {
   padding: 10px 20px;
   border-radius: 4px;
@@ -152,6 +162,18 @@
   background-color: white;
   cursor: pointer;
 }
+
+.receipt {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 15px; 
+}
+
+.receipt svg {
+  margin-right: 5px;
+}
+
 /* New styles for table inputs */
 .orapr3d table input {
   width: 100%;
@@ -166,6 +188,7 @@
   outline: none;
   border-bottom: 1px solid #e2e6e9;
 }
+
 .orapr4 {
   width: 100%;
   height: 79%;
@@ -176,10 +199,12 @@
   display: flex;
   justify-content: center;
 }
+
 .oraprform2 {
   width: 95%;
   height: 100%;
 }
+
 .orapr4a {
   width: 100%;
   height: 10%;
@@ -189,6 +214,7 @@
   color: #3b7ced;
   justify-content: space-between;
 }
+
 .orapr4ab {
   width: 20%;
   height: 100%;
@@ -232,6 +258,7 @@
   border-bottom: 1px solid #e2e6e9;
   margin-top: 1rem;
 }
+
 .orapr4ba {
   width: 15%;
   height: 90%;
