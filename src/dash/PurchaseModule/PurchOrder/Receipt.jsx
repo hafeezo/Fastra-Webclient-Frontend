@@ -44,7 +44,7 @@ const Receipt = ({ formData, onClose }) => {
   };
 
   return (
-    <div className="receipt-container">
+    <div id="receipt" className="receipt-container">
       <div className="newpodr2">
         <div className="newpod2a">
           <button className="new-purchase-order">New Purchase Order</button>
