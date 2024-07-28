@@ -165,7 +165,6 @@ export default function NewCompany({ onClose, onSaveAndSubmit }) {
                     type="file"
                     accept=".png, .jpg, .jpeg"
                     onChange={handleImageChange}
-                    className="newuser3cb"
                     id="imageInput"
                     name="image"
                     style={{ display: "none" }}

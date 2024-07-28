@@ -12,7 +12,7 @@ import "./PurchaseOrder.css";
 
 export default function PurchaseOrder() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState("list");
   const [items, setItems] = useState(() => {
     const savedItems = localStorage.getItem("purchaseOrders");
     return savedItems ? JSON.parse(savedItems) : [];

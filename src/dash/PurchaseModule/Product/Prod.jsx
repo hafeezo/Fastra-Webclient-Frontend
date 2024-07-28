@@ -12,7 +12,7 @@ export default function Prod() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState("list");
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {

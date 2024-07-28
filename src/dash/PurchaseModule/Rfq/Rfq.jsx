@@ -4,9 +4,7 @@ import "./Rfq.css";
 import SearchIcon from "../../../image/search.svg";
 import { FaBars, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
-import RListview from "./RListview";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import IconButton from "@mui/material/IconButton";
+import RListView from "./RListView";
 import Rform from "./Rform";
 import Rapr from "./Rapr";
 import { getVendors, getCategories } from "../Vendor/Vend";
@@ -17,7 +15,7 @@ export default function Rfq() {
   const [awaitingVendorSelectionCount, setAwaitingVendorSelectionCount] =
     useState(0);
   const [cancelledCount, setCancelledCount] = useState(0);
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState("list");
   const [items, setItems] = useState(() => {
     const storedItems = JSON.parse(localStorage.getItem("rfqs")) || [];
     return storedItems;
@@ -260,15 +258,12 @@ export default function Rfq() {
             </div>
           ) : (
             <div className="rfq5">
-              {filteredItems.map((item) => (
-                <RListview
-                  key={item.id}
-                  data={item}
-                  onCardClick={() => handleCardClick(item)}
-                  getStatusColor={getStatusColor}
-                  formatDate={formatDate}
-                />
-              ))}
+              <RListView
+                items={filteredItems}
+                onCardClick={handleCardClick}
+                getStatusColor={getStatusColor}
+                formatDate={formatDate}
+              />
             </div>
           )}
         </div>

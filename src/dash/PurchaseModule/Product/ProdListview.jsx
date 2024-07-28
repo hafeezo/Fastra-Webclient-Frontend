@@ -83,7 +83,6 @@ const ProdListview = ({ items, onItemClick }) => {
             <TableCell>Unit of Measure</TableCell>
             <TableCell>Type</TableCell>
             <TableCell>Category</TableCell>
-            <TableCell>Company</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -114,7 +113,6 @@ const ProdListview = ({ items, onItemClick }) => {
               <TableCell>{item.unt}</TableCell>
               <TableCell>{item.type}</TableCell>
               <TableCell>{item.category}</TableCell>
-              <TableCell>{item.company}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -4,13 +4,14 @@ import SearchIcon from "../../../image/search.svg";
 import { FaCaretLeft, FaCaretRight, FaBars } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import NewUser from "./NewUser";
+import UserListView from "./UserListView"; // Import UserListView
 
 export default function User() {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState(users);
   const [searchQuery, setSearchQuery] = useState("");
   const [showNewUser, setShowNewUser] = useState(false);
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState("list"); // Set default view mode to "list"
 
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
@@ -109,21 +110,25 @@ export default function User() {
             </div>
 
             <div className="user4">
-              {filteredUsers.map((user, index) => (
-                <div className="user4gv" key={index}>
-                  <div className="usermage">
-                    <img
-                      src={user.image || "default-image-url"}
-                      alt={user.name}
-                      className="cirmage"
-                    />
+              {viewMode === "grid" ? (
+                filteredUsers.map((user, index) => (
+                  <div className="user4gv" key={index}>
+                    <div className="usermage">
+                      <img
+                        src={user.image || "default-image-url"}
+                        alt={user.name}
+                        className="cirmage"
+                      />
+                    </div>
+                    <p className="username">{user.name}</p>
+                    <p className="userole">{user.role}</p>
+                    <p className="usermail">{user.mail}</p>
+                    <p className="usernum">{user.number}</p>
                   </div>
-                  <p className="username">{user.name}</p>
-                  <p className="userole">{user.role}</p>
-                  <p className="usermail">{user.mail}</p>
-                  <p className="usernum">{user.number}</p>
-                </div>
-              ))}
+                ))
+              ) : (
+                <UserListView users={filteredUsers} />
+              )}
             </div>
           </div>
         </div>

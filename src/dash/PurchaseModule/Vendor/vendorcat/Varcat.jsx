@@ -9,7 +9,7 @@ import EditVendor from "./Edit";
 
 export default function Varcat() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState("list");
   const [items, setItems] = useState([
     {
       id: "1",

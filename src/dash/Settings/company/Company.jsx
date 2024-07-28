@@ -11,7 +11,7 @@ export default function Company() {
   const [filteredCompanies, setFilteredCompanies] = useState(companies);
   const [searchQuery, setSearchQuery] = useState("");
   const [showNewCompany, setShowNewCompany] = useState(false);
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState("list");
 
   useEffect(() => {
     const storedCompanies = JSON.parse(localStorage.getItem("companies")) || [];

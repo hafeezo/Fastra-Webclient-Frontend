@@ -27,7 +27,7 @@ export const getCategories = (items) => {
 
 export default function Vend() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState("list");
   const [items, setItems] = useState(() => {
     return JSON.parse(localStorage.getItem("vendors")) || [];
   });

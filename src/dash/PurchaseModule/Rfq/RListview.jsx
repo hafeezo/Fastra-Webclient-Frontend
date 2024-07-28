@@ -25,7 +25,7 @@ const getStatusColor = (status) => {
   }
 };
 
-const ListView = ({ items }) => {
+const RListView = ({ items = [] }) => {
   const [selected, setSelected] = React.useState([]);
 
   const handleSelectAll = (event) => {
@@ -201,4 +201,4 @@ const ListView = ({ items }) => {
   );
 };
 
-export default ListView;
+export default RListView;

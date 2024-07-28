@@ -14,7 +14,7 @@ export default function Purchreq() {
   const [approvedCount, setApprovedCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
   const [rejectedCount, setRejectedCount] = useState(0);
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState("list");
   const [items, setItems] = useState(() => {
     const storedItems = JSON.parse(localStorage.getItem("purchaseRequests")) || [];
     return storedItems;

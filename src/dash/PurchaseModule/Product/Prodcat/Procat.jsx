@@ -9,7 +9,7 @@ import EditProduct from "./Pedit";
 
 export default function Procat() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState("list");
   const [items, setItems] = useState([
     {
       id: "1",
