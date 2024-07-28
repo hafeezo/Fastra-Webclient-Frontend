@@ -88,20 +88,24 @@ const Receipt = ({ formData, onClose }) => {
           </p>
         </div>
         <div className="receipt-right">
-          <div className="receipt-dates">
-            <p>
-              Scheduled Date{" "}
-              <span className="status-active">
+          {/* <div className="receipt-dates"> */}
+            <div className="receipt-text">
+              <p>Scheduled Date: </p>
+              <p className="status-active">
                 {formData ? formatDate(formData.date) : ""}
-              </span>
-            </p>
-            <p>
-              Deadline <span>{formData ? formatDate(formData.date) : ""}</span>
-            </p>
-            <p>
-              Source Document <span>{formData ? formData.id : ""}</span>
-            </p>
-          </div>
+              </p>
+            </div>
+            <div className="receipt-text">
+              <p>Deadline:</p>
+              <p className="status-active">
+                {formData ? formatDate(formData.date) : ""}
+              </p>
+            </div>
+            <div className="receipt-text">
+              <p>Source Document: </p>
+              <p className="status-active">{formData ? formData.id : ""}</p>
+            </div>
+          {/* </div> */}
         </div>
       </div>
 
