@@ -8,15 +8,6 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const generateProductId = () => {
-  return (
-    "P" +
-    Math.floor(Math.random() * 100000)
-      .toString()
-      .padStart(5, "0")
-  );
-};
-
 const getStatusColor = (status) => {
   switch (status) {
     case "Order Approved":
@@ -30,14 +21,14 @@ const getStatusColor = (status) => {
   }
 };
 
-const columns = [
+const columns = (handleRowClick) => [
   { field: "id", headerName: "ID", width: 150 },
   {
     field: "productName",
     headerName: "Product Name",
     width: 250,
     renderCell: (params) => {
-      const productNames = params.value.split(",");
+      const productNames = params.value ? params.value.split(",") : [];
       if (productNames.length > 1) {
         return (
           <Accordion
@@ -71,10 +62,9 @@ const columns = [
   {
     field: "qty",
     headerName: "Qty",
-    type: "number",
     width: 150,
     renderCell: (params) => {
-      const quantities = params.value.split(",");
+      const quantities = params.value ? params.value.split(",") : [];
       if (quantities.length > 1) {
         return (
           <Accordion
@@ -148,43 +138,16 @@ const columns = [
   },
 ];
 
-const dummyData = [
-  {
-    id: generateProductId(),
-    productName: "Laptop & Mouse",
-    qty: "4",
-    dateCreated: "2024-05-01",
-    vendor: "Vendor Name",
-    status: "Order Approved",
-  },
-  {
-    id: generateProductId(),
-    productName: "Keyboard & Mouse",
-    qty: "4",
-    dateCreated: "2024-05-03",
-    vendor: "Vendor Name",
-    status: "Cancelled",
-  },
-  {
-    id: generateProductId(),
-    productName: "Keyboard & Mouse",
-    qty: "4",
-    dateCreated: "2024-05-03",
-    vendor: "Vendor Name",
-    status: "Awaiting goods",
-  },
-];
-
-export default function Orderlistview() {
+export default function Orderlistview({ items, handleRowClick }) {
   const getRowClassName = (params) => {
     return params.index % 2 === 0 ? "evenRow" : "oddRow";
   };
 
-  const rows = dummyData.map((item) => ({
+  const rows = items.map((item) => ({
     id: item.id,
     productName: item.productName,
-    qty: item.qty,
-    dateCreated: item.dateCreated,
+    qty: item.qty, // Ensure qty is being correctly mapped
+    dateCreated: item.date,
     vendor: item.vendor,
     status: item.status,
   }));
@@ -193,11 +156,12 @@ export default function Orderlistview() {
     <div style={{ height: 500, width: "100%" }}>
       <DataGrid
         rows={rows}
-        columns={columns}
+        columns={columns(handleRowClick)}
         pageSize={5}
         checkboxSelection
         autoHeight
         getRowClassName={getRowClassName}
+        onRowClick={(params) => handleRowClick(params.row)}
         sx={{
           "& .MuiDataGrid-row.evenRow": {
             backgroundColor: "#f2f2f2",

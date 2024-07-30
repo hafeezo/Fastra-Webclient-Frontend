@@ -188,7 +188,7 @@ export default function Orapr({ onUpdateStatus, formData, onClose }) {
                 <div className="orapr3bb">
                   <p>Vendor</p>
                   <p style={{ fontSize: "14px", color: "#7a8a98" }}>
-                    {formData ? formData.vendorName : ""}
+                    {formData ? formData.vendor : ""}
                   </p>
                 </div>
                 <div className="orapr3bb">

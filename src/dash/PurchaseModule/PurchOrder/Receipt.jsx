@@ -8,10 +8,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { FaCaretLeft, FaCaretRight, FaTrash, FaRegStar } from "react-icons/fa";
 import autosave from "../../../image/autosave.svg";
+import Print from "./Print"; // Import the Print component
 import "./Receipt.css";
 
 const Receipt = ({ formData, onClose }) => {
   const [page, setPage] = useState(0);
+  const [showPrint, setShowPrint] = useState(false); // State to manage Print component visibility
   const rows = formData && formData.rows ? formData.rows : [];
 
   const formatDate = (date) => {
@@ -43,8 +45,24 @@ const Receipt = ({ formData, onClose }) => {
     // Implement delete functionality here
   };
 
+  const handlePrintClick = () => {
+    setShowPrint(true); // Show the Print component
+  };
+
+  const handleClosePrint = () => {
+    setShowPrint(false); // Hide the Print component
+  };
+
   return (
     <div id="receipt" className="receipt-container">
+      {showPrint && (
+        <div className="overlay" onClick={handleClosePrint}>
+          <div className="print-wrapper" onClick={(e) => e.stopPropagation()}>
+            <Print />
+          </div>
+        </div>
+      )}
+      
       <div className="newpodr2">
         <div className="newpod2a">
           <button className="new-purchase-order">New Purchase Order</button>
@@ -68,7 +86,7 @@ const Receipt = ({ formData, onClose }) => {
       <div className="receipt-header">
         <div className="receipt-actions">
           <button className="validate-button">Validate</button>
-          <button>Print</button>
+          <button onClick={handlePrintClick}>Print</button> {/* Update print button */}
           <button onClick={onClose}>Cancel</button>
         </div>
         <div className="receipt-status">
@@ -88,24 +106,22 @@ const Receipt = ({ formData, onClose }) => {
           </p>
         </div>
         <div className="receipt-right">
-          {/* <div className="receipt-dates"> */}
-            <div className="receipt-text">
-              <p>Scheduled Date: </p>
-              <p className="status-active">
-                {formData ? formatDate(formData.date) : ""}
-              </p>
-            </div>
-            <div className="receipt-text">
-              <p>Deadline:</p>
-              <p className="status-active">
-                {formData ? formatDate(formData.date) : ""}
-              </p>
-            </div>
-            <div className="receipt-text">
-              <p>Source Document: </p>
-              <p className="status-active">{formData ? formData.id : ""}</p>
-            </div>
-          {/* </div> */}
+          <div className="receipt-text">
+            <p>Scheduled Date: </p>
+            <p className="status-active">
+              {formData ? formatDate(formData.date) : ""}
+            </p>
+          </div>
+          <div className="receipt-text">
+            <p>Deadline:</p>
+            <p className="status-active">
+              {formData ? formatDate(formData.date) : ""}
+            </p>
+          </div>
+          <div className="receipt-text">
+            <p>Source Document: </p>
+            <p className="status-active">{formData ? formData.id : ""}</p>
+          </div>
         </div>
       </div>
 

@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   gap: 30rem;
-  margin-top: 3rem;
+  margin-top: 5rem;
 }
 
 .orapr2a {
@@ -142,11 +142,10 @@
 }
 
 .oraprclk {
-  width: 50%;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  gap: 15rem;
 }
 .oraprclka {
   width: 30%;

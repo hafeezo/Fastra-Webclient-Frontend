@@ -31,7 +31,7 @@ export default function PurchaseOrder() {
     setFilteredItems(items);
     localStorage.setItem("purchaseOrders", JSON.stringify(items));
   }, [items]);
-  
+
   useEffect(() => {
     if (locationFormData) {
       setInitialFormData(locationFormData);
@@ -96,6 +96,7 @@ export default function PurchaseOrder() {
 
   const handleCardClick = (item) => {
     setSelectedItem(item);
+    setIsFormVisible(false);
   };
 
   const formatDate = (dateString) => {
@@ -235,7 +236,10 @@ export default function PurchaseOrder() {
               ))}
             </div>
           ) : (
-            <Orderlistview items={filteredItems} />
+            <Orderlistview
+              items={filteredItems}
+              handleRowClick={handleCardClick}
+            />
           )}
         </div>
       </div>
